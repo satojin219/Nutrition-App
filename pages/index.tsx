@@ -3,9 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Header } from '../components/Header'
-import { TotalIntake } from '../components/TotalIntake'
-import { Menu } from '../components/Menu'
-import { Modal } from '../components/Calendar'
+import { DailylIntakeNutrition } from '../components/DailylIntakeNutrition'
+import { DishCard } from '../components/DishCard'
 
 const Home: NextPage = () => {
   return (
@@ -19,7 +18,8 @@ const Home: NextPage = () => {
       </Head>
 
       <Header/>
-
+      <DailylIntakeNutrition />
+      <DishCard />
       
      
 

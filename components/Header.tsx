@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { TotalIntake } from './TotalIntake'
 import React, { useState } from 'react'
 import { UserData } from 'globalType'
-import { Menu } from './Menu'
 
 
 export const Header :React.VFC = () => {
@@ -21,8 +19,7 @@ export const Header :React.VFC = () => {
           <div></div>
         </div>
       </header>
-      <TotalIntake />
-      <Menu />
+
     </div>
   )
 }

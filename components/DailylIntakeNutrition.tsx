@@ -5,7 +5,7 @@ import { faFish } from '@fortawesome/free-solid-svg-icons'
 import { faBreadSlice } from '@fortawesome/free-solid-svg-icons'
 
 
-export const TotalIntake: React.VFC =(props) => {
+export const DailylIntakeNutrition: React.VFC =(props) => {
   return (
     <div>
       <div className="rounded-b-3xl bg-orange-50  font-bold py-5 shadow-lg sm:text-xl">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menus } from 'globalType';
 
-export const Menu:React.VFC =(props)=> {
+export const DishCard:React.VFC =(props)=> {
   return (
     <div className="lg:flex flex-wrap">
       <div className="basis-1/2">
