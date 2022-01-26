@@ -16,16 +16,11 @@ const Home: NextPage = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&family=Yomogi&family=Zen+Maru+Gothic:wght@900&display=swap" rel="stylesheet"></link>
       </Head>
-
       <Header/>
       <DailylIntakeNutrition />
       <DishCard />
-      
-     
-
- 
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
