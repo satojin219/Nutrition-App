@@ -2,9 +2,10 @@ import { foodList } from "../json/foodList"
 import Fuse from "fuse.js"
 import { NextPage } from "next";
 import React, { useRef, useState } from "react";
-import { Nutrition,Foodstuff } from "globalType";
+import { Nutrition, Foodstuff } from "globalType";
+import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
 
-const InputFood: NextPage = () => {
+export const SuggestFood: React.VFC = () => {
 
   const options = {
     threshold: 0.1,
@@ -23,6 +24,7 @@ const InputFood: NextPage = () => {
     if (inputFoodName.current != null) {
       result = fuse.search(inputFoodName.current.value);
       setSearchCandidates(result);
+
     }
   }
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,6 +33,8 @@ const InputFood: NextPage = () => {
   }
 
   const getFoodData = () => {
+    let foodName = inputFoodName.current.value;
+    let foodWeight = inputFoodWeight.current.value;
     const options = {
       threshold: 0,//thresholdを０にしないと選択した食品以外にも検索候補が引っかかってしまい、食品を絞れないので改めてoptopnを再定義しています。
       keys: [
@@ -39,7 +43,13 @@ const InputFood: NextPage = () => {
     };
     let fuse = new Fuse(foodList, options);
     let foodData = fuse.search(inputFoodName.current.value)[0].item;
-    console.log(foodData);
+
+    if (foodName == "") {
+      alert("食品を入力して下さい")
+    } else if (foodWeight == "" || foodWeight == 0) {
+      alert("重量を入力して下さい")
+    }
+
 
     let caledNutrition: Nutrition = {
       calorie: calNutrition(foodData["ENERC_KCAL"], 0),
@@ -77,10 +87,10 @@ const InputFood: NextPage = () => {
       biotin: calNutrition(foodData["BIOT"], 1)
 
     }
-    const food:Foodstuff = {
-      name :inputFoodName.current.value,
-      weight : inputFoodWeight.current.value,
-      nutrition :caledNutrition
+    const food: Foodstuff = {
+      name: inputFoodName.current.value,
+      weight: inputFoodWeight.current.value,
+      nutrition: caledNutrition
     }
     console.log(food)
 
@@ -93,19 +103,33 @@ const InputFood: NextPage = () => {
 
 
   return (
-    <div>
-      <input className="bg-red-300" type="text" ref={inputFoodName} onChange={handleOnChange} />
-      <input type="number" className="bg-yellow-200" ref={inputFoodWeight} />
-      <button onClick={getFoodData} className="bg-green-200">計算</button>
-      <select onChange={handleOnClick}>
-        {
-          searchCandidates.map((food) =>
-              <option  value={food.item["food-name"]}>{food.item["food-name"]}</option>
-          )}
-      </select>
-    </div>
+
+    <form className="w-full max-w-sm m-5">
+      <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
+        <input ref={inputFoodName} onChange={handleOnChange} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
+
+        <input type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
+        g
+        <button onClick={getFoodData} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
+          <BsFillCalculatorFill />
+        </button>
+
+        <button className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
+      </div>
+      {searchCandidates.length
+        ? <select onChange={handleOnClick} className=" inline  bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+          {
+            searchCandidates.map((food) =>
+              <option value={food.item["food-name"]}>{food.item["food-name"]}</option>
+            )}
+        </select>
+        : <div></div>
+      }
+
+    </form>
+
+
 
   )
 
 };
-export default InputFood;
