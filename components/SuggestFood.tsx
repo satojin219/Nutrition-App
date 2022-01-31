@@ -4,6 +4,7 @@ import { NextPage } from "next";
 import React, { useRef, useState } from "react";
 import { Nutrition, Foodstuff } from "globalType";
 import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
+import { FaSearch } from "react-icons/fa"
 
 export const SuggestFood: React.VFC = () => {
 
@@ -13,11 +14,11 @@ export const SuggestFood: React.VFC = () => {
       "food-name",
     ]
   };
-  let fuse :Fuse<{[key:string]:string}>  =  new Fuse(foodList, options);
+  let fuse =  new Fuse(foodList, options);
   let result = fuse.search("");
 
   const inputFoodName = useRef<HTMLInputElement>(null);
-  const inputFoodWeight = useRef<HTMLInputElement>(null)
+  const inputFoodWeight = useRef<HTMLInputElement>(0)
   let foodName: string = inputFoodName.current ?inputFoodName.current.value : "";
   let foodWeight: number =inputFoodWeight.current ? Number(inputFoodWeight.current.value) : 0;
 
@@ -31,8 +32,10 @@ export const SuggestFood: React.VFC = () => {
   }
   const handleOnChangeSuggest = (e: React.ChangeEvent<HTMLSelectElement>) => {
 
-      foodName = e.currentTarget.value;
+    if(inputFoodName.current){
+      inputFoodName.current.value  = e.currentTarget.value;
       setSearchCandidates([]);
+    }
     
   }
 
@@ -44,13 +47,10 @@ export const SuggestFood: React.VFC = () => {
         ]
       };
       let fuse = new Fuse(foodList, options);
+      console.log(foodName)
       let foodData = fuse.search(foodName)[0].item;
 
-      if (foodName == "") {
-        alert("食品を入力して下さい")
-      } else if (foodWeight == 0) {
-        alert("重量を入力して下さい")
-      }
+ 
 
 
       let caledNutrition: Nutrition = {
@@ -91,27 +91,27 @@ export const SuggestFood: React.VFC = () => {
       }
       const food: Foodstuff = {
         name: foodName,
-        weight: foodWeight,
+        weight: Number(inputFoodWeight.current.value),
         nutrition: caledNutrition
       }
       console.log(food)
-
-    
+      
+      localStorage.setItem(food.name,JSON.stringify(food));
+      
   }
 
   const calNutrition = (nutrition: string, decimalPoint: number): number => {
-     return Number((Number(nutrition) * (foodWeight / 100)).toFixed(decimalPoint));
-
-
-    
-    
+     return Number((Number(nutrition) * (inputFoodWeight.current.value / 100)).toFixed(decimalPoint));
   }
 
-
-
+  const getLocalStorage = (e: React.MouseEvent<HTMLButtonElement>):void =>{
+    e.preventDefault()
+    let json = localStorage.getItem(foodName);
+    console.log(JSON.parse(json))
+}
   return (
 
-    <form className="w-full max-w-sm m-5">
+    <form className="w-full max-w-sm m-5" >
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
         <input ref={inputFoodName} onChange={handleOnChangeFood} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
 
@@ -121,15 +121,17 @@ export const SuggestFood: React.VFC = () => {
           <BsFillCalculatorFill />
         </button>
 
-        <button className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button> 
-        {/* 栄養素がモーダルウインドで表示される */}
+        <button onClick={getLocalStorage} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button> 
+        {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
 
       </div>
       {searchCandidates.length
         ? <select onChange={handleOnChangeSuggest} className=" inline  bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+          <option value="">
+          食品を選択してください
+            </option>
           {
-            searchCandidates.map((food ) =>
-        
+            searchCandidates.map((food) =>
               <option value = {food.item["food-name"]}>{food.item["food-name"]}</option>
             )}
         </select>
