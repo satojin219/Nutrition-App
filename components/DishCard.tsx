@@ -1,5 +1,8 @@
 import React from 'react';
 import { Menus } from 'globalType';
+import { BsFillBrightnessAltHighFill,BsFillSunFill,BsFillMoonFill } from'react-icons/bs'
+import { MdFastfood } from 'react-icons/md'
+
 
 export const DishCard:React.VFC =(props)=> {
   return (
@@ -7,8 +10,9 @@ export const DishCard:React.VFC =(props)=> {
       <div className="basis-1/2">
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
-            <div className="bg-red-500 rounded-t-lg text-white text-center p-5 text-3xl">
-              朝食
+            <div className="bg-red-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
+          <BsFillBrightnessAltHighFill size={40} className='mr-2'/>
+           <p>朝食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
@@ -44,8 +48,9 @@ export const DishCard:React.VFC =(props)=> {
       <div className="basis-1/2">
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
-            <div className="bg-yellow-400 rounded-t-lg text-white text-center p-5 text-3xl">
-              昼食
+            <div className="bg-yellow-400 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
+            <BsFillSunFill size={40} className='mr-2'/>
+           <p>昼食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10">
@@ -85,8 +90,9 @@ export const DishCard:React.VFC =(props)=> {
       <div className="basis-1/2">
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
-            <div className="bg-purple-500 rounded-t-lg text-white text-center p-5 text-3xl">
-              夕食
+            <div className="bg-purple-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
+            <BsFillMoonFill size={40} className='mr-2'/>
+           <p>夕食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
@@ -123,8 +129,9 @@ export const DishCard:React.VFC =(props)=> {
       <div className="basis-1/2 ">
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
-            <div className="bg-sky-400 rounded-t-lg text-white text-center p-5 text-3xl">
-              間食
+            <div className="bg-sky-400 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
+            <MdFastfood size={40} className='mr-2'/>
+           <p>間食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">

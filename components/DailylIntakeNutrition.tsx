@@ -4,6 +4,8 @@ import { faTint } from '@fortawesome/free-solid-svg-icons'
 import { faFish } from '@fortawesome/free-solid-svg-icons'
 import { faBreadSlice } from '@fortawesome/free-solid-svg-icons'
 
+import { FaFire,FaBreadSlice,FaFish } from 'react-icons/fa'
+import { IoWater } from 'react-icons/io5'
 
 export const DailylIntakeNutrition: React.VFC =(props) => {
   return (
@@ -12,7 +14,7 @@ export const DailylIntakeNutrition: React.VFC =(props) => {
         <div className="flex justify-around text-center ">
           <div>
             <div className='text-green-400 items-center flex'>
-              {/* <FontAwesomeIcon icon={faFire} className='mr-1'/> */}
+              <FaFire className='mr-1'/>
               <p>カロリー</p>
             </div>
             <p>2400 kcal</p>
@@ -20,7 +22,7 @@ export const DailylIntakeNutrition: React.VFC =(props) => {
 
           <div>
             <div className='text-pink-400 items-center flex'>
-              {/* <FontAwesomeIcon icon={faBreadSlice} className='mr-1' /> */}
+              <FaBreadSlice className='mr-1'/>
               <p>炭水化物</p>
             </div>
             <p>83 g</p>
@@ -28,7 +30,7 @@ export const DailylIntakeNutrition: React.VFC =(props) => {
 
           <div>
             <div className='text-red-600 items-center flex'>
-              {/* <FontAwesomeIcon icon={faFish} className='mr-1'/> */}
+              <FaFish className='mr-1'/>
               <p>たんぱく質</p>
             </div>
             <p>57 g</p>
@@ -36,7 +38,7 @@ export const DailylIntakeNutrition: React.VFC =(props) => {
 
           <div>
             <div className='text-yellow-400 items-center flex'>
-              {/* <FontAwesomeIcon icon={faTint} className='mr-1'/> */}
+              <IoWater className='mr-1'/>
               <p>脂質</p>
             </div>
             <p>28 g</p>
