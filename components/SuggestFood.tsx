@@ -1,59 +1,51 @@
 import { foodList } from "../json/foodList"
 import Fuse from "fuse.js"
-import { NextPage } from "next";
-import React, { useRef, useState } from "react";
-import { Nutrition, Foodstuff } from "globalType";
+import React, { useRef, useState, useMemo, useCallback } from "react";
+import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
 import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
-import { FaSearch } from "react-icons/fa"
-
 export const SuggestFood: React.VFC = () => {
 
-  const options = {
-    threshold: 0.1,
-    keys: [
-      "food-name",
-    ]
-  };
-  let fuse =  new Fuse(foodList, options);
-  let result = fuse.search("");
+  const fuse: Fuse<fetchedFoodData> = useMemo(() => {
+    const options = {
+      threshold: 0.1,
+      keys: [
+        "food-name",
+      ]
+    };
+    return new Fuse(foodList, options);
+  }, []);
 
-  const inputFoodName = useRef<HTMLInputElement>(null);
-  const inputFoodWeight = useRef<HTMLInputElement>(0)
-  let foodName: string = inputFoodName.current ?inputFoodName.current.value : "";
-  let foodWeight: number =inputFoodWeight.current ? Number(inputFoodWeight.current.value) : 0;
+  const inputFoodName = useRef<HTMLInputElement>(null!);
+  const inputFoodWeight = useRef<HTMLInputElement>(null!);
+  let foodName: string = inputFoodName.current ? inputFoodName.current.value : "";
 
-  const [searchCandidates, setSearchCandidates] =useState<{[key:string]:string}[]>([])
+  const [searchCandidates, setSearchCandidates] = useState<fetchedFoodData[]>([])
 
-  const handleOnChangeFood = () => {
-    if (inputFoodName.current) {
-      result = fuse.search(inputFoodName.current.value);
-      setSearchCandidates(result);
-    }
-  }
-  const handleOnChangeSuggest = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleOnChangeFood = useCallback((): void => {
+    setSearchCandidates(fuse.search(inputFoodName.current.value));
+  }, [searchCandidates])
 
-    if(inputFoodName.current){
-      inputFoodName.current.value  = e.currentTarget.value;
-      setSearchCandidates([]);
-    }
-    
-  }
+  const handleOnChangeSuggest = useCallback((e: React.ChangeEvent<HTMLSelectElement>): void => {
+    inputFoodName.current.value = e.currentTarget.value;
+    setSearchCandidates([]);
+  }, [searchCandidates])
 
-  const getFoodData = () => {
-      const options = {
-        threshold: 0,//thresholdを０にしないと選択した食品以外にも検索候補が引っかかってしまい、食品を絞れないので改めてoptopnを再定義しています。
-        keys: [
-          "food-name",
-        ]
-      };
-      let fuse = new Fuse(foodList, options);
-      console.log(foodName)
-      let foodData = fuse.search(foodName)[0].item;
-
+  const identifyFoodData = (): fetchedFoodData | null => {
+    const searcedFoodData = fuse.search(foodName);
+    return searcedFoodData.length != 0 ? searcedFoodData.filter(food => food.item["food-name"] == foodName)[0].item : null;
  
+  }
 
+  const insertFoodData = (): void => {
 
-      let caledNutrition: Nutrition = {
+    const foodData = identifyFoodData();
+    console.log(foodData);
+    if (foodData == null) {
+      alert("食品成分表の名前に載った食品名を入力して下さい");
+    } else if (inputFoodWeight.current.value == "") {
+      alert("重量を入力して下さい");
+    } else {
+      const caledNutrition: Nutrition = {
         calorie: calNutrition(foodData["ENERC_KCAL"], 0),
         carbohydrates: calNutrition(foodData["CHOCDF-"], 1),
         protein: calNutrition(foodData["PROT-"], 1),
@@ -94,48 +86,47 @@ export const SuggestFood: React.VFC = () => {
         weight: Number(inputFoodWeight.current.value),
         nutrition: caledNutrition
       }
-      console.log(food)
-      
-      localStorage.setItem(food.name,JSON.stringify(food));
-      
+      localStorage.setItem(food.name, JSON.stringify(food));
+    }
+
   }
 
   const calNutrition = (nutrition: string, decimalPoint: number): number => {
-     return Number((Number(nutrition) * (inputFoodWeight.current.value / 100)).toFixed(decimalPoint));
+    return Number((Number(nutrition) * (Number(inputFoodWeight.current.value) / 100)).toFixed(decimalPoint));
   }
 
-  const getLocalStorage = (e: React.MouseEvent<HTMLButtonElement>):void =>{
+  const fetchLocalStorage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    let json = localStorage.getItem(foodName);
-    console.log(JSON.parse(json))
-}
+    const gotLocalStorageFoodData: string = localStorage.getItem(foodName)!;
+    console.log(JSON.parse(gotLocalStorageFoodData))
+  }
   return (
 
     <form className="w-full max-w-sm m-5" >
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
         <input ref={inputFoodName} onChange={handleOnChangeFood} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
 
-        <input type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
+        <input min={0} type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
         g
-        <button onClick={getFoodData} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
+        <button onClick={insertFoodData} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
           <BsFillCalculatorFill />
         </button>
 
-        <button onClick={getLocalStorage} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button> 
+        <button onClick={fetchLocalStorage} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
 
       </div>
       {searchCandidates.length
         ? <select onChange={handleOnChangeSuggest} className=" inline  bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
           <option value="">
-          食品を選択してください
-            </option>
+            食品を選択してください
+          </option>
           {
             searchCandidates.map((food) =>
-              <option value = {food.item["food-name"]}>{food.item["food-name"]}</option>
+              <option key={food.item["food-code"]} value={food.item["food-name"]}>{food.item["food-name"]}</option>
             )}
         </select>
-        : <div></div>
+        : (null)
       }
 
     </form>
