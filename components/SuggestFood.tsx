@@ -39,7 +39,6 @@ export const SuggestFood: React.VFC = () => {
   const insertFoodData = (): void => {
 
     const foodData = identifyFoodData();
-    console.log(foodData);
     if (foodData == null) {
       alert("食品成分表の名前に載った食品名を入力して下さい");
     } else if (inputFoodWeight.current.value == "") {
@@ -98,7 +97,6 @@ export const SuggestFood: React.VFC = () => {
   const fetchLocalStorage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
     const gotLocalStorageFoodData: string = localStorage.getItem(foodName)!;
-    console.log(JSON.parse(gotLocalStorageFoodData))
   }
   return (
 
