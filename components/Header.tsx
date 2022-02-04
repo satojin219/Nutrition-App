@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
 import React, { useState } from 'react'
 import { UserData } from 'globalType'
 import {FaCalendarAlt,FaAngleLeft, FaAngleRight} from 'react-icons/fa'

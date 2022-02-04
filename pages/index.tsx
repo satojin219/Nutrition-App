@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import { Header } from '../components/Header'
 import { DailylIntakeNutrition } from '../components/DailylIntakeNutrition'
 import { DishCard } from '../components/DishCard'
+import { SuggestFood } from '../components/suggestFood'
 
 const Home: NextPage = () => {
   return (
@@ -19,6 +20,8 @@ const Home: NextPage = () => {
       <Header/>
       <DailylIntakeNutrition />
       <DishCard />
+      <SuggestFood />
+      <SuggestFood />
     </div>
   );
 };
