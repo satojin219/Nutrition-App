@@ -7,135 +7,179 @@ export const extractNutrition = (nutrition: string): extractNutrtionType => {
   let nutritionName: string = "";
   switch (nutrition) {
     case "calorie":
-      unit = "kcal";
-      nutritionName = "カロリー";
-      break;
+      return {
+        unit : "kcal",
+        nutritionName : "カロリー"
+      }
     case "carbohydrates":
-      unit = "g";
-      nutritionName = "炭水化物";
-      break;
+      return {
+        unit : "g",
+        nutritionName : "炭水化物"
+      }
     case "protein":
-      unit = "g";
-      nutritionName = "たんぱく質";
-      break;
+      return{
+        unit : "g",
+        nutritionName : "たんぱく質"
+      }
     case "lipids":
-      unit = "g";
-      nutritionName = "脂質";
-      break;
+      return{
+        unit : "g",
+        nutritionName : "脂質"
+      }
     case "suger":
-      unit = "g";
-      nutritionName = "糖質";
-      break;
+      return{
+        unit : "g",
+        nutritionName : "糖質"
+      }
     case "dietaryFiber":
-      unit = "g";
-      nutritionName = "食物繊維";
-      break;
+      return{
+        unit : "g",
+        nutritionName : "食物繊維"
+      }  
     case "salt":
-      unit = "g";
-      nutritionName = "食塩相当量";
-      break;
+      return{
+        unit : "g",
+        nutritionName : "食塩相当量"
+      }
     case "na":
-      unit = "mg";
-      nutritionName = "ナトリウム";
+      return{
+        unit : "mg",
+        nutritionName : "ナトリウム"
+      }
     case "k":
-      unit = "mg";
-      nutritionName = "カリウム";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "カリウム"
+      }
     case "ca":
-      unit = "mg";
-      nutritionName = "カルシウム";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "カルシウム"
+      }
     case "mg":
-      unit = "mg";
-      nutritionName = "マグネシウム";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "マグネシウム"
+      }
     case "p":
-      unit = "mg";
-      nutritionName = "リン";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "リン"
+      }
     case "fe":
-      unit = "mg";
-      nutritionName = "鉄";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "鉄"
+      }
     case "zn":
-      unit = "mg";
-      nutritionName = "亜鉛";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "亜鉛"
+      }
     case "cu":
-      unit = "mg";
-      nutritionName = "銅";
+      return{
+        unit : "mg",
+        nutritionName : "銅"
+      }
     case "mn":
-      unit = "mg";
-      nutritionName = "マンガン";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "マンガン"
+      }
     case "i":
-      unit = "㎍";
-      nutritionName = "ヨウ素";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "ヨウ素"
+      }
     case "se":
-      unit = "㎍";
-      nutritionName = "セレン";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "セレン"
+      }
     case "cr":
-      unit = "㎍";
-      nutritionName = "クロム";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "クロム"
+      }
     case "mo":
-      unit = "㎍";
-      nutritionName = "モリブデン";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "モリブデン"
+      }
     case "vitA":
-      unit = "㎍";
-      nutritionName = "ビタミンA";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "ビタミンA"
+      }
     case "vitD":
-      unit = "㎍";
-      nutritionName = "ビタミンD";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "ビタミンD"
+      }
     case "vitE":
-      unit = "mg";
-      nutritionName = "ビタミンE";
+      return{
+        unit : "mg",
+        nutritionName : "ビタミンE"
+      }
     case "vitK":
-      unit = "㎍";
-      nutritionName = "ビタミンK";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "ビタミンK"
+      }
     case "vitK":
-      unit = "㎍";
-      nutritionName = "ビタミンK";
+      return{
+        unit : "㎍",
+        nutritionName : "ビタミンK"
+      }
     case "vitB1":
-      unit = "mg";
-      nutritionName = "ビタミンB1";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "ビタミンB1"
+      }
     case "vitB2":
-      unit = "mg";
-      nutritionName = "ビタミンB2";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "ビタミンB2"
+      }
     case "vitB6":
-      unit = "mg";
-      nutritionName = "ビタミンB6";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "ビタミンB6"
+      }
     case "vitB12":
-      unit = "㎍";
-      nutritionName = "ビタミンB12";
+      return{
+        unit : "㎍",
+        nutritionName : "ビタミンB12"
+      }
     case "vitC":
-      unit = "mg";
-      nutritionName = "ビタミンC";
+      return{
+        unit : "mg",
+        nutritionName : "ビタミンC"
+      }
     case "niacin":
-      unit = "mg";
-      nutritionName = "ナイアシン";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "ナイアシン"
+      }
     case "pantothenicAcid":
-      unit = "mg";
-      nutritionName = "パントテン酸";
-      break;
+      return{
+        unit : "mg",
+        nutritionName : "パントテン酸"
+      }
     case "folate":
-      unit = "㎍";
-      nutritionName = "葉酸";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "葉酸"
+      }
     case "biotin":
-      unit = "㎍";
-      nutritionName = "ビオチン";
-      break;
+      return{
+        unit : "㎍",
+        nutritionName : "ビオチン"
+      }
+    default :
+    return{
+      unit: "",
+      nutritionName: ""
+    }
   }
-  return { unit: unit, nutritionName: nutritionName }
 }

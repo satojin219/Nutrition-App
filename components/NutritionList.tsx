@@ -5,7 +5,7 @@ import { extractNutrition } from "../tools/HelpMethods"
 type Props = {
   nutrition: Nutrition
 }
-export const ShowNutritionList: React.VFC<Props> = (props) => {
+export const NutritionList: React.VFC<Props> = (props) => {
 
   const nutritionItems = Object.keys(props.nutrition).map((key: string, index: number) => {
 

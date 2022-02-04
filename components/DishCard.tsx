@@ -2,7 +2,7 @@ import React from 'react';
 import { Menus } from 'globalType';
 import { BsFillBrightnessAltHighFill, BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 import { MdFastfood } from 'react-icons/md'
-import { ShowNutritionList } from './ShowNutritionList';
+import { NutritionList } from './NutritionList';
 import { Nutrition } from 'globalType';
 
 export const DishCard: React.VFC = (props) => {
@@ -67,7 +67,7 @@ export const DishCard: React.VFC = (props) => {
                 <li className="border-yellow-700/50 border-b-2  my-2">さばの味噌煮</li>
               </ul>
             </div>
-            <ShowNutritionList nutrition={protNutritionList} />
+            <NutritionList nutrition={protNutritionList} />
           </div>
 
         </div>
@@ -94,7 +94,7 @@ export const DishCard: React.VFC = (props) => {
 
               </ul>
             </div>
-            <ShowNutritionList nutrition={protNutritionList} />
+            <NutritionList nutrition={protNutritionList} />
           </div>
 
         </div>
@@ -121,7 +121,7 @@ export const DishCard: React.VFC = (props) => {
                 <li className="border-yellow-700/50 border-b-2  my-2">ポテトサラダ</li>
               </ul>
             </div>
-            <ShowNutritionList nutrition={protNutritionList} />
+            <NutritionList nutrition={protNutritionList} />
           </div>
 
         </div>
