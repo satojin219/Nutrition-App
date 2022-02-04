@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import { Header } from '../components/Header'
 import { DailylIntakeNutrition } from '../components/DailylIntakeNutrition'
 import { DishCard } from '../components/DishCard'
-import { SuggestFood } from '../components/suggestFood'
+import { SuggestFood } from '../components/SuggestFood'
 
 const Home: NextPage = () => {
   return (

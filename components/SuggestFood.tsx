@@ -100,7 +100,7 @@ export const SuggestFood: React.VFC = () => {
   }
   return (
 
-    <form className="w-full max-w-sm m-5" >
+    <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
         <input ref={inputFoodName} onChange={handleOnChangeFood} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
 
@@ -110,7 +110,7 @@ export const SuggestFood: React.VFC = () => {
           <BsFillCalculatorFill />
         </button>
 
-        <button onClick={fetchLocalStorage} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
+        <button onClick={fetchLocalStorage} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
 
       </div>
