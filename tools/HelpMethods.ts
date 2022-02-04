@@ -1,4 +1,8 @@
-export const extractNutrition = (nutrition: string): { unit: string, nutritionName: string }=> {
+type extractNutrtionType = {
+  unit: string,
+  nutritionName: string
+}
+export const extractNutrition = (nutrition: string): extractNutrtionType => {
   let unit: string = "";
   let nutritionName: string = "";
   switch (nutrition) {
@@ -133,5 +137,5 @@ export const extractNutrition = (nutrition: string): { unit: string, nutritionNa
       nutritionName = "ビオチン";
       break;
   }
-  return {unit :unit,nutritionName :nutritionName}
+  return { unit: unit, nutritionName: nutritionName }
 }
