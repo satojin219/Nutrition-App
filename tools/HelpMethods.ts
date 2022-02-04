@@ -3,8 +3,7 @@ type extractNutrtionType = {
   nutritionName: string
 }
 export const extractNutrition = (nutrition: string): extractNutrtionType => {
-  let unit: string = "";
-  let nutritionName: string = "";
+
   switch (nutrition) {
     case "calorie":
       return {
