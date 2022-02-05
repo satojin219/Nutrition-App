@@ -3,7 +3,13 @@ import Fuse from "fuse.js"
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
 import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
-export const SuggestFood: React.VFC = () => {
+
+type Props ={
+  foodstuff :Foodstuff
+}
+export const SuggestFood: React.VFC<Props> = (props) => {
+
+  // const foodstuff = props.foodstuff;
 
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
@@ -81,6 +87,7 @@ export const SuggestFood: React.VFC = () => {
 
       }
       const food: Foodstuff = {
+        id: 1,
         name: foodName,
         weight: Number(inputFoodWeight.current.value),
         nutrition: caledNutrition

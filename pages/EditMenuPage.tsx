@@ -1,17 +1,24 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { BreakfastHeader } from '../components/BreakfastHeader'
-import { EditMenuCard }from '../components/editMenuCard'
+import { EditMenuCard } from '../components/editMenuCard'
 import { SuggestFood } from '../components/SuggestFood'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { RiMoneyCnyCircleLine } from 'react-icons/ri'
 import { useState } from 'react'
+import { Menu } from 'globalType'
 
 const EditMenuPage: NextPage = () => {
-  const [menuCard,setMenuCard] = useState([]);
+  const [menuCards, setMenuCard] = useState <Menu[]>([]);
+  let copyMenuCards = [...menuCards];
 
-  
+  const addMenuCard = () => {
+    copyMenuCards.push({id:copyMenuCards.length+1});
+    setMenuCard(copyMenuCards);
+  }
+
+
   return (
     <div className="font-fancy">
       <Head>
@@ -22,9 +29,18 @@ const EditMenuPage: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&family=Yomogi&family=Zen+Maru+Gothic:wght@900&display=swap" rel="stylesheet"></link>
       </Head>
       <BreakfastHeader />
-      <EditMenuCard />
+      {
+      menuCards.map((menuCard :Menu,i :number)=>
+      <EditMenuCard key={i} menu={menuCard}/>
+      )
+      }
 
-  
+      <div className="flex justify-center my-5">
+        <button onClick={addMenuCard} className="active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full w-1/2 shadow-lg">
+          <div>+ 料理を追加する</div>
+        </button>
+      </div>
+
     </div>
   )
 }

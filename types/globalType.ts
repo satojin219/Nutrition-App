@@ -8,7 +8,7 @@ export type UserData ={
   weight :number,
   height :number,
   activeLevel :number,
-  menus :Menus[],
+  menus :Menu[],
   editedDates :Date[],
   selectedDate :Date,
   totalIntake :Nutrition
@@ -21,19 +21,24 @@ export interface Date{
   day :number
 }
 
-export interface Menus  {
-  recipes :Recipe[],
+ export interface Menu  {
+  id :number,
+  recipeName? :string,
+  imgUrl? :string,
+  foodstuffs? :Foodstuff[],
+  totalNutrition? :Nutrition,
+  recipe? :string[],
+  tips? :string,
+  cost? :number,
+  time? :number
+
 }
- export interface Recipe  {
-  recipeName :string,
-  img :string,
-  foodstuffs :Foodstuff[],
-  totalNutrition :Nutrition
-}
+
 export interface Foodstuff  {
-  name :string,
-  weight :number,
-  nutrition :Nutrition
+  id :number,
+  name? :string,
+  weight? :number,
+  nutrition? :Nutrition
 }
 
 export interface Nutrition {

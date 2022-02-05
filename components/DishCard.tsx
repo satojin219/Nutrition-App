@@ -1,5 +1,4 @@
 import React from 'react';
-import { Menus } from 'globalType';
 import { BsFillBrightnessAltHighFill,BsFillSunFill,BsFillMoonFill } from'react-icons/bs'
 import { MdFastfood } from 'react-icons/md'
 
@@ -137,7 +136,7 @@ export const DishCard:React.VFC =(props)=> {
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
 
             <div className="flex justify-center">
-              <div className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
+              <div className="bg-orange-500 text-white text-center p-2 rounded-full">
                 <div>+ 献立を追加する</div>
               </div>
             </div>

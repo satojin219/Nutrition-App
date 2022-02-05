@@ -1,14 +1,31 @@
-import type { NextPage } from 'next'
-import { BreakfastHeader } from './BreakfastHeader'
-import Head from 'next/head'
+import React from 'react'
+import { useState } from 'react'
 import { SuggestFood } from './SuggestFood'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { RiMoneyCnyCircleLine } from 'react-icons/ri'
+import { Menu } from 'globalType'
+import { Foodstuff } from 'globalType'
+import { useRef } from 'react'
 
+type Props = {
+  menu: Menu
+}
 
-export const EditMenuCard: React.VFC = () => {
+export const EditMenuCard: React.VFC<Props> = (props) => {
 
+  let menuData = props.menu;
+  const recipeName = useRef(null);
+  const cost = useRef(null);
+  const time = useRef(null);
+  const tips = useRef(null);
+  const [foodstuffs, setFoodstuffs] = useState<Foodstuff[]>([]);
+  let copyFoodstuffs = [...foodstuffs];
+
+  const addfoodstuffs = () => {
+    copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
+    setFoodstuffs(copyFoodstuffs);
+  }
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
 
@@ -33,9 +50,14 @@ export const EditMenuCard: React.VFC = () => {
                 <h1 className='text-left text-2xl mr-1'>材料名</h1>
                 <p className='font-extralight text-red-500'>(1人分)</p>
               </div>
-              <button className='active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full text-sm shadow-md'>+ 食材を追加する</button>
+              <button onClick={addfoodstuffs} className='active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full text-sm shadow-md'>+ 食材を追加する</button>
             </div>
-            <SuggestFood />
+
+            {
+              foodstuffs.map((foodstuff: Foodstuff, i: number) =>
+                <SuggestFood key={i} foodstuff={foodstuff}/>
+              )
+            }
 
 
           </div>
