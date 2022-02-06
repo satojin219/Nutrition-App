@@ -20,13 +20,18 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const cost = useRef(null);
   const time = useRef(null);
   const tips = useRef(null);
-  const [foodstuffs, setFoodstuffs] = useState<Foodstuff[]>([]);
+  const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   let copyFoodstuffs = [...foodstuffs];
 
-  const addfoodstuffs = () => {
+  const addFoodstuff = () => {
     copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
-    setFoodstuffs(copyFoodstuffs);
+    setFoodstuff(copyFoodstuffs);
   }
+  const removeFoodstuff = (id:number) =>{
+    copyFoodstuffs.splice(id,1);
+    setFoodstuff(copyFoodstuffs);
+  }
+
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
 
@@ -45,9 +50,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
           <div className="basis-2/3  my-0 mx-3 mt-5 xl:mt-0">
             <div className='flex justify-between mb-2'>
-                <h1 className='text-left text-2xl'>材料 <span className='text-sm font-extralight text-red-500'> (1人分)</span></h1>
+                <h2 className='text-left text-2xl'>材料 <span className='text-sm font-extralight text-red-500'> (1人分)</span></h2>
            
-              <button onClick={addfoodstuffs} className='active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full text-sm shadow-md'>+ 食材を追加する</button>
+              <button onClick={addFoodstuff} className='active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full text-sm shadow-md'>+ 食材を追加する</button>
             </div>
 
             {
@@ -61,7 +66,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
         </div>
 
         <div className='my-5'>
-          <h1 className='text-left text-2xl mb-3'>作り方</h1>
+          <h3 className='text-left text-2xl mb-3'>作り方</h3>
           <div className='flex  group'>
 
             <div className='duration-500 group-hover:mr-2 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7'>
@@ -80,7 +85,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
         </div>
 
         <div className='my-5'>
-          <h1 className='text-left text-2xl mb-3 flex items-center'><AiOutlineExclamationCircle size={30} /> コツ・ポイント</h1>
+          <h4 className='text-left text-2xl mb-3 flex items-center'><AiOutlineExclamationCircle size={30} /> コツ・ポイント</h4>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
             <textarea className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" aria-label="Full name" />
           </div>
