@@ -4,9 +4,10 @@ import React, { useRef, useState, useMemo, useCallback } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
 import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
 
-type Props ={
-  foodstuff :Foodstuff
+type Props = {
+  foodstuff: Foodstuff
 }
+
 export const SuggestFood: React.VFC<Props> = (props) => {
 
   // const foodstuff = props.foodstuff;
@@ -39,7 +40,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
   const identifyFoodData = (): fetchedFoodData | null => {
     const searcedFoodData = fuse.search(foodName);
     return searcedFoodData.length != 0 ? searcedFoodData.filter(food => food.item["food-name"] == foodName)[0].item : null;
- 
+
   }
 
   const insertFoodData = (): void => {

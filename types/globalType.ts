@@ -1,6 +1,7 @@
+import { type } from "os"
 
 
-export type UserData ={
+export type UserData = {
   id :number,
   name :string,
   age :number,
@@ -14,14 +15,14 @@ export type UserData ={
   totalIntake :Nutrition
 }
 
-export interface Date{
+export type Date = {
   year :number,
   month :number,
   date :number,
   day :number
 }
 
- export interface Menu  {
+ export type Menu = {
   id :number,
   recipeName? :string,
   imgUrl? :string,
@@ -34,14 +35,14 @@ export interface Date{
 
 }
 
-export interface Foodstuff  {
+export type Foodstuff = {
   id :number,
   name? :string,
   weight? :number,
   nutrition? :Nutrition
 }
 
-export interface Nutrition {
+export type Nutrition = {
   calorie :number, //カロリー
   carbohydrates :number, //炭水化物
   protein :number, //たんぱく質
@@ -77,7 +78,7 @@ export interface Nutrition {
   biotin :number //ビオチン
 }
 
-export interface fetchedFoodData{
+export type fetchedFoodData = {
   "field1": string,
   "food-code": string,
   "field3": string,

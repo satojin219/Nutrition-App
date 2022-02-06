@@ -20,8 +20,7 @@ const Home: NextPage = () => {
       <Header/>
       <DailylIntakeNutrition />
       <DishCard />
-      <SuggestFood />
-      <SuggestFood />
+
     </div>
   );
 };

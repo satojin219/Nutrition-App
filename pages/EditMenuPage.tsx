@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { BreakfastHeader } from '../components/BreakfastHeader'
-import { EditMenuCard } from '../components/editMenuCard'
+import { EditMenuCard } from '../components/EditMenuCard'
 import { SuggestFood } from '../components/SuggestFood'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
