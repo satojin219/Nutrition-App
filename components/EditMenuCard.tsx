@@ -1,20 +1,23 @@
 import React from 'react'
 import { useState } from 'react'
 import { SuggestFood } from './SuggestFood'
+import { FaTrashAlt } from 'react-icons/fa'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { RiMoneyCnyCircleLine } from 'react-icons/ri'
 import { Menu } from 'globalType'
 import { Foodstuff } from 'globalType'
 import { useRef } from 'react'
-import { type } from 'os'
+import { useEffect } from 'react'
+
 
 type Props = {
-  menu: Menu
+  index:number,
+  menu: Menu,
+  removeMenuCard(id :number) :void
 }
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
-
   let menuData = props.menu;
   const recipeName = useRef(null);
   const cost = useRef(null);
@@ -32,12 +35,16 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     setFoodstuff(copyFoodstuffs);
   }
 
+
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
 
       <div className="md:w-3/4 bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
         <div className='mb-5'>
+          <div className='flex justify-between'>
           <h1 className='text-left text-2xl'>料理名</h1>
+            <button onClick={() => props.removeMenuCard(props.index)} className='hover:text-orange-700 opacity-50'><FaTrashAlt size={30} /></button>
+          </div>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2 sm:w-2/3 w-full">
             <input className="text-sm sm:text-xl appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="料理名を入力して下さい" aria-label="Full name" />
           </div>
@@ -57,7 +64,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
             {
               foodstuffs.map((foodstuff: Foodstuff, i: number) =>
-                <SuggestFood key={i} foodstuff={foodstuff}/>
+                <SuggestFood key={i} foodstuff={foodstuff} />
               )
             }
 

@@ -17,6 +17,13 @@ const EditMenuPage: NextPage = () => {
     copyMenuCards.push({id:copyMenuCards.length+1});
     setMenuCard(copyMenuCards);
   }
+  const removeMenuCard = (id: number): void => {
+    console.log(menuCards)
+    copyMenuCards.splice(id, 1)
+    console.log(copyMenuCards)
+
+    setMenuCard(copyMenuCards);
+  }
 
 
   return (
@@ -30,8 +37,8 @@ const EditMenuPage: NextPage = () => {
       </Head>
       <BreakfastHeader />
       {
-      menuCards.map((menuCard :Menu,i :number)=>
-      <EditMenuCard key={i} menu={menuCard}/>
+      menuCards.map((menuCard :Menu,index :number)=>
+        <EditMenuCard key={menuCard.id} index = {index} menu={menuCard} removeMenuCard={removeMenuCard}/>
       )
       }
 
