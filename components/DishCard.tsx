@@ -1,18 +1,58 @@
 import React from 'react';
 import { Menus } from 'globalType';
-import { BsFillBrightnessAltHighFill,BsFillSunFill,BsFillMoonFill } from'react-icons/bs'
+import { BsFillBrightnessAltHighFill, BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 import { MdFastfood } from 'react-icons/md'
+import { NutritionList } from './NutritionList';
+import { Nutrition } from 'globalType';
 
+export const DishCard: React.VFC = (props) => {
 
-export const DishCard:React.VFC =(props)=> {
+  // ShowNutritionListに試しにpropsを渡す。ローカルストレージにあったものをコピペしたのでアルファベット順に慣れんでいますが、試作という事で今は目を瞑ってください
+  const protNutritionList: Nutrition = {
+    biotin: 2.7,
+    ca: 5,
+    calorie: 19,
+    carbohydrates: 0.8,
+    cr: 0,
+    cu: 0.01,
+    dietaryFiber: 0,
+    fe: 0.2,
+    folate: 5,
+    i: 70,
+    k: 17,
+    lipids: 1.2,
+    mg: 1,
+    mn: 0,
+    mo: 0,
+    na: 59,
+    niacin: 0.1,
+    p: 20,
+    pantothenicAcid: 0.13,
+    protein: 1.4,
+    salt: 0.2,
+    se: 3,
+    suger: 0.9,
+    vitA: 18,
+    vitB1: 0.01,
+    vitB2: 0.16,
+    vitB6: 0.01,
+    vitB12: 0.1,
+    vitC: 0,
+    vitD: 0.3,
+    vitE: 0.1,
+    vitK: 1,
+    zn: 0.1
+
+  }
+
   return (
     <div className="lg:flex flex-wrap">
       <div className="basis-1/2">
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-red-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
-          <BsFillBrightnessAltHighFill size={40} className='mr-2'/>
-           <p>朝食</p>
+              <BsFillBrightnessAltHighFill size={40} className='mr-2' />
+              <p>朝食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
@@ -27,20 +67,7 @@ export const DishCard:React.VFC =(props)=> {
                 <li className="border-yellow-700/50 border-b-2  my-2">さばの味噌煮</li>
               </ul>
             </div>
-
-            <div className="border-2 border-red-700 rounded mt-10 sms:mx-20 p-4  bg-white">
-              <div className=" md:flex flex-row flex-wrap  ">
-                <div className="basis-1/2">エネルギー: 620kcal</div>
-                <div className="basis-1/2">炭水化物: 34g</div>
-                <div className="basis-1/2">たんぱく質: 8g</div>
-                <div className="basis-1/2">脂質: 13g</div>
-                <div className="basis-1/2">食塩相当量: 2g</div>
-
-              </div>
-              <div className="flex justify-end">
-                <button className='text-md font-bold'> 詳しく見る <span className="text-red-500">&gt;</span></button>
-              </div>
-            </div>
+            <NutritionList nutrition={protNutritionList} />
           </div>
 
         </div>
@@ -49,8 +76,8 @@ export const DishCard:React.VFC =(props)=> {
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-yellow-400 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
-            <BsFillSunFill size={40} className='mr-2'/>
-           <p>昼食</p>
+              <BsFillSunFill size={40} className='mr-2' />
+              <p>昼食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10">
@@ -67,20 +94,7 @@ export const DishCard:React.VFC =(props)=> {
 
               </ul>
             </div>
-
-            <div className="border-2 border-red-700 rounded mt-10 sms:mx-20 p-4  bg-white">
-              <div className=" md:flex flex-row flex-wrap">
-                <div className="basis-1/2">エネルギー: 530kcal</div>
-                <div className="basis-1/2">炭水化物: 24g</div>
-                <div className="basis-1/2">たんぱく質: 5g</div>
-                <div className="basis-1/2">脂質: 9g</div>
-                <div className="basis-1/2">食塩相当量: 1.4g</div>
-
-              </div>
-              <div className="flex justify-end">
-                <button className='text-md font-bold'> 詳しく見る <span className="text-red-500">&gt;</span></button>
-              </div>
-            </div>
+            <NutritionList nutrition={protNutritionList} />
           </div>
 
         </div>
@@ -91,8 +105,8 @@ export const DishCard:React.VFC =(props)=> {
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-purple-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
-            <BsFillMoonFill size={40} className='mr-2'/>
-           <p>夕食</p>
+              <BsFillMoonFill size={40} className='mr-2' />
+              <p>夕食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
@@ -107,20 +121,7 @@ export const DishCard:React.VFC =(props)=> {
                 <li className="border-yellow-700/50 border-b-2  my-2">ポテトサラダ</li>
               </ul>
             </div>
-
-            <div className="border-2 border-red-700 rounded mt-10 sms:mx-20 p-4  bg-white">
-              <div className=" md:flex flex-row flex-wrap">
-                <div className="basis-1/2">エネルギー: 620kcal</div>
-                <div className="basis-1/2">炭水化物: 34g</div>
-                <div className="basis-1/2">たんぱく質: 8g</div>
-                <div className="basis-1/2">脂質: 13g</div>
-                <div className="basis-1/2">食塩相当量: 2g</div>
-
-              </div>
-              <div className="flex justify-end">
-                <button className='text-md font-bold'> 詳しく見る <span className="text-red-500">&gt;</span></button>
-              </div>
-            </div>
+            <NutritionList nutrition={protNutritionList} />
           </div>
 
         </div>
@@ -130,8 +131,8 @@ export const DishCard:React.VFC =(props)=> {
         <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-sky-400 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
-            <MdFastfood size={40} className='mr-2'/>
-           <p>間食</p>
+              <MdFastfood size={40} className='mr-2' />
+              <p>間食</p>
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
