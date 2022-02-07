@@ -6,8 +6,7 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { RiMoneyCnyCircleLine } from 'react-icons/ri'
-import { Menu } from 'globalType'
-import { Foodstuff } from 'globalType'
+import { Menu, RecipeType, Foodstuff } from 'globalType'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 
@@ -25,9 +24,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const time = useRef(null);
   const tips = useRef(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
-  const [recipes,setRecipe] = useState<string[]>([]);
+  const [recipes, setRecipe] = useState<RecipeType[]>([]);
   let copyFoodstuffs = [...foodstuffs];
-
+  
   const addFoodstuff = () => {
     copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
     setFoodstuff(copyFoodstuffs);
@@ -38,19 +37,29 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   }
   const addRecipe = (index:number) =>{
     let copyRecipes = [...recipes];
-
-    copyRecipes.splice(index,0,"");
+    if (index == 0){
+      copyRecipes.push({ id: Math.random() });
+    }else{
+      copyRecipes.splice(index,0,{ id: Math.random() });
+    }
     console.log(copyRecipes);
     setRecipe(copyRecipes);
   }
   const removeRecipe = (index:number) =>{
     let copyRecipes = [...recipes];
-
     copyRecipes.splice(index,1);
+    console.log(copyRecipes)
     setRecipe(copyRecipes);
   }
-
-
+  const writeRecipe = (index:number,value:string) =>{
+    let copyRecipes = [...recipes];
+    copyRecipes[index].content = value;
+    console.log(copyRecipes)
+    setRecipe(copyRecipes);
+  }
+    useEffect(()=>{
+    addRecipe(0);
+    },[]);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
@@ -90,11 +99,13 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
         <div className='my-5'>
           <h3 className='text-left text-2xl mb-3'>作り方</h3>
+
           {
-            recipes.map((recipe :string,index :number)=>
-            <Recipe key={recipe} recipe={recipe} index={index} addRecipe={addRecipe} removeRecipe={removeRecipe}/>
+            recipes.map((recipe :RecipeType,index :number)=>
+              <Recipe key={recipe.id} content={recipe.content} index={index} addRecipe={addRecipe} removeRecipe={removeRecipe} writeRecipe={writeRecipe}/>
             )
           }
+
         </div>
 
         <div className='my-5'>

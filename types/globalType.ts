@@ -41,6 +41,10 @@ export type Foodstuff = {
   weight? :number,
   nutrition? :Nutrition
 }
+export type RecipeType = {
+  id :number,
+  content? :string
+}
 
 
 export type Nutrition = {
