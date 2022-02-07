@@ -4,7 +4,7 @@ import { MdFastfood } from 'react-icons/md'
 import { NutritionList } from './NutritionList';
 import { Nutrition } from 'globalType';
 
-export const DishCard: React.VFC = (props) => {
+
 
   // ShowNutritionListに試しにpropsを渡す。ローカルストレージにあったものをコピペしたのでアルファベット順に慣れんでいますが、試作という事で今は目を瞑ってください
   const protNutritionList: Nutrition = {
