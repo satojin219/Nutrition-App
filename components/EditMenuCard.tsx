@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { SuggestFood } from './SuggestFood'
+import { Recipe } from './Recipe'
 import { FaTrashAlt } from 'react-icons/fa'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
@@ -12,9 +13,9 @@ import { useEffect } from 'react'
 
 
 type Props = {
-  index:number,
+  index: number,
   menu: Menu,
-  removeMenuCard(id :number) :void
+  removeMenuCard(id: number): void
 }
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
@@ -24,16 +25,31 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const time = useRef(null);
   const tips = useRef(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
+  const [recipes,setRecipe] = useState<string[]>([]);
   let copyFoodstuffs = [...foodstuffs];
 
   const addFoodstuff = () => {
     copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
     setFoodstuff(copyFoodstuffs);
   }
-  const removeFoodstuff = (id:number) =>{
-    copyFoodstuffs.splice(id,1);
+  const removeFoodstuff = (index: number) => {
+    copyFoodstuffs.splice(index, 1);
     setFoodstuff(copyFoodstuffs);
   }
+  const addRecipe = (index:number) =>{
+    let copyRecipes = [...recipes];
+
+    copyRecipes.splice(index,0,"");
+    console.log(copyRecipes);
+    setRecipe(copyRecipes);
+  }
+  const removeRecipe = (index:number) =>{
+    let copyRecipes = [...recipes];
+
+    copyRecipes.splice(index,1);
+    setRecipe(copyRecipes);
+  }
+
 
 
   return (
@@ -42,7 +58,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
       <div className="md:w-3/4 bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
         <div className='mb-5'>
           <div className='flex justify-between'>
-          <h1 className='text-left text-2xl'>料理名</h1>
+            <h1 className='text-left text-2xl'>料理名</h1>
             <button onClick={() => props.removeMenuCard(props.index)} className='hover:text-orange-700 opacity-50'><FaTrashAlt size={30} /></button>
           </div>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2 sm:w-2/3 w-full">
@@ -57,8 +73,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
           <div className="basis-2/3  my-0 mx-3 mt-5 xl:mt-0">
             <div className='flex justify-between mb-2'>
-                <h2 className='text-left text-2xl'>材料 <span className='text-sm font-extralight text-red-500'> (1人分)</span></h2>
-           
+              <h2 className='text-left text-2xl'>材料 <span className='text-sm font-extralight text-red-500'> (1人分)</span></h2>
+
               <button onClick={addFoodstuff} className='active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full text-sm shadow-md'>+ 食材を追加する</button>
             </div>
 
@@ -74,21 +90,11 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
         <div className='my-5'>
           <h3 className='text-left text-2xl mb-3'>作り方</h3>
-          <div className='flex  group'>
-
-            <div className='duration-500 group-hover:mr-2 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7'>
-              <p className='text-center'>1</p>
-            </div>
-            <button className=' duration-500 group-hover:opacity-100  group-hover:mr-2 opacity-0  text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7'>
-              <span className='inline-block text-center font-bold ml-0.5'>＋</span>
-            </button>
-            <button className=' duration-500 group-hover:opacity-100 group-hover:mr-2  opacity-0 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7'>
-              <span className='inline-block text-center font-bold ml-0.5'>－</span>
-            </button>
-          </div>
-          <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
-            <textarea className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" aria-label="Full name" />
-          </div>
+          {
+            recipes.map((recipe :string,index :number)=>
+            <Recipe key={recipe} recipe={recipe} index={index} addRecipe={addRecipe} removeRecipe={removeRecipe}/>
+            )
+          }
         </div>
 
         <div className='my-5'>

@@ -28,7 +28,7 @@ export type Date = {
   imgUrl? :string,
   foodstuffs? :Foodstuff[],
   totalNutrition? :Nutrition,
-  recipe? :string[],
+  recipes? :string[],
   tips? :string,
   cost? :number,
   time? :number
@@ -41,6 +41,7 @@ export type Foodstuff = {
   weight? :number,
   nutrition? :Nutrition
 }
+
 
 export type Nutrition = {
   calorie :number, //カロリー

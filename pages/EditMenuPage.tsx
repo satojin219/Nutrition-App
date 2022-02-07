@@ -17,10 +17,8 @@ const EditMenuPage: NextPage = () => {
     copyMenuCards.push({id:copyMenuCards.length+1});
     setMenuCard(copyMenuCards);
   }
-  const removeMenuCard = (id: number): void => {
-    console.log(menuCards)
-    copyMenuCards.splice(id, 1)
-    console.log(copyMenuCards)
+  const removeMenuCard = (index: number) => {
+    copyMenuCards.splice(index, 1)
 
     setMenuCard(copyMenuCards);
   }
