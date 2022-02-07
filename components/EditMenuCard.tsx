@@ -10,6 +10,7 @@ import { RiMoneyCnyCircleLine } from 'react-icons/ri'
 import { Menu, RecipeType, Foodstuff,Nutrition } from 'globalType'
 import { useRef } from 'react'
 import { useEffect } from 'react'
+import { addElement, removeElemnt } from '../tools/HelpMethods'
 
 
 type Props = {
@@ -29,28 +30,33 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   let copyFoodstuffs = [...foodstuffs];
   
   const addFoodstuff = () => {
-    copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
-    setFoodstuff(copyFoodstuffs);
+    addElement(foodstuffs,setFoodstuff);
+    // copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
+    // setFoodstuff(copyFoodstuffs);
   }
   const removeFoodstuff = (index: number) => {
-    copyFoodstuffs.splice(index, 1);
-    setFoodstuff(copyFoodstuffs);
+    removeElemnt(foodstuffs, setFoodstuff,index);
+    // copyFoodstuffs.splice(index, 1);
+    // setFoodstuff(copyFoodstuffs);
   }
   const addRecipe = (index:number) =>{
-    let copyRecipes = [...recipes];
-    if (index == 0 || index == copyRecipes.length-1){
-      copyRecipes.push({ id: Math.random() });
-    }else{
-      copyRecipes.splice(index,0,{ id: Math.random() });
-    }
-    console.log(copyRecipes);
-    setRecipe(copyRecipes);
+    addElement(recipes, setRecipe, index);
+
+    // let copyRecipes = [...recipes];
+    // if (index == 0 || index == copyRecipes.length-1){
+    //   copyRecipes.push({ id: Math.random() });
+    // }else{
+    //   copyRecipes.splice(index,0,{ id: Math.random() });
+    // }
+    // setRecipe(copyRecipes);
   }
   const removeRecipe = (index:number) =>{
-    let copyRecipes = [...recipes];
-    copyRecipes.splice(index,1);
-    console.log(copyRecipes)
-    setRecipe(copyRecipes);
+    removeElemnt(recipes, setRecipe, index);
+
+    // let copyRecipes = [...recipes];
+    // copyRecipes.splice(index,1);
+    // console.log(copyRecipes)
+    // setRecipe(copyRecipes);
   }
   const writeRecipe = (index:number,value:string) =>{
     let copyRecipes = [...recipes];

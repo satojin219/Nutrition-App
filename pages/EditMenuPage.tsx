@@ -6,21 +6,27 @@ import { SuggestFood } from '../components/SuggestFood'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { RiMoneyCnyCircleLine } from 'react-icons/ri'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Menu } from 'globalType'
+import { addElement, removeElemnt } from '../tools/HelpMethods'
 
 const EditMenuPage: NextPage = () => {
   const [menuCards, setMenuCard] = useState <Menu[]>([]);
   let copyMenuCards = [...menuCards];
 
+  useEffect(()=>{
+    console.log(menuCards)
+  })
   const addMenuCard = () => {
-    copyMenuCards.push({id:copyMenuCards.length+1});
-    setMenuCard(copyMenuCards);
+    addElement(menuCards,setMenuCard);
+    // copyMenuCards.push({id:copyMenuCards.length+1});
+    // setMenuCard(copyMenuCards);
+
   }
   const removeMenuCard = (index: number) => {
-    copyMenuCards.splice(index, 1)
-
-    setMenuCard(copyMenuCards);
+    removeElemnt(menuCards,setMenuCard,index);
+    // copyMenuCards.splice(index, 1)
+    // setMenuCard(copyMenuCards);
   }
 
 
