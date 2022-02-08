@@ -3,14 +3,19 @@ import Fuse from "fuse.js"
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
 import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
+import { FaTrashAlt } from 'react-icons/fa'
 
 type Props = {
-  foodstuff: Foodstuff
+  index: number,
+  foodstuff: Foodstuff,
+  removeFoodstuff(index :number) :void,
+  updateFoodstuff(data :Foodstuff):void
+
 }
 
 export const SuggestFood: React.VFC<Props> = (props) => {
 
-  // const foodstuff = props.foodstuff;
+  const foodstuff = props.foodstuff;
 
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
@@ -43,14 +48,11 @@ export const SuggestFood: React.VFC<Props> = (props) => {
 
   }
 
-  const insertFoodData = (): void => {
+  const insertFoodData = (): Foodstuff | undefined => {
 
     const foodData = identifyFoodData();
-    if (foodData == null) {
-      alert("食品成分表の名前に載った食品名を入力して下さい");
-    } else if (inputFoodWeight.current.value == "") {
-      alert("重量を入力して下さい");
-    } else {
+    if (foodData == null || inputFoodWeight.current.value == "") return;
+    else {
       const caledNutrition: Nutrition = {
         calorie: calNutrition(foodData["ENERC_KCAL"], 0),
         carbohydrates: calNutrition(foodData["CHOCDF-"], 1),
@@ -88,12 +90,15 @@ export const SuggestFood: React.VFC<Props> = (props) => {
 
       }
       const food: Foodstuff = {
-        id: 1,
+        id: foodstuff.id,
         name: foodName,
         weight: Number(inputFoodWeight.current.value),
         nutrition: caledNutrition
       }
+      props.updateFoodstuff(food);
       localStorage.setItem(food.name, JSON.stringify(food));
+      return JSON.parse(localStorage.getItem(foodName)!)
+
     }
 
   }
@@ -110,15 +115,15 @@ export const SuggestFood: React.VFC<Props> = (props) => {
 
     <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
-        <input ref={inputFoodName} onChange={handleOnChangeFood} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
+        <input ref={inputFoodName} onChange={handleOnChangeFood}  className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
 
-        <input min={0} type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
+        <input onBlur={insertFoodData} min={0} type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
         g
-        <button onClick={insertFoodData} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
-          <BsFillCalculatorFill />
+        <button onClick={() => { props.removeFoodstuff(props.index)}} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
+          <FaTrashAlt />
         </button>
 
-        <button onClick={fetchLocalStorage} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
+        <button onClick={()=>{fetchLocalStorage}} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
 
       </div>
@@ -129,7 +134,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           </option>
           {
             searchCandidates.map((food) =>
-              <option key={food.item["food-code"]} value={food.item["food-name"]}>{food.item["food-name"]}</option>
+              <option onClick={insertFoodData} key={food.item["food-code"]} value={food.item["food-name"]}>{food.item["food-name"]}</option>
             )}
         </select>
         : (null)

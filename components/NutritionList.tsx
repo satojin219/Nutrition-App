@@ -7,13 +7,14 @@ type Props = {
 }
 export const NutritionList: React.VFC<Props> = (props) => {
 
-  const nutritionItems = Object.keys(props.nutrition).map((key: string, index: number) => {
+;
+  const nutritionItems = props.nutrition != null ? Object.keys(props.nutrition).map((key: string, index: number) => {
 
     const extractedNutrition = extractNutrition(key);
     return (
       <div className="basis-1/2" key={index}>{extractedNutrition.nutritionName + ":" + props.nutrition[key] + extractedNutrition.unit}</div>
     )
-  })
+  }) :(null);
 
 
 

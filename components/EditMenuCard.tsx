@@ -28,16 +28,29 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
   let copyFoodstuffs = [...foodstuffs];
-  
+
   const addFoodstuff = () => {
+    console.log(foodstuffs)
     addElement(foodstuffs,setFoodstuff);
     // copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
     // setFoodstuff(copyFoodstuffs);
   }
   const removeFoodstuff = (index: number) => {
+    console.log(foodstuffs)
+
     removeElemnt(foodstuffs, setFoodstuff,index);
     // copyFoodstuffs.splice(index, 1);
     // setFoodstuff(copyFoodstuffs);
+  }
+  const updateFoodstuff = (data:Foodstuff) =>{
+    let copyFoodstuffs = [...foodstuffs];
+    copyFoodstuffs.forEach((copyFoodstuff :Foodstuff,index :number)=>{
+      if(copyFoodstuff.id == data.id){
+        copyFoodstuffs[index] = data;
+      }
+    });
+    setFoodstuff(copyFoodstuffs);
+
   }
   const addRecipe = (index:number) =>{
     addElement(recipes, setRecipe, index);
@@ -61,50 +74,16 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const writeRecipe = (index:number,value:string) =>{
     let copyRecipes = [...recipes];
     copyRecipes[index].content = value;
-    console.log(copyRecipes)
     setRecipe(copyRecipes);
   }
+
+
     useEffect(()=>{
     addRecipe(0);
+
     },[]);
 
   // ShowNutritionListに試しにpropsを渡す。ローカルストレージにあったものをコピペしたのでアルファベット順に慣れんでいますが、試作という事で今は目を瞑ってください
-  const protNutritionList: Nutrition = {
-    biotin: 2.7,
-    ca: 5,
-    calorie: 19,
-    carbohydrates: 0.8,
-    cr: 0,
-    cu: 0.01,
-    dietaryFiber: 0,
-    fe: 0.2,
-    folate: 5,
-    i: 70,
-    k: 17,
-    lipids: 1.2,
-    mg: 1,
-    mn: 0,
-    mo: 0,
-    na: 59,
-    niacin: 0.1,
-    p: 20,
-    pantothenicAcid: 0.13,
-    protein: 1.4,
-    salt: 0.2,
-    se: 3,
-    suger: 0.9,
-    vitA: 18,
-    vitB1: 0.01,
-    vitB2: 0.16,
-    vitB6: 0.01,
-    vitB12: 0.1,
-    vitC: 0,
-    vitD: 0.3,
-    vitE: 0.1,
-    vitK: 1,
-    zn: 0.1
-
-  }
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
@@ -133,8 +112,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
             </div>
 
             {
-              foodstuffs.map((foodstuff: Foodstuff, i: number) =>
-                <SuggestFood key={i} foodstuff={foodstuff} />
+              foodstuffs.map((foodstuff: Foodstuff, index: number) =>
+                <SuggestFood key={foodstuff.id} foodstuff={foodstuff} index={index} removeFoodstuff={removeFoodstuff} updateFoodstuff={updateFoodstuff}/>
               )
             }
 
@@ -173,7 +152,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
         </div>
 
-        <NutritionList nutrition={protNutritionList} />
+        <NutritionList nutrition={totalNutriton} />
       </div>
     </div>
 
