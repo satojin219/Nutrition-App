@@ -15,7 +15,7 @@ const EditMenuPage: NextPage = () => {
   let copyMenuCards = [...menuCards];
 
   useEffect(()=>{
-    console.log(menuCards)
+    // console.log(menuCards)
   })
   const addMenuCard = () => {
     addElement(menuCards,setMenuCard);

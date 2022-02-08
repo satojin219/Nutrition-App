@@ -1,4 +1,6 @@
+import { Foodstuff, Nutrition } from 'globalType'
 import { useState } from 'react'
+import { NutritionList } from '../components/NutritionList'
 
 type extractNutrtionType = {
   unit: string,
@@ -201,3 +203,81 @@ export const removeElemnt = <T>(state: T[], useState: React.Dispatch<React.SetSt
   copyArray.splice(index,1);
   useState(copyArray);
 }
+
+
+export const sumNutrition = (foodstuffs :Foodstuff[]) :Nutrition=> {
+  let res :Nutrition={
+    calorie : 0,
+    carbohydrates: 0, 
+    protein: 0,
+    lipids: 0,
+    suger: 0,
+    dietaryFiber: 0,
+    salt: 0,
+    na: 0,
+    k: 0,
+    ca: 0,
+    mg: 0,
+    p: 0,
+    fe: 0,
+    zn: 0,
+    cu: 0,
+    mn: 0,
+    i: 0,
+    se: 0,
+    cr: 0,
+    mo: 0,
+    vitA: 0,
+    vitD: 0,
+    vitE: 0,
+    vitK: 0,
+    vitB1: 0,
+    vitB2: 0,
+    vitB6: 0,
+    vitB12: 0,
+    vitC: 0,
+    niacin: 0,
+    pantothenicAcid: 0,
+    folate: 0,
+    biotin:0
+  } ;
+  foodstuffs.map((foodstuff :Foodstuff) =>{
+    let nutrition = foodstuff.nutrition!
+    res.calorie += nutrition.calorie;
+    res.carbohydrates += nutrition.carbohydrates;
+    res.protein += nutrition.protein;
+    res.lipids += nutrition.lipids;
+    res.suger += nutrition.suger;
+    res.dietaryFiber += nutrition.dietaryFiber;
+    res.salt += nutrition.salt;
+    res.na += nutrition.na;
+    res.k += nutrition.k;
+    res.ca += nutrition.ca;
+    res.mg += nutrition.mg;
+    res.p += nutrition.p;
+    res.fe += nutrition.fe;
+    res.zn += nutrition.zn;
+    res.cu += nutrition.cu;
+    res.mn += nutrition.mn;
+    res.i += nutrition.i;
+    res.se += nutrition.se;
+    res.cr += nutrition.cr;
+    res.mo += nutrition.mo;
+    res.vitA += nutrition.vitA;
+    res.vitD += nutrition.vitD;
+    res.vitE += nutrition.vitE;
+    res.vitK += nutrition.vitK;
+    res.vitB1 += nutrition.vitB1;
+    res.vitB2 += nutrition.vitB2;
+    res.vitB6 += nutrition.vitB6;
+    res.vitB12 += nutrition.vitB12;
+    res.vitC += nutrition.vitC;
+    res.niacin += nutrition.niacin;
+    res.pantothenicAcid += nutrition.pantothenicAcid;
+    res.folate += nutrition.folate;
+    res.biotin += nutrition.biotin;
+  })
+  console.log(res);
+  return res;
+}
+

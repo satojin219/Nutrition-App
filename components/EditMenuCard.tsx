@@ -10,7 +10,7 @@ import { RiMoneyCnyCircleLine } from 'react-icons/ri'
 import { Menu, RecipeType, Foodstuff,Nutrition } from 'globalType'
 import { useRef } from 'react'
 import { useEffect } from 'react'
-import { addElement, removeElemnt } from '../tools/HelpMethods'
+import { addElement, removeElemnt,sumNutrition } from '../tools/HelpMethods'
 
 
 type Props = {
@@ -27,30 +27,29 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const tips = useRef(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
-  let copyFoodstuffs = [...foodstuffs];
+  const [totalNutriton, setTotalNutrition] = useState<Nutrition | {}>({});
 
   const addFoodstuff = () => {
-    console.log(foodstuffs)
     addElement(foodstuffs,setFoodstuff);
+    
     // copyFoodstuffs.push({ id: copyFoodstuffs.length + 1 });
     // setFoodstuff(copyFoodstuffs);
   }
   const removeFoodstuff = (index: number) => {
-    console.log(foodstuffs)
-
     removeElemnt(foodstuffs, setFoodstuff,index);
     // copyFoodstuffs.splice(index, 1);
     // setFoodstuff(copyFoodstuffs);
   }
   const updateFoodstuff = (data:Foodstuff) =>{
     let copyFoodstuffs = [...foodstuffs];
-    copyFoodstuffs.forEach((copyFoodstuff :Foodstuff,index :number)=>{
+    copyFoodstuffs.map((copyFoodstuff :Foodstuff,index :number)=>{
       if(copyFoodstuff.id == data.id){
         copyFoodstuffs[index] = data;
       }
     });
     setFoodstuff(copyFoodstuffs);
-
+    setTotalNutrition(sumNutrition(copyFoodstuffs))
+    
   }
   const addRecipe = (index:number) =>{
     addElement(recipes, setRecipe, index);
@@ -77,10 +76,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     setRecipe(copyRecipes);
   }
 
-
     useEffect(()=>{
     addRecipe(0);
-
     },[]);
 
   // ShowNutritionListに試しにpropsを渡す。ローカルストレージにあったものをコピペしたのでアルファベット順に慣れんでいますが、試作という事で今は目を瞑ってください
@@ -151,7 +148,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
             </div>
           </div>
         </div>
-
+          
         <NutritionList nutrition={totalNutriton} />
       </div>
     </div>
