@@ -3,11 +3,11 @@ import { useCallback, useEffect } from "react";
 import { extractNutrition } from "../tools/HelpMethods";
 
 type Props = {
-  nutrition: Nutrition | {};
+  nutrition: Nutrition | undefined;
 };
 export const NutritionList: React.VFC<Props> = (props) => {
   const nutritionItems =
-    props.nutrition != {}
+    props.nutrition != undefined
       ? Object.keys(props.nutrition).map((key: string, index: number) => {
           const extractedNutrition = extractNutrition(key);
           return (

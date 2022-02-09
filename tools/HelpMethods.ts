@@ -227,7 +227,9 @@ export const removeElemnt = <T>(
   useState(copyArray);
 };
 
-export const calSumNutrition = (foodstuffs: Foodstuff[]): Nutrition => {
+export const calSumNutrition = (
+  foodstuffs: Foodstuff[]
+): Nutrition | undefined => {
   let res: Nutrition = {
     calorie: 0,
     carbohydrates: 0,
@@ -263,7 +265,9 @@ export const calSumNutrition = (foodstuffs: Foodstuff[]): Nutrition => {
     folate: 0,
     biotin: 0,
   };
+  if (foodstuffs.length == 0) return;
   foodstuffs.map((foodstuff: Foodstuff) => {
+    if (foodstuff.name == null) return;
     let nutrition = foodstuff.nutrition!;
     res.calorie += nutrition.calorie;
     res.carbohydrates += nutrition.carbohydrates;
@@ -299,9 +303,9 @@ export const calSumNutrition = (foodstuffs: Foodstuff[]): Nutrition => {
     res.folate += nutrition.folate;
     res.biotin += nutrition.biotin;
   });
-  //少数点第３位以上のものは丸める
-  Object.keys(res).map((key: string)=>{
+  //少数第３位以上のものは丸める
+  Object.keys(res).map((key: string) => {
     res[key] = roundNutritionValue(res[key]);
-  })
+  });
   return res;
 };
