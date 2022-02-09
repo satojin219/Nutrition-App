@@ -10,7 +10,11 @@ import { RiMoneyCnyCircleLine } from 'react-icons/ri'
 import { Menu, RecipeType, Foodstuff,Nutrition } from 'globalType'
 import { useRef } from 'react'
 import { useEffect } from 'react'
-import { addElement, removeElemnt,sumNutrition } from '../tools/HelpMethods'
+import {
+  addElement,
+  removeElemnt,
+  calSumNutrition,
+} from "../tools/HelpMethods";
 
 
 type Props = {
@@ -48,7 +52,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
       }
     });
     setFoodstuff(copyFoodstuffs);
-    setTotalNutrition(sumNutrition(copyFoodstuffs))
+    let a = calSumNutrition(copyFoodstuffs);
+    setTotalNutrition(a);
     
   }
   const addRecipe = (index:number) =>{

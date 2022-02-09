@@ -8,8 +8,8 @@ import { FaTrashAlt } from 'react-icons/fa'
 type Props = {
   index: number,
   foodstuff: Foodstuff,
-  removeFoodstuff(index :number) :void,
-  updateFoodstuff(data :Foodstuff):void
+  removeFoodstuff(index: number): void,
+  updateFoodstuff(data: Foodstuff): void
 
 }
 
@@ -115,15 +115,15 @@ export const SuggestFood: React.VFC<Props> = (props) => {
 
     <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
-        <input ref={inputFoodName} onChange={handleOnChangeFood}  className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
+        <input ref={inputFoodName} onChange={handleOnChangeFood} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
 
         <input onBlur={insertFoodData} min={0} type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
         g
-        <button onClick={() => { props.removeFoodstuff(props.index)}} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
+        <button onClick={() => { props.removeFoodstuff(props.index) }} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
           <FaTrashAlt />
         </button>
 
-        <button onClick={()=>{fetchLocalStorage}} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
+        <button onClick={() => { fetchLocalStorage }} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
 
       </div>

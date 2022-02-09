@@ -205,7 +205,7 @@ export const removeElemnt = <T>(state: T[], useState: React.Dispatch<React.SetSt
 }
 
 
-export const sumNutrition = (foodstuffs :Foodstuff[]) :Nutrition=> {
+export const calSumNutrition = (foodstuffs :Foodstuff[]) :Nutrition=> {
   let res :Nutrition={
     calorie : 0,
     carbohydrates: 0, 
