@@ -1,193 +1,212 @@
-import { Foodstuff, Nutrition } from 'globalType'
-import { useState } from 'react'
-import { NutritionList } from '../components/NutritionList'
+import { Foodstuff, Nutrition } from "globalType";
+import { useState } from "react";
+import { NutritionList } from "../components/NutritionList";
 
 type extractNutrtionType = {
-  unit: string,
-  nutritionName: string
-}
+  unit: string;
+  nutritionName: string;
+};
 export const extractNutrition = (nutrition: string): extractNutrtionType => {
-
   switch (nutrition) {
     case "calorie":
       return {
         unit: "kcal",
-        nutritionName: "カロリー"
-      }
+        nutritionName: "カロリー",
+      };
     case "carbohydrates":
       return {
         unit: "g",
-        nutritionName: "炭水化物"
-      }
+        nutritionName: "炭水化物",
+      };
     case "protein":
       return {
         unit: "g",
-        nutritionName: "たんぱく質"
-      }
+        nutritionName: "たんぱく質",
+      };
     case "lipids":
       return {
         unit: "g",
-        nutritionName: "脂質"
-      }
+        nutritionName: "脂質",
+      };
     case "suger":
       return {
         unit: "g",
-        nutritionName: "糖質"
-      }
+        nutritionName: "糖質",
+      };
     case "dietaryFiber":
       return {
         unit: "g",
-        nutritionName: "食物繊維"
-      }
+        nutritionName: "食物繊維",
+      };
     case "salt":
       return {
         unit: "g",
-        nutritionName: "食塩相当量"
-      }
+        nutritionName: "食塩相当量",
+      };
     case "na":
       return {
         unit: "mg",
-        nutritionName: "ナトリウム"
-      }
+        nutritionName: "ナトリウム",
+      };
     case "k":
       return {
         unit: "mg",
-        nutritionName: "カリウム"
-      }
+        nutritionName: "カリウム",
+      };
     case "ca":
       return {
         unit: "mg",
-        nutritionName: "カルシウム"
-      }
+        nutritionName: "カルシウム",
+      };
     case "mg":
       return {
         unit: "mg",
-        nutritionName: "マグネシウム"
-      }
+        nutritionName: "マグネシウム",
+      };
     case "p":
       return {
         unit: "mg",
-        nutritionName: "リン"
-      }
+        nutritionName: "リン",
+      };
     case "fe":
       return {
         unit: "mg",
-        nutritionName: "鉄"
-      }
+        nutritionName: "鉄",
+      };
     case "zn":
       return {
         unit: "mg",
-        nutritionName: "亜鉛"
-      }
+        nutritionName: "亜鉛",
+      };
     case "cu":
       return {
         unit: "mg",
-        nutritionName: "銅"
-      }
+        nutritionName: "銅",
+      };
     case "mn":
       return {
         unit: "mg",
-        nutritionName: "マンガン"
-      }
+        nutritionName: "マンガン",
+      };
     case "i":
       return {
         unit: "㎍",
-        nutritionName: "ヨウ素"
-      }
+        nutritionName: "ヨウ素",
+      };
     case "se":
       return {
         unit: "㎍",
-        nutritionName: "セレン"
-      }
+        nutritionName: "セレン",
+      };
     case "cr":
       return {
         unit: "㎍",
-        nutritionName: "クロム"
-      }
+        nutritionName: "クロム",
+      };
     case "mo":
       return {
         unit: "㎍",
-        nutritionName: "モリブデン"
-      }
+        nutritionName: "モリブデン",
+      };
     case "vitA":
       return {
         unit: "㎍",
-        nutritionName: "ビタミンA"
-      }
+        nutritionName: "ビタミンA",
+      };
     case "vitD":
       return {
         unit: "㎍",
-        nutritionName: "ビタミンD"
-      }
+        nutritionName: "ビタミンD",
+      };
     case "vitE":
       return {
         unit: "mg",
-        nutritionName: "ビタミンE"
-      }
+        nutritionName: "ビタミンE",
+      };
     case "vitK":
       return {
         unit: "㎍",
-        nutritionName: "ビタミンK"
-      }
+        nutritionName: "ビタミンK",
+      };
     case "vitK":
       return {
         unit: "㎍",
-        nutritionName: "ビタミンK"
-      }
+        nutritionName: "ビタミンK",
+      };
     case "vitB1":
       return {
         unit: "mg",
-        nutritionName: "ビタミンB1"
-      }
+        nutritionName: "ビタミンB1",
+      };
     case "vitB2":
       return {
         unit: "mg",
-        nutritionName: "ビタミンB2"
-      }
+        nutritionName: "ビタミンB2",
+      };
     case "vitB6":
       return {
         unit: "mg",
-        nutritionName: "ビタミンB6"
-      }
+        nutritionName: "ビタミンB6",
+      };
     case "vitB12":
       return {
         unit: "㎍",
-        nutritionName: "ビタミンB12"
-      }
+        nutritionName: "ビタミンB12",
+      };
     case "vitC":
       return {
         unit: "mg",
-        nutritionName: "ビタミンC"
-      }
+        nutritionName: "ビタミンC",
+      };
     case "niacin":
       return {
         unit: "mg",
-        nutritionName: "ナイアシン"
-      }
+        nutritionName: "ナイアシン",
+      };
     case "pantothenicAcid":
       return {
         unit: "mg",
-        nutritionName: "パントテン酸"
-      }
+        nutritionName: "パントテン酸",
+      };
     case "folate":
       return {
         unit: "㎍",
-        nutritionName: "葉酸"
-      }
+        nutritionName: "葉酸",
+      };
     case "biotin":
       return {
         unit: "㎍",
-        nutritionName: "ビオチン"
-      }
+        nutritionName: "ビオチン",
+      };
     default:
       return {
         unit: "",
-        nutritionName: ""
-      }
+        nutritionName: "",
+      };
   }
-}
+};
 
-export const addElement = <T>(state: T[], useState: React.Dispatch<React.SetStateAction<T[]>>, index?: number): void => {
+/**
+ *
+ * @JavaScriptでの小数点の計算の誤差をケアする関数
+ *
+ * 計算した数値を文字列に変換した時、少数第３位に値があればそれを丸める関数。（食品成分表の栄養素は少数第２位まで表示するので第3位があるものは誤差が生じている証拠）
+ */
+export const roundNutritionValue = (nutritionValue: number): number => {
+  const strValue = String(nutritionValue);
+
+  if (strValue[strValue.indexOf(".") + 4]) {
+    return Number(strValue.slice(0, strValue.indexOf(".") + 3));
+  }
+
+  return Number(strValue);
+};
+
+export const addElement = <T>(
+  state: T[],
+  useState: React.Dispatch<React.SetStateAction<T[]>>,
+  index?: number
+): void => {
   let copyArray = [...state];
   // indexが引数にない時はfoodstuffs,menuCardsコンポーネントの時、indexが引数にある時はrecipeコンポーネントの時。※途中に要素を追加するため、indexが必要
   if (!index || (index != 0 && index != copyArray.length - 1)) {
@@ -196,19 +215,22 @@ export const addElement = <T>(state: T[], useState: React.Dispatch<React.SetStat
     copyArray.splice(index, 0, { id: Math.random() });
   }
   useState(copyArray);
-}
+};
 
-export const removeElemnt = <T>(state: T[], useState: React.Dispatch<React.SetStateAction<T[]>>, index: number): void => {
+export const removeElemnt = <T>(
+  state: T[],
+  useState: React.Dispatch<React.SetStateAction<T[]>>,
+  index: number
+): void => {
   let copyArray = [...state];
-  copyArray.splice(index,1);
+  copyArray.splice(index, 1);
   useState(copyArray);
-}
+};
 
-
-export const calSumNutrition = (foodstuffs :Foodstuff[]) :Nutrition=> {
-  let res :Nutrition={
-    calorie : 0,
-    carbohydrates: 0, 
+export const calSumNutrition = (foodstuffs: Foodstuff[]): Nutrition => {
+  let res: Nutrition = {
+    calorie: 0,
+    carbohydrates: 0,
     protein: 0,
     lipids: 0,
     suger: 0,
@@ -239,10 +261,10 @@ export const calSumNutrition = (foodstuffs :Foodstuff[]) :Nutrition=> {
     niacin: 0,
     pantothenicAcid: 0,
     folate: 0,
-    biotin:0
-  } ;
-  foodstuffs.map((foodstuff :Foodstuff) =>{
-    let nutrition = foodstuff.nutrition!
+    biotin: 0,
+  };
+  foodstuffs.map((foodstuff: Foodstuff) => {
+    let nutrition = foodstuff.nutrition!;
     res.calorie += nutrition.calorie;
     res.carbohydrates += nutrition.carbohydrates;
     res.protein += nutrition.protein;
@@ -276,8 +298,10 @@ export const calSumNutrition = (foodstuffs :Foodstuff[]) :Nutrition=> {
     res.pantothenicAcid += nutrition.pantothenicAcid;
     res.folate += nutrition.folate;
     res.biotin += nutrition.biotin;
+  });
+  //少数点第３位以上のものは丸める
+  Object.keys(res).map((key: string)=>{
+    res[key] = roundNutritionValue(res[key]);
   })
-  console.log(res);
   return res;
-}
-
+};
