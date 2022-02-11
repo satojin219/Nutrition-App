@@ -78,6 +78,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2 sm:w-2/3 w-full">
             <input
+              ref={recipeName}
               className="text-sm sm:text-xl appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               type="text"
               placeholder="料理名を入力して下さい"
@@ -141,6 +142,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </h4>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
             <textarea
+              ref={tips}
               className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               aria-label="Full name"
             />
@@ -154,6 +156,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               <p>
                 調理時間:{" "}
                 <input
+                  ref={time}
                   min={0}
                   type="number"
                   className="border text-sm  w-10 ml-1 rounded text-right"
@@ -166,6 +169,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               <p>
                 費用:{" "}
                 <input
+                  ref={cost}
                   min={0}
                   type="number"
                   className="border text-sm  w-10 ml-1 rounded text-right"
