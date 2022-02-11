@@ -6,7 +6,7 @@ import {
   BsFillSunFill,
   BsFillMoonFill,
 } from "react-icons/bs";
-import { RiArrowGoBackFill } from "react-icons/ri";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { MdFastfood } from "react-icons/md";
 type Props = {
   meal: string;
@@ -65,7 +65,15 @@ export const Header: React.VFC<Props> = (props) => {
     <div>
       <header className={headerColor}>
         <div className="flex justify-around text-white font-bold py-5">
-          {headerIcon}
+          {!props.isEdit ? (
+            <button>
+              <FaCalendarAlt size={40} />
+            </button>
+          ) : (
+            <button>
+              <IoArrowBackCircleSharp size={40} />
+            </button>
+          )}
           <div className="flex items-center  font-bold text-3xl ">
             {!props.isEdit ? (
               <button className="cursor-pointer mr-2 font-bold">
@@ -80,15 +88,8 @@ export const Header: React.VFC<Props> = (props) => {
               </button>
             ) : null}
           </div>
-          {!props.isEdit ? (
-            <button>
-              <FaCalendarAlt size={40} />
-            </button>
-          ) : (
-            <button>
-              <RiArrowGoBackFill size={40} />
-            </button>
-          )}
+
+          {headerIcon}
         </div>
       </header>
     </div>

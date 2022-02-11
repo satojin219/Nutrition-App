@@ -42,7 +42,9 @@ const EditMenuPage: NextPage = () => {
       </Head>
       <Header meal={"snack"} isEdit={true} />
 
-      {menuCards.map((menuCard: Menu, index: number) => (
+      {
+      menuCards.map((menuCard: Menu, index: number) => (
+        
         <EditMenuCard
           key={menuCard.id}
           index={index}
