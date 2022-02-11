@@ -1,6 +1,6 @@
 import { Nutrition } from "globalType";
 import { useCallback, useEffect, useState } from "react";
-import { extractNutrition } from "../tools/HelpMethods";
+import { extractNutrition } from "../../tools/HelpMethods";
 
 type Props = {
   nutrition: Nutrition | undefined;

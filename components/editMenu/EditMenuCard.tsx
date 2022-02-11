@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { SuggestFood } from "./SuggestFood";
-import { NutritionList } from "./NutritionList";
+import { NutritionList } from "../common/NutritionList";
 import { Recipe } from "./Recipe";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
@@ -14,7 +14,7 @@ import {
   addElement,
   removeElemnt,
   calSumNutrition,
-} from "../tools/HelpMethods";
+} from "../../tools/HelpMethods";
 
 type Props = {
   index: number;

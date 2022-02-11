@@ -1,55 +1,62 @@
-import { foodList } from "../json/foodList"
-import Fuse from "fuse.js"
+import { foodList } from "../../json/foodList";
+import Fuse from "fuse.js";
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
-import { BsFillCalculatorFill, BsFillFileEarmarkTextFill } from "react-icons/bs"
-import { FaTrashAlt } from 'react-icons/fa'
+import {
+  BsFillCalculatorFill,
+  BsFillFileEarmarkTextFill,
+} from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 
 type Props = {
-  index: number,
-  foodstuff: Foodstuff,
-  removeFoodstuff(index: number): void,
-  updateFoodstuff(data: Foodstuff): void
-
-}
+  index: number;
+  foodstuff: Foodstuff;
+  removeFoodstuff(index: number): void;
+  updateFoodstuff(data: Foodstuff): void;
+};
 
 export const SuggestFood: React.VFC<Props> = (props) => {
-
   const foodstuff = props.foodstuff;
 
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
       threshold: 0.1,
-      keys: [
-        "food-name",
-      ]
+      keys: ["food-name"],
     };
     return new Fuse(foodList, options);
   }, []);
 
   const inputFoodName = useRef<HTMLInputElement>(null!);
   const inputFoodWeight = useRef<HTMLInputElement>(null!);
-  let foodName: string = inputFoodName.current ? inputFoodName.current.value : "";
+  let foodName: string = inputFoodName.current
+    ? inputFoodName.current.value
+    : "";
 
-  const [searchCandidates, setSearchCandidates] = useState<fetchedFoodData[]>([])
+  const [searchCandidates, setSearchCandidates] = useState<fetchedFoodData[]>(
+    []
+  );
 
   const handleOnChangeFood = useCallback((): void => {
     setSearchCandidates(fuse.search(inputFoodName.current.value));
-  }, [searchCandidates])
+  }, [searchCandidates]);
 
-  const handleOnChangeSuggest = useCallback((e: React.ChangeEvent<HTMLSelectElement>): void => {
-    inputFoodName.current.value = e.currentTarget.value;
-    setSearchCandidates([]);
-  }, [searchCandidates])
+  const handleOnChangeSuggest = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>): void => {
+      inputFoodName.current.value = e.currentTarget.value;
+      setSearchCandidates([]);
+    },
+    [searchCandidates]
+  );
 
   const identifyFoodData = (): fetchedFoodData | null => {
     const searcedFoodData = fuse.search(foodName);
-    return searcedFoodData.length != 0 ? searcedFoodData.filter(food => food.item["food-name"] == foodName)[0].item : null;
+    return searcedFoodData.length != 0
+      ? searcedFoodData.filter((food) => food.item["food-name"] == foodName)[0]
+          .item
+      : null;
+  };
 
-  }
-
-  const insertFoodData = (): Foodstuff | undefined => {
-
+  const insertFoodData = (): void => {
     const foodData = identifyFoodData();
     if (foodData == null || inputFoodWeight.current.value == "") return;
     else {
@@ -86,64 +93,80 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         niacin: calNutrition(foodData["NIA"], 1),
         pantothenicAcid: calNutrition(foodData["PANTAC"], 2),
         folate: calNutrition(foodData["FOL"], 0),
-        biotin: calNutrition(foodData["BIOT"], 1)
-
-      }
+        biotin: calNutrition(foodData["BIOT"], 1),
+      };
       const food: Foodstuff = {
         id: foodstuff.id,
         name: foodName,
         weight: Number(inputFoodWeight.current.value),
-        nutrition: caledNutrition
-      }
+        nutrition: caledNutrition,
+      };
       props.updateFoodstuff(food);
       localStorage.setItem(food.name, JSON.stringify(food));
-      return JSON.parse(localStorage.getItem(foodName)!)
-
+      // return JSON.parse(localStorage.getItem(foodName)!);
     }
-
-  }
+  };
 
   const calNutrition = (nutrition: string, decimalPoint: number): number => {
-    return Number((Number(nutrition) * (Number(inputFoodWeight.current.value) / 100)).toFixed(decimalPoint));
-  }
+    return Number(
+      (
+        Number(nutrition) *
+        (Number(inputFoodWeight.current.value) / 100)
+      ).toFixed(decimalPoint)
+    );
+  };
 
-  const fetchLocalStorage = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault()
-    const gotLocalStorageFoodData: string = localStorage.getItem(foodName)!;
-  }
   return (
-
     <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
-        <input ref={inputFoodName} onChange={handleOnChangeFood} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="食品名を入力して下さい" aria-label="Full name" />
-
-        <input onBlur={insertFoodData} min={0} type="number" className="border text-sm  w-10 ml-1 rounded text-right" ref={inputFoodWeight} />
+        <input
+          ref={inputFoodName}
+          onChange={handleOnChangeFood}
+          className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          type="text"
+          placeholder="食品名を入力して下さい"
+          aria-label="Full name"
+        />
+        <input
+          onBlur={insertFoodData}
+          min={0}
+          type="number"
+          className="border text-sm  w-10 ml-1 rounded text-right"
+          ref={inputFoodWeight}
+        />
         g
-        <button onClick={() => { props.removeFoodstuff(props.index) }} className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md" type="button" >
+        <button
+          onClick={() => {
+            props.removeFoodstuff(props.index);
+          }}
+          className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md"
+          type="button"
+        >
           <FaTrashAlt />
         </button>
-
-        <button onClick={() => { fetchLocalStorage }} className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">  <BsFillFileEarmarkTextFill /></button>
+        <button className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">
+          {" "}
+          <BsFillFileEarmarkTextFill />
+        </button>
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
-
       </div>
-      {searchCandidates.length
-        ? <select onChange={handleOnChangeSuggest} className=" inline  bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-          <option value="">
-            食品を選択してください
-          </option>
-          {
-            searchCandidates.map((food) =>
-              <option onClick={insertFoodData} key={food.item["food-code"]} value={food.item["food-name"]}>{food.item["food-name"]}</option>
-            )}
+      {searchCandidates.length ? (
+        <select
+          onChange={handleOnChangeSuggest}
+          className=" inline  bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        >
+          <option value="">食品を選択してください</option>
+          {searchCandidates.map((food) => (
+            <option
+              onClick={insertFoodData}
+              key={food.item["food-code"]}
+              value={food.item["food-name"]}
+            >
+              {food.item["food-name"]}
+            </option>
+          ))}
         </select>
-        : (null)
-      }
-
+      ) : null}
     </form>
-
-
-
-  )
-
+  );
 };

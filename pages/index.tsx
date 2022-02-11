@@ -2,10 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { Header } from "../components/Header";
-import { DailylIntakeNutrition } from "../components/DailylIntakeNutrition";
-import { DishCard } from "../components/DishCard";
-import { SuggestFood } from "../components/SuggestFood";
+import { Header } from "../components/common/Header";
+import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
+import { DishCard } from "../components/index/DishCard";
+import { SuggestFood } from "../components/editMenu/SuggestFood";
 
 const Home: NextPage = () => {
   return (

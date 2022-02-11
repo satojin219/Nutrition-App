@@ -1,6 +1,6 @@
 import { Foodstuff, Nutrition } from "globalType";
 import { useState } from "react";
-import { NutritionList } from "../components/NutritionList";
+import { NutritionList } from "../components/common/NutritionList";
 
 type extractNutrtionType = {
   unit: string;
@@ -204,7 +204,7 @@ export const roundNutritionValue = (nutritionValue: number): number => {
 
 export const addElement = <T>(
   state: T[],
-  useState: React.Dispatch<React.SetStateAction<T[]>>,
+  setState: React.Dispatch<React.SetStateAction<T[]>>,
   index?: number
 ): void => {
   let copyArray = [...state];
@@ -214,7 +214,7 @@ export const addElement = <T>(
   } else {
     copyArray.splice(index, 0, { id: Math.random() });
   }
-  useState(copyArray);
+  setState(copyArray);
 };
 
 export const removeElemnt = <T>(

@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Header } from "../components/Header";
-import { EditMenuCard } from "../components/EditMenuCard";
-import { SuggestFood } from "../components/SuggestFood";
+import { Header } from "../components/common/Header";
+import { EditMenuCard } from "../components/editMenu/EditMenuCard";
+import { SuggestFood } from "../components/editMenu/SuggestFood";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { RiMoneyCnyCircleLine } from "react-icons/ri";
@@ -11,21 +11,19 @@ import { Menu } from "globalType";
 import { addElement, removeElemnt } from "../tools/HelpMethods";
 
 const EditMenuPage: NextPage = () => {
-  const [menuCards, setMenuCard] = useState<Menu[]>([]);
+  const [menuCards, setMenuCards] = useState<Menu[]>([]);
   let copyMenuCards = [...menuCards];
 
   useEffect(() => {
     // console.log(menuCards)
   });
   const addMenuCard = () => {
-    addElement(menuCards, setMenuCard);
-    // copyMenuCards.push({id:copyMenuCards.length+1});
-    // setMenuCard(copyMenuCards);
+    addElement(menuCards, setMenuCards);
+
   };
   const removeMenuCard = (index: number) => {
-    removeElemnt(menuCards, setMenuCard, index);
-    // copyMenuCards.splice(index, 1)
-    // setMenuCard(copyMenuCards);
+    removeElemnt(menuCards, setMenuCards, index);
+
   };
 
   return (

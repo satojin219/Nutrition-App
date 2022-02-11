@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsFillBrightnessAltHighFill, BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 import { MdFastfood } from 'react-icons/md'
-import { NutritionList } from './NutritionList';
+import { NutritionList } from '../common/NutritionList';
 import { Nutrition } from 'globalType';
 
 
