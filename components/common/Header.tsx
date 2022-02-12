@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { UserData } from "globalType";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import {
@@ -14,52 +14,60 @@ type Props = {
 };
 
 export const Header: React.VFC<Props> = (props) => {
-  let headerColor!: string;
-  let headerIcon!: JSX.Element | null;
-  (function(){
-    if (props.meal == "breakfast") {
-      headerColor = "bg-red-500";
-      headerIcon = (
-        <div className="text-3xl flex">
-          <BsFillBrightnessAltHighFill size={40} className="mr-2" />
-          <p>朝食</p>
-        </div>
-      );
-      return;
-    } else if (props.meal == "lunch") {
-      headerColor = "bg-yellow-400";
-      headerIcon = (
-        <div className="text-3xl flex">
-          <BsFillSunFill size={40} className="mr-2" />
-          <p>昼食</p>
-        </div>
-      );
-      return;
-    } else if (props.meal == "dinner") {
-      headerColor = "bg-purple-500";
-      headerIcon =  (
-        <div className="text-3xl flex">
-          <BsFillMoonFill size={40} className="mr-2" />
-          <p>夕食</p>
-        </div>
-      );
-      return;
-    } else if (props.meal == "snack") {
-      headerColor = "bg-sky-400";
-      headerIcon = (
-        <div className="text-3xl flex">
-          <MdFastfood size={40} className="mr-2" />
-          <p>間食</p>
-        </div>
-      );
-      return;
-    } else {
-      headerColor = "bg-orange-500";
-      headerIcon = <div></div>;
-      return; 
+  const { headerIcon, headerColor } = useMemo(() => {
+    switch (props.meal) {
+      case "breakfast": {
+        return {
+          headerColor: "bg-red-500",
+          headerIcon: (
+            <div className="text-3xl flex">
+              <BsFillBrightnessAltHighFill size={40} className="mr-2" />
+              <p>朝食</p>
+            </div>
+          ),
+        };
+      }
+      case "lunch": {
+        return {
+          headerColor: "bg-yellow-400",
+          headerIcon: (
+            <div className="text-3xl flex">
+              <BsFillSunFill size={40} className="mr-2" />
+              <p>昼食</p>
+            </div>
+          ),
+        };
+      }
+      case "dinner": {
+        return {
+          headerColor: "bg-purple-500",
+          headerIcon: (
+            <div className="text-3xl flex">
+              <BsFillMoonFill size={40} className="mr-2" />
+              <p>夕食</p>
+            </div>
+          ),
+        };
+      }
+      case "snack": {
+        return {
+          headerColor: "bg-sky-400",
+          headerIcon: (
+            <div className="text-3xl flex">
+              <MdFastfood size={40} className="mr-2" />
+              <p>間食</p>
+            </div>
+          ),
+        };
+      }
+      default: {
+        return {
+          headerColor: "bg-orange-500",
+          headerIcon: <div></div>,
+        };
+      }
     }
-  }());
-
+  }, [props.meal]);
 
   return (
     <div>
@@ -88,7 +96,6 @@ export const Header: React.VFC<Props> = (props) => {
               </button>
             ) : null}
           </div>
-
           {headerIcon}
         </div>
       </header>
