@@ -1,6 +1,7 @@
 import { Foodstuff, Nutrition } from "globalType";
 import { useState } from "react";
 import { NutritionList } from "../components/common/NutritionList";
+import { UserData, Date } from "globalType";
 
 type extractNutrtionType = {
   unit: string;
@@ -309,3 +310,23 @@ export const calSumNutrition = (
   });
   return res;
 };
+/**
+ * @fetchUsrData
+ * ローカルストレージまたは、Firebaseに保存してあるユーザーのデータを持ってくる。
+ */
+export const fetchUserData: UserData = () => {};
+
+export const getTodayData = (): Date => {
+  const date = new Date();
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    dayOfWeek: date.getDay(),
+  };
+};
+/**
+ * @isEditedDate
+ * 今日の日付が既に編集済みの日付かをUserDataのeditedDayDatesの中から判定する。
+ */
+export const isEditedDate = (date :Date): boolean => {};

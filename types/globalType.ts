@@ -11,20 +11,19 @@ export type UserData = {
   activeLevel: number;
   editedDayDates: dayData[];
   selectedDayDate: dayData;
- 
 };
 
 export type dayData = {
-  selectedDay :Date
-  menus: Menu[];
-  totalIntake: Nutrition;
+  selectedDay: Date;
+  menus?: Menu[];
+  totalIntake?: Nutrition;
 };
 
 export type Date = {
   year: number;
   month: number;
-  date: number;
   day: number;
+  dayOfWeek: number;
 };
 
 export type Menu = {

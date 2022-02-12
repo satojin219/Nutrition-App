@@ -6,8 +6,12 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
-
+import { UserData,dayData } from "globalType";
+import { useSelectDay } from "../hooks/useSelectDay"
 const Home: NextPage = () => {
+  
+  const [selectedDayData, { setSelectedDayData, changeDay }] = useSelectDay();
+ 
   return (
     <div className="font-fancy">
       <Head>
@@ -20,9 +24,9 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <Header meal={""} isEdit={false} />
-      <DailylIntakeNutrition />
-      <DishCard />
+      <Header meal={""} isEdit={false} date={selectedDayData.selectedDay} />
+      <DailylIntakeNutrition totalIntake={selectedDayData.totalIntake}/>
+      <DishCard  menus={selectedDayData.menus} />
     </div>
   );
 };
