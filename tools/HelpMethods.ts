@@ -1,4 +1,9 @@
-import { Foodstuff, Nutrition, UserData, Date, DateType } from "../types/globalType";
+import {
+  Foodstuff,
+  Nutrition,
+  UserData,
+  DateType,
+} from "../types/globalType";
 import { useState } from "react";
 import { NutritionList } from "../components/common/NutritionList";
 import { MdNorthWest } from "react-icons/md";

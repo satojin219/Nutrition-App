@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
+import { DayContext } from "./_app";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -6,13 +8,21 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
-import { UserData,dayData } from "globalType";
-import { useSelectDay } from "../hooks/useSelectDay"
+import { UserData, dayData, Meal } from "globalType";
+import { useSelectDay } from "../hooks/useSelectDay";
+
 const Home: NextPage = () => {
-  
-  const [selectedDayData, { setSelectedDayData, changeDay }] = useSelectDay();
-  console.log(selectedDayData);
- 
+  const selectedDayData: dayData = useContext(DayContext);
+  const meals = useMemo(() => {
+    selectedDayData.meals = [
+      { whenMeal: "breakfast" },
+      { whenMeal: "lunch" },
+      { whenMeal: "dinner" },
+      { whenMeal: "snack" },
+    ];
+    return selectedDayData.meals;
+  }, []);
+
   return (
     <div className="font-fancy">
       <Head>
@@ -25,15 +35,13 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <Header
-        meal={""}
-        isEdit={false}
-        date={selectedDayData.selectedDay}
-        changeDay={changeDay}
-        setSelectedDayData
-    ={setSelectedDayData}  />
+      <Header meal={""} isEdit={false} date={selectedDayData.selectedDay} />
       <DailylIntakeNutrition totalIntake={selectedDayData.totalIntake} />
-      <DishCard meals={selectedDayData.meals} />
+      <div className="lg:flex flex-wrap">
+        {meals.map((meal: Meal, index: number) => (
+          <DishCard meal={meal} key={index} />
+        ))}
+      </div>
     </div>
   );
 };
