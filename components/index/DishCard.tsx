@@ -1,11 +1,10 @@
 import React from 'react';
-import { Menus } from 'globalType';
 import { BsFillBrightnessAltHighFill, BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 import { MdFastfood } from 'react-icons/md'
-import { NutritionList } from './NutritionList';
+import { NutritionList } from '../common/NutritionList';
 import { Nutrition } from 'globalType';
 
-export const DishCard: React.VFC = (props) => {
+
 
   // ShowNutritionListに試しにpropsを渡す。ローカルストレージにあったものをコピペしたのでアルファベット順に慣れんでいますが、試作という事で今は目を瞑ってください
   const protNutritionList: Nutrition = {
@@ -45,6 +44,8 @@ export const DishCard: React.VFC = (props) => {
 
   }
 
+
+export const DishCard: React.VFC = (props) => {
   return (
     <div className="lg:flex flex-wrap">
       <div className="basis-1/2">
@@ -82,10 +83,9 @@ export const DishCard: React.VFC = (props) => {
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10">
             <div className=" md:flex flex-row justify-around">
-              <div className="basisi-1/2 md:basis-1/3 flex justify-center items-center bg-gray-400 text-white  h-48">
-                <div className=""></div>
-                <img src="" alt="" />
-                <div className="text-xl">No Image</div>
+
+              <div className="basis-1/3 md:basis-1/3 flex justify-center items-center bg-gray-400 text-white  h-48 text-xl">
+                <img src="" alt="No Image" />
               </div>
 
               <ul className="basisi-1/2 md:text-xl list-disc p-3">
@@ -138,7 +138,7 @@ export const DishCard: React.VFC = (props) => {
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
 
             <div className="flex justify-center">
-              <div className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
+              <div className="bg-orange-500 text-white text-center p-2 rounded-full">
                 <div>+ 献立を追加する</div>
               </div>
             </div>
