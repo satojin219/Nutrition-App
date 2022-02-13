@@ -2,9 +2,11 @@ import React from 'react';
 import { BsFillBrightnessAltHighFill, BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 import { MdFastfood } from 'react-icons/md'
 import { NutritionList } from '../common/NutritionList';
-import { Nutrition } from 'globalType';
+import { Meal, Menu, Nutrition } from 'globalType';
 
-
+  type Props ={
+    meals :Meal[]
+  }
 
   // ShowNutritionListに試しにpropsを渡す。ローカルストレージにあったものをコピペしたのでアルファベット順に慣れんでいますが、試作という事で今は目を瞑ってください
   const protNutritionList: Nutrition = {
@@ -45,7 +47,7 @@ import { Nutrition } from 'globalType';
   }
 
 
-export const DishCard: React.VFC = (props) => {
+export const DishCard: React.VFC<Props> = (props) => {
   return (
     <div className="lg:flex flex-wrap">
       <div className="basis-1/2">

@@ -11,6 +11,7 @@ import { useSelectDay } from "../hooks/useSelectDay"
 const Home: NextPage = () => {
   
   const [selectedDayData, { setSelectedDayData, changeDay }] = useSelectDay();
+  console.log(selectedDayData);
  
   return (
     <div className="font-fancy">
@@ -24,9 +25,15 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <Header meal={""} isEdit={false} date={selectedDayData.selectedDay} />
-      <DailylIntakeNutrition totalIntake={selectedDayData.totalIntake}/>
-      <DishCard  menus={selectedDayData.menus} />
+      <Header
+        meal={""}
+        isEdit={false}
+        date={selectedDayData.selectedDay}
+        changeDay={changeDay}
+        setSelectedDayData
+    ={setSelectedDayData}  />
+      <DailylIntakeNutrition totalIntake={selectedDayData.totalIntake} />
+      <DishCard meals={selectedDayData.meals} />
     </div>
   );
 };

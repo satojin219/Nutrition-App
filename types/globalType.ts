@@ -14,16 +14,23 @@ export type UserData = {
 };
 
 export type dayData = {
-  selectedDay: Date;
-  menus?: Menu[];
+  selectedDay: DateType;
+  meals?: Meal[];
   totalIntake?: Nutrition;
 };
 
-export type Date = {
+export type DateType = {
   year: number;
   month: number;
   day: number;
   dayOfWeek: number;
+};
+
+export type Meal = {
+  whenMeal: string;
+  menus?: Menu[];
+  mealTotalNutrition? :Nutrition;
+  imgUrls? :string[]
 };
 
 export type Menu = {
