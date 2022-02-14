@@ -7,11 +7,10 @@ import { MdFastfood } from "react-icons/md";
 
 export const divideIconAndColor = (
   whenMeal: string
-): { headerIcon: JSX.Element; headerColor: string } => {
+): { headerIcon: JSX.Element } => {
   switch (whenMeal) {
     case "breakfast": {
       return {
-        headerColor: "bg-red-500",
         headerIcon: (
           <div className="text-3xl flex">
             <BsFillBrightnessAltHighFill size={40} className="mr-2" />
@@ -22,7 +21,6 @@ export const divideIconAndColor = (
     }
     case "lunch": {
       return {
-        headerColor: "bg-yellow-400",
         headerIcon: (
           <div className="text-3xl flex">
             <BsFillSunFill size={40} className="mr-2" />
@@ -33,7 +31,6 @@ export const divideIconAndColor = (
     }
     case "dinner": {
       return {
-        headerColor: "bg-purple-500",
         headerIcon: (
           <div className="text-3xl flex">
             <BsFillMoonFill size={40} className="mr-2" />
@@ -44,7 +41,6 @@ export const divideIconAndColor = (
     }
     case "snack": {
       return {
-        headerColor: "bg-sky-400",
         headerIcon: (
           <div className="text-3xl flex">
             <MdFastfood size={40} className="mr-2" />
@@ -55,7 +51,6 @@ export const divideIconAndColor = (
     }
     default: {
       return {
-        headerColor: "bg-orange-500",
         headerIcon: <div></div>,
       };
     }

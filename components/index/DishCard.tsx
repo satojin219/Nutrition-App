@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useMemo } from "react";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
@@ -9,18 +10,16 @@ type Props = {
 };
 
 export const DishCard: React.VFC<Props> = (props) => {
-  const { headerIcon, headerColor } = useMemo(() => {
+  const  {headerIcon} = useMemo(() => {
     return divideIconAndColor(props.meal.whenMeal);
   }, [props.meal.whenMeal]);
+
+
   return (
     <div className="basis-1/2">
       <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
         <div className="md:w-1/4 w-1/2">
-          <div
-            className={`${headerColor} rounded-t-lg text-white text-center p-5 text-3xl flex justify-center`}
-          >
-            {headerIcon}
-          </div>
+          <div className={`${props.meal.whenMeal} rounded-t-lg text-white text-center p-5 text-3xl flex justify-center`}>{headerIcon}</div>
         </div>
         <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
           {props.meal.menus == [] ? (
@@ -44,9 +43,11 @@ export const DishCard: React.VFC<Props> = (props) => {
             </div>
           ) : (
             <div className="flex justify-center">
-              <div className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
-                <div>+ 献立を追加する</div>
-              </div>
+              <Link href="/EditMenuPage">
+                <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
+                  + 献立を追加する
+                </a>
+              </Link>
             </div>
           )}
         </div>

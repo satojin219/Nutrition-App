@@ -12,13 +12,13 @@ type Props = {
 
 export const Header: React.VFC<Props> = (props) => {
 
-  const { headerIcon, headerColor } = useMemo(() => {
+  const { headerIcon } = useMemo(() => {
     return divideIconAndColor(props.meal);
   }, [props.meal]);
 
   return (
     <div>
-      <header className={headerColor}>
+      <header className="lunch">
         <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
             <button>
