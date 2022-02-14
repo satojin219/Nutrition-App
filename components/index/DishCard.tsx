@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
@@ -14,7 +15,7 @@ export const DishCard: React.VFC<Props> = (props) => {
     return divideIconAndColor(props.meal.whenMeal);
   }, [props.meal.whenMeal]);
 
-
+  const router = useRouter();
   return (
     <div className="basis-1/2">
       <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
@@ -43,7 +44,7 @@ export const DishCard: React.VFC<Props> = (props) => {
             </div>
           ) : (
             <div className="flex justify-center">
-              <Link href="/EditMenuPage">
+              <Link href={`/${props.meal.whenMeal}`}>
                 <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
                   + 献立を追加する
                 </a>

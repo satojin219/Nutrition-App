@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { UserData } from "globalType";
 import { divideIconAndColor } from "../../tools/HelpComponents"
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 import { IoArrowBackCircleSharp } from "react-icons/io5";
+import { route } from "next/dist/server/router";
 type Props = {
   meal: string;
   isEdit: boolean;
@@ -11,23 +14,25 @@ type Props = {
 
 
 export const Header: React.VFC<Props> = (props) => {
-
+  const router = useRouter();
   const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(props.meal);
-  }, [props.meal]);
+    return divideIconAndColor(router.query.whenMeal);
+  }, [router.query.whenMeal]);
 
   return (
     <div>
-      <header className="lunch">
+      <header className={router.query.whenMeal != undefined ? router.query.whenMeal : "defaultHeaderColor"}>
         <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
             <button>
               <FaCalendarAlt size={40} />
             </button>
           ) : (
-            <button>
+            <Link href="/">
+            <a>
               <IoArrowBackCircleSharp size={40} />
-            </button>
+            </a>
+            </Link>
           )}
           <div className="flex items-center  font-bold text-3xl ">
             {!props.isEdit ? (
