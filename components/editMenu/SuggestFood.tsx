@@ -159,7 +159,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           {searchCandidates.map((food) => (
             <option
               onClick={insertFoodData}
-              key={food.item["food-code"]}
+              key={food.item.foodCode}
               value={food.item.foodName}
             >
               {food.item.foodName}

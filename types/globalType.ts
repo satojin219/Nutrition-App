@@ -11,11 +11,10 @@ export type UserData = {
   activeLevel: number;
   editedDayDates: dayData[];
   selectedDayDate: dayData;
- 
 };
 
 export type dayData = {
-  selectedDay :Date
+  selectedDay: Date;
   menus: Menu[];
   totalIntake: Nutrition;
 };
@@ -88,7 +87,7 @@ export type Nutrition = {
 
 export type fetchedFoodData = {
   field1: string;
-  "food-code": string;
+  foodCode: string;
   field3: string;
   id: string;
   "food-name": string;
