@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
+import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 export const FoodImage: React.VFC = () => {
   const [preview, setPreview] = useState("");
-  const handleChangeFile = (e :React.MouseEvent<HTMLInputElement>) => {
+  const handleChangeFile = (e: React.MouseEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
     setPreview(window.URL.createObjectURL(files![0]));
   };
@@ -22,8 +22,8 @@ export const FoodImage: React.VFC = () => {
       </div>
 
       <div className="relative">
-        <label className="cursor-pointer text-center bg-zinc-600 text-white p-2 rounded-full  shadow-md w-11 font-bold m-3 mb-3 absolute  bottom-0 right-0">
-          +
+        <label className="cursor-pointer text-center bg-zinc-600 text-white p-2 rounded-full  shadow-md w-13 font-bold mr-4 mb-3 absolute  bottom-0 right-0 text-4xl">
+          {preview != "" ? <MdFlipCameraIos /> : <MdAddAPhoto />}
           <input
             type="file"
             name="photo"

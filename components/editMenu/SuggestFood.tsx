@@ -160,9 +160,9 @@ export const SuggestFood: React.VFC<Props> = (props) => {
             <option
               onClick={insertFoodData}
               key={food.item["food-code"]}
-              value={food.item["food-name"]}
+              value={food.item.foodName}
             >
-              {food.item["food-name"]}
+              {food.item.foodName}
             </option>
           ))}
         </select>
