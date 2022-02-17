@@ -26,6 +26,7 @@ export const FoodImage: React.VFC = () => {
             name="photo"
             onChange={handleChangeFile}
             className="hidden"
+            accept=".jpg, .jpeg, .png, .gif"
           />
         </label>
       </div>
