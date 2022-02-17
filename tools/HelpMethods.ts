@@ -201,8 +201,10 @@ export const roundNutritionValue = (nutritionValue: number): number => {
 
   return Number(strValue);
 };
-
-export const addElement = <T>(
+type haveId={
+  id :number
+}
+export const addElement = <T extends haveId>(
   state: T[],
   setState: React.Dispatch<React.SetStateAction<T[]>>,
   index?: number
@@ -304,7 +306,7 @@ export const calSumNutrition = (
     res.biotin += nutrition.biotin;
   });
   //少数第３位以上のものは丸める
-  Object.keys(res).map((key: string) => {
+  (Object.keys(res) as (keyof Nutrition)[]).map((key: keyof Nutrition) => {
     res[key] = roundNutritionValue(res[key]);
   });
   return res;
