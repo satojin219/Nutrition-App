@@ -45,7 +45,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
       inputFoodName.current.value = e.currentTarget.value;
       setSearchCandidates([]);
     },
-    [searchCandidates]
+    []
   );
 
   const identifyFoodData = (): fetchedFoodData | null => {

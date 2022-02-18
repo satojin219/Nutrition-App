@@ -30,7 +30,7 @@ export const Recipe: React.VFC<Props> = (props) => {
         }
       </div>
       <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
-        <textarea ref={inputRecipe} onBlur={() => { props.writeRecipe(props.index, inputRecipe!.current!.value) }} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3   py-1 px-2 leading-tight focus:outline-none" aria-label="Full name" rows={4} />
+        <textarea ref={inputRecipe} onBlur={() => { props.writeRecipe(props.index, inputRecipe?.current?.value ?? "") }} className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3   py-1 px-2 leading-tight focus:outline-none" aria-label="Full name" rows={4} />
        </div>
     </div>
   )
