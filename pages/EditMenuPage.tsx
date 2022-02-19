@@ -19,11 +19,9 @@ const EditMenuPage: NextPage = () => {
   });
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
-
   };
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
-
   };
 
   return (
@@ -40,9 +38,7 @@ const EditMenuPage: NextPage = () => {
       </Head>
       <Header meal={"snack"} isEdit={true} />
 
-      {
-      menuCards.map((menuCard: Menu, index: number) => (
-        
+      {menuCards.map((menuCard: Menu, index: number) => (
         <EditMenuCard
           key={menuCard.id}
           index={index}

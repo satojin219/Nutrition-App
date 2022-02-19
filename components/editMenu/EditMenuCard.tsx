@@ -15,7 +15,7 @@ import {
   removeElemnt,
   calSumNutrition,
 } from "../../tools/HelpMethods";
-import { FoodImage } from "./FoodImage"
+import { FoodImage } from "./FoodImage";
 type Props = {
   index: number;
   menu: Menu;
@@ -88,7 +88,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
         </div>
 
         <div className=" xl:flex flex-row justify-around">
-            <FoodImage />
+          <FoodImage />
           <div className="basis-2/3  my-0 mx-3 mt-5 xl:mt-0">
             <div className="flex justify-between mb-2">
               <h2 className="text-left text-2xl">
