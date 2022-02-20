@@ -90,7 +90,7 @@ export type fetchedFoodData = {
   foodCode: string;
   field3: string;
   id: string;
-  "food-name": string;
+  foodName: string;
   REFUSE: string;
   ENERC: string;
   ENERC_KCAL: string;
