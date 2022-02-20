@@ -13,7 +13,7 @@ export const Recipe: React.VFC<Props> = (props) => {
   return (
     <div className="my-3">
       <div className="flex  group">
-        <div className="                     duration-500 group-hover:mr-2 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7">
+        <div className="duration-500 group-hover:mr-2 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7">
           <p className="text-center">{props.index + 1}</p>
         </div>
         <button
