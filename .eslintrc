@@ -1,6 +1,6 @@
 {
   "extends": ["next", "next/core-web-vitals", "prettier"],
   "rules": {
-    "no-console": "warn"
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

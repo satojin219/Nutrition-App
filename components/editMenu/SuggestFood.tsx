@@ -2,10 +2,7 @@ import { foodList } from "../../json/foodList";
 import Fuse from "fuse.js";
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
-import {
-  BsFillCalculatorFill,
-  BsFillFileEarmarkTextFill,
-} from "react-icons/bs";
+import { BsFillFileEarmarkTextFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 
 type Props = {
@@ -32,9 +29,9 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     ? inputFoodName.current.value
     : "";
 
-  const [searchCandidates, setSearchCandidates] = useState< Fuse.FuseResult<fetchedFoodData>[]>(
-    []
-  );
+  const [searchCandidates, setSearchCandidates] = useState<
+    Fuse.FuseResult<fetchedFoodData>[]
+  >([]);
 
   const handleOnChangeFood = useCallback((): void => {
     setSearchCandidates(fuse.search(inputFoodName.current.value));
@@ -131,7 +128,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           onBlur={insertFoodData}
           min={0}
           type="number"
-          className="border text-sm  w-10 ml-1 rounded text-right"
+          className="border text-sm w-10 ml-1 rounded text-right"
           ref={inputFoodWeight}
         />
         g
@@ -144,7 +141,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         >
           <FaTrashAlt />
         </button>
-        <button className="flex-shrink-0  hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">
+        <button className="flex-shrink-0 hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">
           {" "}
           <BsFillFileEarmarkTextFill />
         </button>
@@ -153,16 +150,16 @@ export const SuggestFood: React.VFC<Props> = (props) => {
       {searchCandidates.length ? (
         <select
           onChange={handleOnChangeSuggest}
-          className=" inline  bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+          className="inline bg-white border border-gray-400 hover:border-gray-500 w-full mt-1 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
         >
           <option value="">食品を選択してください</option>
           {searchCandidates.map((food) => (
             <option
               onClick={insertFoodData}
-              key={food.item["food-code"]}
-              value={food.item["food-name"]}
+              key={food.item.foodCode}
+              value={food.item.foodName}
             >
-              {food.item["food-name"]}
+              {food.item.foodName}
             </option>
           ))}
         </select>

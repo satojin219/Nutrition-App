@@ -201,9 +201,9 @@ export const roundNutritionValue = (nutritionValue: number): number => {
 
   return Number(strValue);
 };
-type haveId={
-  id :number
-}
+type haveId = {
+  id: number;
+};
 export const addElement = <T extends haveId>(
   state: T[],
   setState: React.Dispatch<React.SetStateAction<T[]>>,
@@ -211,7 +211,11 @@ export const addElement = <T extends haveId>(
 ): void => {
   let copyArray = [...state];
   // indexが引数にない時はfoodstuffs,menuCardsコンポーネントの時、indexが引数にある時はrecipeコンポーネントの時。※途中に要素を追加するため、indexが必要
-  if (!index || !(index == 0 && copyArray.length > 1) && (index == 0 || index == copyArray.length -1)) {
+  if (
+    !index ||
+    (!(index == 0 && copyArray.length > 1) &&
+      (index == 0 || index == copyArray.length - 1))
+  ) {
     copyArray.push({ id: Math.random() } as T);
   } else {
     copyArray.splice(index! + 1, 0, { id: Math.random() } as T);

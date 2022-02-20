@@ -5,21 +5,23 @@ import { extractNutrition } from "../../tools/HelpMethods";
 type Props = {
   nutrition?: Nutrition;
 };
-export const NutritionList: React.VFC<Props> = ({nutrition}) => {
+export const NutritionList: React.VFC<Props> = ({ nutrition }) => {
   let [isAllShow, setIsAllShow] = useState<boolean>(false);
   const nutritionItems =
     nutrition != undefined
-      ? (Object.keys(nutrition) as (keyof Nutrition)[]).map((key: keyof Nutrition, index: number) => {
-          const extractedNutrition = extractNutrition(key);
-          return (
-            <div className="basis-1/2" key={index}>
-              {extractedNutrition.nutritionName +
-                ":" +
-                nutrition[key] +
-                extractedNutrition.unit}
-            </div>
-          );
-        })
+      ? (Object.keys(nutrition) as (keyof Nutrition)[]).map(
+          (key: keyof Nutrition, index: number) => {
+            const extractedNutrition = extractNutrition(key);
+            return (
+              <div className="basis-1/2" key={index}>
+                {extractedNutrition.nutritionName +
+                  ":" +
+                  nutrition[key] +
+                  extractedNutrition.unit}
+              </div>
+            );
+          }
+        )
       : null;
 
   const toggleDisableNutrtion = () => {
@@ -29,7 +31,7 @@ export const NutritionList: React.VFC<Props> = ({nutrition}) => {
         "disable md:h-24 h-48 text-clip overflow-hidden md:flex flex-row flex-wrap";
       setIsAllShow(false);
     } else {
-      target[0].className = "disable  md:flex flex-row flex-wrap";
+      target[0].className = "disable md:flex flex-row flex-wrap";
       setIsAllShow(true);
     }
   };
@@ -41,7 +43,7 @@ export const NutritionList: React.VFC<Props> = ({nutrition}) => {
           <div className="disable md:h-24 h-48 text-clip overflow-hidden md:flex flex-row flex-wrap">
             {nutritionItems}
           </div>
-          <div className=" mt-5 flex justify-end">
+          <div className="mt-5 flex justify-end">
             <button
               onClick={toggleDisableNutrtion}
               className="text-md font-bold"
