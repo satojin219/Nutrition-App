@@ -29,20 +29,20 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     ? inputFoodName.current.value
     : "";
 
-  const [searchCandidates, setSearchCandidates] = useState<fetchedFoodData[]>(
-    []
-  );
+  const [searchCandidates, setSearchCandidates] = useState<
+    Fuse.FuseResult<fetchedFoodData>[]
+  >([]);
 
   const handleOnChangeFood = useCallback((): void => {
     setSearchCandidates(fuse.search(inputFoodName.current.value));
-  }, [searchCandidates]);
+  }, [fuse]);
 
   const handleOnChangeSuggest = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>): void => {
       inputFoodName.current.value = e.currentTarget.value;
       setSearchCandidates([]);
     },
-    [searchCandidates]
+    []
   );
 
   const identifyFoodData = (): fetchedFoodData | null => {
@@ -99,7 +99,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         nutrition: caledNutrition,
       };
       props.updateFoodstuff(food);
-      localStorage.setItem(food.name, JSON.stringify(food));
+      // localStorage.setItem(food.name, JSON.stringify(food));
       // return JSON.parse(localStorage.getItem(foodName)!);
     }
   };

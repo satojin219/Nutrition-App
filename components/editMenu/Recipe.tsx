@@ -41,9 +41,9 @@ export const Recipe: React.VFC<Props> = (props) => {
         <textarea
           ref={inputRecipe}
           onBlur={() => {
-            props.writeRecipe(props.index, inputRecipe.current.value);
+            props.writeRecipe(props.index, inputRecipe?.current?.value ?? "");
           }}
-          className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3   py-1 px-2 leading-tight focus:outline-none"
           aria-label="Full name"
           rows={4}
         />
