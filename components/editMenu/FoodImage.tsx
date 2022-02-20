@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 export const FoodImage: React.VFC = () => {
   const [preview, setPreview] = useState("");
-  const handleChangeFile = (e: React.MouseEvent<HTMLInputElement>) => {
+  const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
     setPreview(window.URL.createObjectURL(files![0]));
   };
   return (
     <div className="basis-1/3 md:basis-1/3 text-xl bg-gray-400 text-white ">
-      <div className=" flex justify-center items-center ">
+      <div className="flex justify-center items-center">
         {preview != "" ? (
-          <img src={preview} className="object-fill w-full h-full" />
+          <img
+            src={preview}
+            className="object-fill w-full h-full"
+            alt="preview"
+          />
         ) : (
           <div className="flex justify-center items-center h-48">
             <img src="" alt="No image" />

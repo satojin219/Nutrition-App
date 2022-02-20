@@ -41,7 +41,7 @@ export const NutritionList: React.VFC<Props> = (props) => {
           <div className="disable md:h-24 h-48 text-clip overflow-hidden md:flex flex-row flex-wrap">
             {nutritionItems}
           </div>
-          <div className=" mt-5 flex justify-end">
+          <div className="mt-5 flex justify-end">
             <button
               onClick={toggleDisableNutrtion}
               className="text-md font-bold"

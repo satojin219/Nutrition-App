@@ -49,7 +49,7 @@ export const DishCard: React.VFC = (props) => {
   return (
     <div className="lg:flex flex-wrap">
       <div className="basis-1/2">
-        <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
+        <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-red-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
               <BsFillBrightnessAltHighFill size={40} className="mr-2" />
@@ -57,7 +57,7 @@ export const DishCard: React.VFC = (props) => {
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
-            <div className=" md:flex flex-row justify-around">
+            <div className="md:flex flex-row justify-around">
               <div className="basisi-1/2 md:basis-1/3 p-3">
                 <img src="/sp_detail_main_PS_KCF_1585M.jpg" alt="" />
               </div>
@@ -81,7 +81,7 @@ export const DishCard: React.VFC = (props) => {
         </div>
       </div>
       <div className="basis-1/2">
-        <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
+        <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-yellow-400 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
               <BsFillSunFill size={40} className="mr-2" />
@@ -89,7 +89,7 @@ export const DishCard: React.VFC = (props) => {
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10">
-            <div className=" md:flex flex-row justify-around">
+            <div className="md:flex flex-row justify-around">
               <div className="basis-1/3 md:basis-1/3 flex justify-center items-center bg-gray-400 text-white  h-48 text-xl">
                 <img src="" alt="No Image" />
               </div>
@@ -109,7 +109,7 @@ export const DishCard: React.VFC = (props) => {
       </div>
 
       <div className="basis-1/2">
-        <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
+        <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-purple-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
               <BsFillMoonFill size={40} className="mr-2" />
@@ -117,7 +117,7 @@ export const DishCard: React.VFC = (props) => {
             </div>
           </div>
           <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
-            <div className=" md:flex flex-row justify-around">
+            <div className="md:flex flex-row justify-around">
               <div className="basisi-1/2 md:basis-1/3">
                 <img
                   src="https://img.benesse-cms.jp/thank-you/item/image/normal/resized/resized_08f1f45c-19f5-40fd-bd13-50d13bf18a51.jpg"
@@ -144,7 +144,7 @@ export const DishCard: React.VFC = (props) => {
         </div>
       </div>
       <div className="basis-1/2 ">
-        <div className=" my-10 lg:mx-5 sm:mx-20 mx-10">
+        <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
           <div className="md:w-1/4 w-1/2">
             <div className="bg-sky-400 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
               <MdFastfood size={40} className="mr-2" />
