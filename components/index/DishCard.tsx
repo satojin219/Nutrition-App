@@ -56,22 +56,20 @@ export const DishCard: React.VFC = (props) => {
               <p>朝食</p>
             </div>
           </div>
-          <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
+          <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
             <div className="md:flex flex-row justify-around">
               <div className="basisi-1/2 md:basis-1/3 p-3">
                 <img src="/sp_detail_main_PS_KCF_1585M.jpg" alt="" />
               </div>
               <ul className="basisi-1/2 md:text-xl list-disc p-3">
-                <li className="border-yellow-700/50    border-b-2  my-2">
+                <li className="border-yellow-700/50    border-b-2 my-2">
                   ごはん
                 </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   シイタケのお吸い物
                 </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
-                  みそ汁
-                </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">みそ汁</li>
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   さばの味噌煮
                 </li>
               </ul>
@@ -88,17 +86,17 @@ export const DishCard: React.VFC = (props) => {
               <p>昼食</p>
             </div>
           </div>
-          <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10">
+          <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10">
             <div className="md:flex flex-row justify-around">
               <div className="basis-1/3 md:basis-1/3 flex justify-center items-center bg-gray-400 text-white  h-48 text-xl">
                 <img src="" alt="No Image" />
               </div>
 
               <ul className="basisi-1/2 md:text-xl list-disc p-3">
-                <li className="border-yellow-700/50    border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   鶏そぼろのビビンバ
                 </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   豆腐とわかめの中華スープ
                 </li>
               </ul>
@@ -116,7 +114,7 @@ export const DishCard: React.VFC = (props) => {
               <p>夕食</p>
             </div>
           </div>
-          <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
+          <div className="bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
             <div className="md:flex flex-row justify-around">
               <div className="basisi-1/2 md:basis-1/3">
                 <img
@@ -125,16 +123,14 @@ export const DishCard: React.VFC = (props) => {
                 />
               </div>
               <ul className="basisi-1/2 md:text-xl list-disc p-3">
-                <li className="border-yellow-700/50    border-b-2  my-2">
-                  ごはん
-                </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">ごはん</li>
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   お麩の味噌汁
                 </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   ハンバーグ
                 </li>
-                <li className="border-yellow-700/50 border-b-2  my-2">
+                <li className="border-yellow-700/50 border-b-2 my-2">
                   ポテトサラダ
                 </li>
               </ul>

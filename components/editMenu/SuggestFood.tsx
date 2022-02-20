@@ -128,7 +128,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           onBlur={insertFoodData}
           min={0}
           type="number"
-          className="border text-sm  w-10 ml-1 rounded text-right"
+          className="border text-sm w-10 ml-1 rounded text-right"
           ref={inputFoodWeight}
         />
         g

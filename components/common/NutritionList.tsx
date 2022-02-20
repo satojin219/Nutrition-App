@@ -29,7 +29,7 @@ export const NutritionList: React.VFC<Props> = (props) => {
         "disable md:h-24 h-48 text-clip overflow-hidden md:flex flex-row flex-wrap";
       setIsAllShow(false);
     } else {
-      target[0].className = "disable  md:flex flex-row flex-wrap";
+      target[0].className = "disable md:flex flex-row flex-wrap";
       setIsAllShow(true);
     }
   };

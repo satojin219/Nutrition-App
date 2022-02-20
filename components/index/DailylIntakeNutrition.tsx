@@ -1,16 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFire } from "@fortawesome/free-solid-svg-icons";
-import { faTint } from "@fortawesome/free-solid-svg-icons";
-import { faFish } from "@fortawesome/free-solid-svg-icons";
-import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
-
 import { FaFire, FaBreadSlice, FaFish } from "react-icons/fa";
 import { IoWater } from "react-icons/io5";
 
 export const DailylIntakeNutrition: React.VFC = (props) => {
   return (
     <div>
-      <div className="rounded-b-3xl bg-orange-50  font-bold py-5 shadow-lg sm:text-xl">
+      <div className="rounded-b-3xl bg-orange-50 font-bold py-5 shadow-lg sm:text-xl">
         <div className="flex justify-around text-center ">
           <div>
             <div className="text-green-400 items-center flex">

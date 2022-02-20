@@ -20,7 +20,7 @@ export const Recipe: React.VFC<Props> = (props) => {
           onClick={() => {
             props.addRecipe(props.index);
           }}
-          className="duration-500 group-hover:opacity-100  group-hover:mr-2 opacity-0  text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7"
+          className="duration-500 group-hover:opacity-100 group-hover:mr-2 opacity-0 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7"
         >
           <span className="inline-block text-center font-bold ml-0.5">＋</span>
         </button>
@@ -43,7 +43,7 @@ export const Recipe: React.VFC<Props> = (props) => {
           onBlur={() => {
             props.writeRecipe(props.index, inputRecipe.current.value);
           }}
-          className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3   py-1 px-2 leading-tight focus:outline-none"
+          className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           aria-label="Full name"
           rows={4}
         />
