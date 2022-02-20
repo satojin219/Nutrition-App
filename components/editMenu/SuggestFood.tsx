@@ -18,7 +18,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
       threshold: 0.1,
-      keys: ["food-name"],
+      keys: ["foodName"],
     };
     return new Fuse(foodList, options);
   }, []);
@@ -48,7 +48,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
   const identifyFoodData = (): fetchedFoodData | null => {
     const searcedFoodData = fuse.search(foodName);
     return searcedFoodData.length != 0
-      ? searcedFoodData.filter((food) => food.item["food-name"] == foodName)[0]
+      ? searcedFoodData.filter((food) => food.item["foodName"] == foodName)[0]
           .item
       : null;
   };
