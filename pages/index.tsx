@@ -6,6 +6,7 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
+import { Calendar } from "../components/index/Calendar";
 
 const Home: NextPage = () => {
   return (
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
       <Header meal={""} isEdit={false} />
       <DailylIntakeNutrition />
       <DishCard />
+      <Calendar />
     </div>
   );
 };
