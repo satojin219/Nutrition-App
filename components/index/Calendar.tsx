@@ -6,9 +6,8 @@ import { MdCancel } from "react-icons/md";
 import { start } from "repl";
 import { text } from "stream/consumers";
 import { useCurrentDate } from "../../hooks/useCurrentDate";
-type datejsDateType = {
-  date: number;
-  day?: number;
+import { DateType } from "globalType";
+type datejsDateType = DateType & {
   type: string;
 };
 export const Calendar: React.VFC = () => {
@@ -16,18 +15,26 @@ export const Calendar: React.VFC = () => {
 
   const lastMonthDates: datejsDateType[] = useMemo(() => {
     let lastMonthDates = [];
+    const year = currentDate.subtract(1, "month").year();
+    const month = currentDate.subtract(1, "month").month() + 1;
+    const day = currentDate.subtract(1, "month").day();
     for (
       let startWeekday = currentDate.startOf("month").get("day");
       startWeekday > 0;
       startWeekday--
     ) {
-      lastMonthDates.push({
-        date:
-          currentDate.startOf("month").add(-1, "day").get("date") -
-          startWeekday +
-          1,
+      const date =
+        currentDate.startOf("month").add(-1, "day").get("date") -
+        startWeekday +
+        1;
+      const lastMonthDate: datejsDateType = {
+        year: year,
+        month: month,
+        date: date,
+        day: day,
         type: "last",
-      });
+      };
+      lastMonthDates.push(lastMonthDate);
     }
     return lastMonthDates;
   }, [currentDate]);
@@ -37,49 +44,45 @@ export const Calendar: React.VFC = () => {
     for (let date = 1; date <= currentDate.endOf("month").get("date"); date++) {
       const current = currentDate.set("date", date);
       const weekday: number = current.get("day");
-      currentMonthDates.push({ date: date, day: weekday, type: "current" });
+      const currentMonthDate: datejsDateType = {
+        year: currentDate.year(),
+        month: currentDate.month() + 1,
+        date: date,
+        day: weekday,
+        type: "current",
+      };
+      currentMonthDates.push(currentMonthDate);
     }
     return currentMonthDates;
   }, [currentDate]);
 
   const nextMonthDates: datejsDateType[] = useMemo(() => {
     let nextMonthDates = [];
+    const year = currentDate.add(1, "month").year();
+    const month = currentDate.add(1, "month").month() + 1;
+    const day = currentDate.add(1, "month").day();
     for (
       let date = 1;
       date < 7 - currentDate.endOf("month").get("day");
       date++
     ) {
-      nextMonthDates.push({ date: date, type: "next" });
+      const nextMonthDate: datejsDateType = {
+        year: year,
+        month: month,
+        date: date,
+        day: day,
+        type: "next",
+      };
+
+      nextMonthDates.push(nextMonthDate);
     }
     return nextMonthDates;
   }, [currentDate]);
 
   const monthDatesArray: datejsDateType[] = useMemo(() => {
     return lastMonthDates.concat(currentMonthDates, nextMonthDates);
-  }, [currentDate]);
+  }, [lastMonthDates, currentMonthDates, nextMonthDates]);
 
-  const renderDate = (datesArray: datejsDateType[]) => {
-    return (
-      <tr>
-        {datesArray.map((date: datejsDate) => (
-          <td
-            key={date.date}
-            className={`${
-              date.type != "current"
-                ? "opacity-50"
-                : date.day == 0
-                ? "text-red-500"
-                : date.day == 6
-                ? "text-sky-500"
-                : "text-black"
-            } p-5`}
-          >
-            {date.date}
-          </td>
-        ))}
-      </tr>
-    );
-  };
   return (
     <div className="flex justify-center items-center text-2xl">
       <table className="shadow-lg">
@@ -106,10 +109,10 @@ export const Calendar: React.VFC = () => {
             </button>
           </div>
         </caption>
-        <tbody>
-          <tr>
+        <tbody className="">
+          <tr className="grid grid-cols-7 p-5">
             {weekdays?.map((weekday: string) => (
-              <th
+              <td
                 key={weekday}
                 className={`${
                   weekday == "土"
@@ -117,18 +120,48 @@ export const Calendar: React.VFC = () => {
                     : weekday == "日"
                     ? "text-red-500"
                     : "text-black"
-                } px-10`}
+                } px-5 pb-3`}
               >
                 {weekday}
-              </th>
+              </td>
+            ))}
+
+            {monthDatesArray.map((monthDate: datejsDateType) => (
+              <td
+                key={
+                  monthDate.year +
+                  "-" +
+                  monthDate.month +
+                  "-" +
+                  monthDate.date +
+                  "-" +
+                  monthDate.day
+                }
+                className={`${
+                  monthDate.type != "current"
+                    ? "opacity-50"
+                    : monthDate.day == 0
+                    ? "text-red-500"
+                    : monthDate.day == 6
+                    ? "text-sky-500"
+                    : "text-black"
+                } pt-8 pl-5 pr-2 border-dashed border border-gray-200 hover:bg-gray-300 cursor-pointer text-right`}
+              >
+                {monthDate.date}
+              </td>
             ))}
           </tr>
-          {renderDate(monthDatesArray.slice(0, 7))}
-          {renderDate(monthDatesArray.slice(7, 14))}
-          {renderDate(monthDatesArray.slice(14, 21))}
-          {renderDate(monthDatesArray.slice(21, 28))}
-          {renderDate(monthDatesArray.slice(28, 35))}
         </tbody>
+        <tfoot className="flex justify-center text-sm">
+          <tr className="flex p-3">
+            <td className="mx-3">
+              <span className="text-red-400">■</span> 編集済み
+            </td>
+            <td className="mx-3">
+              <span className="text-yellow-400">■</span> 現在選択中
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
