@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       <Header meal={""} isEdit={false} />
       <DailylIntakeNutrition />
       <DishCard />
-      <Calendar />
+  
     </div>
   );
 };

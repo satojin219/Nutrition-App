@@ -8,12 +8,14 @@ import {
 } from "react-icons/bs";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { MdFastfood } from "react-icons/md";
+import { Calendar } from "../index/Calendar";
 type Props = {
   meal: string;
   isEdit: boolean;
 };
 
 export const Header: React.VFC<Props> = (props) => {
+  const [isModalShow, setModalShow] = useState(false);
   const { headerIcon, headerColor } = useMemo(() => {
     switch (props.meal) {
       case "breakfast": {
@@ -69,14 +71,35 @@ export const Header: React.VFC<Props> = (props) => {
     }
   }, [props.meal]);
 
+  const handleModalShow = (isShow: boolean): void => {
+    setModalShow(isShow);
+  };
+
   return (
     <div>
       <header className={headerColor}>
         <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
-            <button>
-              <FaCalendarAlt size={40} />
-            </button>
+            <div>
+              <button
+                onClick={() => {
+                  document.querySelector("body")?.classList.add("fixed");
+                  setModalShow(true);
+                }}
+              >
+                <FaCalendarAlt size={40} />
+              </button>
+              <div
+                id={isModalShow ? "overlay" : "unoverlay"}
+                onClick={(e) => e.stopPropagation()}
+                className=""
+              >
+                <Calendar
+                  isModalShow={isModalShow}
+                  setModalShow={setModalShow}
+                />
+              </div>
+            </div>
           ) : (
             <button>
               <IoArrowBackCircleSharp size={40} />

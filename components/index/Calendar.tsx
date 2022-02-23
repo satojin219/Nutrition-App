@@ -1,17 +1,26 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { start } from "repl";
 import { text } from "stream/consumers";
 import { useCurrentDate } from "../../hooks/useCurrentDate";
 import { DateType } from "globalType";
+
+type Props = {
+  isModalShow: boolean;
+  setModalShow(isShow: boolean): void;
+};
 type datejsDateType = DateType & {
   type: string;
 };
-export const Calendar: React.VFC = () => {
+export const Calendar: React.VFC<Props> = (props) => {
   const [currentDate, { setNextMonth, setLastMonth }] = useCurrentDate();
+  const closeModal = () => {
+    document.querySelector("body")?.classList.remove("fixed");
+    props.setModalShow(false);
+  };
 
   const lastMonthDates: datejsDateType[] = useMemo(() => {
     let lastMonthDates = [];
@@ -84,9 +93,9 @@ export const Calendar: React.VFC = () => {
   }, [lastMonthDates, currentMonthDates, nextMonthDates]);
 
   return (
-    <div className="flex justify-center items-center text-2xl">
-      <table className="shadow-lg">
-        <caption className="rounded-tr-xl rounded-tl-xl bg-orange-500 text-white p-3 my-3">
+    <div className="transition duration-1000 text-2xl">
+      <table className="shadow-lg bg-white rounded-br-xl rounded-bl-xl">
+        <caption className="rounded-tr-xl rounded-tl-xl bg-orange-500 text-white p-3 ">
           <div className="flex justify-between">
             <div></div>
             <div className="flex items-center">
@@ -104,7 +113,7 @@ export const Calendar: React.VFC = () => {
                 <FaAngleRight onClick={setNextMonth} />
               </button>
             </div>
-            <button>
+            <button onClick={closeModal}>
               <MdCancel />
             </button>
           </div>
@@ -139,7 +148,7 @@ export const Calendar: React.VFC = () => {
                 }
                 className={`${
                   monthDate.type != "current"
-                    ? "opacity-50"
+                    ? "text-gray-400"
                     : monthDate.day == 0
                     ? "text-red-500"
                     : monthDate.day == 6
@@ -154,10 +163,10 @@ export const Calendar: React.VFC = () => {
         </tbody>
         <tfoot className="flex justify-center text-sm">
           <tr className="flex p-3">
-            <td className="mx-3">
+            <td className="mx-3 text-black">
               <span className="text-red-400">■</span> 編集済み
             </td>
-            <td className="mx-3">
+            <td className="mx-3 text-black">
               <span className="text-yellow-400">■</span> 現在選択中
             </td>
           </tr>
