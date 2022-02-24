@@ -1,12 +1,13 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useContext } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { start } from "repl";
 import { text } from "stream/consumers";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
+import { isFixedContext } from "../../pages/index";
 
 type Props = {
   isModalShow: boolean;
@@ -19,7 +20,7 @@ type datejsDateType = DateType & {
 export const Calendar: React.VFC<Props> = (props) => {
   const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
   const { monthDatesArray } = useCalendar(currentDate);
-
+  const { isFixed, setIsFixed } = useContext(isFixedContext);
   const setNextMonth = (): void => {
     setCurrentDate(currentDate.add(1, "month"));
   };
@@ -28,8 +29,8 @@ export const Calendar: React.VFC<Props> = (props) => {
   };
 
   const closeModal = () => {
-    document.querySelector("body")?.classList.remove("fixed");
     props.setModalShow(false);
+    setIsFixed(false);
   };
   useEffect(() => {
     console.log(currentDate.month());

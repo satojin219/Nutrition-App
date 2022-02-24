@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useContext } from "react";
 import { UserData } from "globalType";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import {
@@ -9,6 +9,8 @@ import {
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { MdFastfood } from "react-icons/md";
 import { Calendar } from "../index/Calendar";
+import { isFixedContext } from "../../pages/index";
+
 type Props = {
   meal: string;
   isEdit: boolean;
@@ -71,9 +73,7 @@ export const Header: React.VFC<Props> = (props) => {
     }
   }, [props.meal]);
 
-  const handleModalShow = (isShow: boolean): void => {
-    setModalShow(isShow);
-  };
+  const { isFixed, setIsFixed } = useContext(isFixedContext);
 
   return (
     <div>
@@ -83,7 +83,7 @@ export const Header: React.VFC<Props> = (props) => {
             <div>
               <button
                 onClick={() => {
-                  document.querySelector("body")?.classList.add("fixed");
+                  setIsFixed(true);
                   setModalShow(true);
                 }}
               >
@@ -92,7 +92,6 @@ export const Header: React.VFC<Props> = (props) => {
               <div
                 id={isModalShow ? "overlay" : "unoverlay"}
                 onClick={(e) => e.stopPropagation()}
-                className=""
               >
                 <Calendar
                   isModalShow={isModalShow}
@@ -105,7 +104,7 @@ export const Header: React.VFC<Props> = (props) => {
               <IoArrowBackCircleSharp size={40} />
             </button>
           )}
-          <div className="flex items-center  font-bold text-3xl ">
+          <div className="flex items-center font-bold text-3xl ">
             {!props.isEdit ? (
               <button className="cursor-pointer mr-2 font-bold">
                 <FaAngleLeft />
