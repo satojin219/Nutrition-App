@@ -1,11 +1,11 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { start } from "repl";
 import { text } from "stream/consumers";
-import { useCurrentDate } from "../../hooks/useCurrentDate";
+import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
 
 type Props = {
@@ -15,87 +15,31 @@ type Props = {
 type datejsDateType = DateType & {
   type: string;
 };
+
 export const Calendar: React.VFC<Props> = (props) => {
-  const [currentDate, { setNextMonth, setLastMonth }] = useCurrentDate();
+  const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
+  const { monthDatesArray } = useCalendar(currentDate);
+
+  const setNextMonth = (): void => {
+    setCurrentDate(currentDate.add(1, "month"));
+  };
+  const setLastMonth = (): void => {
+    setCurrentDate(currentDate.subtract(1, "month"));
+  };
+
   const closeModal = () => {
     document.querySelector("body")?.classList.remove("fixed");
     props.setModalShow(false);
   };
-
-  const lastMonthDates: datejsDateType[] = useMemo(() => {
-    let lastMonthDates = [];
-    const year = currentDate.subtract(1, "month").year();
-    const month = currentDate.subtract(1, "month").month() + 1;
-    const day = currentDate.subtract(1, "month").day();
-    for (
-      let startWeekday = currentDate.startOf("month").get("day");
-      startWeekday > 0;
-      startWeekday--
-    ) {
-      const date =
-        currentDate.startOf("month").add(-1, "day").get("date") -
-        startWeekday +
-        1;
-      const lastMonthDate: datejsDateType = {
-        year: year,
-        month: month,
-        date: date,
-        day: day,
-        type: "last",
-      };
-      lastMonthDates.push(lastMonthDate);
-    }
-    return lastMonthDates;
+  useEffect(() => {
+    console.log(currentDate.month());
+    console.log(dayjs().month());
   }, [currentDate]);
-
-  const currentMonthDates: datejsDateType[] = useMemo(() => {
-    let currentMonthDates = [];
-    for (let date = 1; date <= currentDate.endOf("month").get("date"); date++) {
-      const current = currentDate.set("date", date);
-      const weekday: number = current.get("day");
-      const currentMonthDate: datejsDateType = {
-        year: currentDate.year(),
-        month: currentDate.month() + 1,
-        date: date,
-        day: weekday,
-        type: "current",
-      };
-      currentMonthDates.push(currentMonthDate);
-    }
-    return currentMonthDates;
-  }, [currentDate]);
-
-  const nextMonthDates: datejsDateType[] = useMemo(() => {
-    let nextMonthDates = [];
-    const year = currentDate.add(1, "month").year();
-    const month = currentDate.add(1, "month").month() + 1;
-    const day = currentDate.add(1, "month").day();
-    for (
-      let date = 1;
-      date < 7 - currentDate.endOf("month").get("day");
-      date++
-    ) {
-      const nextMonthDate: datejsDateType = {
-        year: year,
-        month: month,
-        date: date,
-        day: day,
-        type: "next",
-      };
-
-      nextMonthDates.push(nextMonthDate);
-    }
-    return nextMonthDates;
-  }, [currentDate]);
-
-  const monthDatesArray: datejsDateType[] = useMemo(() => {
-    return lastMonthDates.concat(currentMonthDates, nextMonthDates);
-  }, [lastMonthDates, currentMonthDates, nextMonthDates]);
 
   return (
     <div className="transition duration-1000 text-2xl">
       <table className="shadow-lg bg-white rounded-br-xl rounded-bl-xl">
-        <caption className="rounded-tr-xl rounded-tl-xl bg-orange-500 text-white p-3 ">
+        <caption className="rounded-tr-xl rounded-tl-xl bg-orange-500 text-white p-3">
           <div className="flex justify-between">
             <div></div>
             <div className="flex items-center">
@@ -103,15 +47,20 @@ export const Calendar: React.VFC<Props> = (props) => {
                 <FaAngleLeft onClick={setLastMonth} />
               </button>
               <div>
-                {currentDate.format("YYYY") +
+                {currentDate?.format("YYYY") +
                   "年" +
                   " " +
-                  currentDate.format("M") +
+                  currentDate?.format("M") +
                   "月"}
               </div>
-              <button className="ml-3">
-                <FaAngleRight onClick={setNextMonth} />
-              </button>
+              {dayjs().month() <= currentDate.month() &&
+              dayjs().year() <= currentDate.year() ? (
+                <div></div>
+              ) : (
+                <button className="ml-3">
+                  <FaAngleRight onClick={setNextMonth} />
+                </button>
+              )}
             </div>
             <button onClick={closeModal}>
               <MdCancel />
@@ -135,7 +84,7 @@ export const Calendar: React.VFC<Props> = (props) => {
               </td>
             ))}
 
-            {monthDatesArray.map((monthDate: datejsDateType) => (
+            {monthDatesArray?.map((monthDate: datejsDateType) => (
               <td
                 key={
                   monthDate.year +
@@ -146,15 +95,15 @@ export const Calendar: React.VFC<Props> = (props) => {
                   "-" +
                   monthDate.day
                 }
-                className={`${
+                className={`pt-8 pl-5 pr-2 border-dashed border border-gray-200 hover:bg-gray-300 cursor-pointer text-right ${
                   monthDate.type != "current"
-                    ? "text-gray-400"
+                    ? "text-gray-400 hover:bg-white"
                     : monthDate.day == 0
                     ? "text-red-500"
                     : monthDate.day == 6
                     ? "text-sky-500"
                     : "text-black"
-                } pt-8 pl-5 pr-2 border-dashed border border-gray-200 hover:bg-gray-300 cursor-pointer text-right`}
+                } `}
               >
                 {monthDate.date}
               </td>
