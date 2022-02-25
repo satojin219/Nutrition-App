@@ -2,23 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Nutrition } from "globalType";
 
-type dishData = {
-  morning: [
-    { title: string; nutrition: object },
-    { title: string; nutrition: object },
-    { title: string; nutrition: object }
-  ];
-  lunch: [
-    { title: string; nutrition: object },
-    { title: string; nutrition: object }
-  ];
-  dinner: [
-    { title: string; nutrition: object },
-    { title: string; nutrition: object },
-    { title: string; nutrition: object }
-  ];
+type DishData = {
+  morning: { title: string; nutrition: Nutrition }[];
+  lunch: { title: string; nutrition: Nutrition }[];
+  dinner: { title: string; nutrition: Nutrition }[];
 };
-
 const protNutrition: Nutrition = {
   biotin: 2.7,
   ca: 5,
@@ -54,7 +42,7 @@ const protNutrition: Nutrition = {
   vitK: 1,
   zn: 0.1,
 };
-const dish: dishData = {
+const dish: DishData = {
   morning: [
     {
       title: "ご飯",
@@ -97,7 +85,7 @@ const dish: dishData = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<dishData>
+  res: NextApiResponse<DishData>
 ) {
   res.status(200).json(dish);
 }
