@@ -1,10 +1,8 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState, useCallback, useEffect, useMemo, useContext } from "react";
+import { useState, useContext } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { start } from "repl";
-import { text } from "stream/consumers";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
 import { isFixedContext } from "../../pages/index";
@@ -32,10 +30,6 @@ export const Calendar: React.VFC<Props> = (props) => {
     props.setModalShow(false);
     setIsFixed(false);
   };
-  useEffect(() => {
-    console.log(currentDate.month());
-    console.log(dayjs().month());
-  }, [currentDate]);
 
   return (
     <div className="transition duration-1000 text-2xl">

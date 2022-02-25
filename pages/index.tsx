@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     setIsFixed,
   };
   const fixedClassNames = {
-    fixed: isFixed === true,
+    fixed: isFixed,
   };
   return (
     <div className={classnames(fixedClassNames, "font-fancy")}>

@@ -9,23 +9,23 @@ type datejsDateType = DateType & {
 export const useCalendar = (currentDate: dayjs.Dayjs) => {
   const lastMonthDates: datejsDateType[] = useMemo(() => {
     let lastMonthDates = [];
-    const year = currentDate.subtract(1, "month").year();
-    const month = currentDate.subtract(1, "month").month() + 1;
-    const day = currentDate.subtract(1, "month").day();
+    const lastOrThisyear = currentDate.subtract(1, "month").year();
+    const lastMonth = currentDate.subtract(1, "month").month() + 1;
+    const lastDay = currentDate.subtract(1, "month").day();
     for (
       let startWeekday = currentDate.startOf("month").get("day");
       startWeekday > 0;
       startWeekday--
     ) {
-      const date =
+      const lastDate =
         currentDate.startOf("month").add(-1, "day").get("date") -
         startWeekday +
         1;
       const lastMonthDate: datejsDateType = {
-        year: year,
-        month: month,
-        date: date,
-        day: day,
+        year: lastOrThisyear,
+        month: lastMonth,
+        date: lastDate,
+        day: lastDay,
         type: "last",
       };
       lastMonthDates.push(lastMonthDate);
@@ -33,8 +33,8 @@ export const useCalendar = (currentDate: dayjs.Dayjs) => {
     return lastMonthDates;
   }, [currentDate]);
 
-  const currentMonthDates: datejsDateType[] = useMemo(() => {
-    let currentMonthDates = [];
+  const thisMonthDates: datejsDateType[] = useMemo(() => {
+    let thisMonthDates = [];
     for (let date = 1; date <= currentDate.endOf("month").get("date"); date++) {
       const current = currentDate.set("date", date);
       const weekday: number = current.get("day");
@@ -45,26 +45,26 @@ export const useCalendar = (currentDate: dayjs.Dayjs) => {
         day: weekday,
         type: "current",
       };
-      currentMonthDates.push(currentMonthDate);
+      thisMonthDates.push(currentMonthDate);
     }
-    return currentMonthDates;
+    return thisMonthDates;
   }, [currentDate]);
 
   const nextMonthDates: datejsDateType[] = useMemo(() => {
     let nextMonthDates = [];
-    const year = currentDate.add(1, "month").year();
-    const month = currentDate.add(1, "month").month() + 1;
-    const day = currentDate.add(1, "month").day();
+    const nextOrThisyear = currentDate.add(1, "month").year();
+    const nextMonth = currentDate.add(1, "month").month() + 1;
+    const nextDay = currentDate.add(1, "month").day();
     for (
       let date = 1;
       date < 7 - currentDate.endOf("month").get("day");
       date++
     ) {
       const nextMonthDate: datejsDateType = {
-        year: year,
-        month: month,
+        year: nextOrThisyear,
+        month: nextMonth,
         date: date,
-        day: day,
+        day: nextDay,
         type: "next",
       };
 
@@ -74,8 +74,8 @@ export const useCalendar = (currentDate: dayjs.Dayjs) => {
   }, [currentDate]);
 
   const monthDatesArray: datejsDateType[] = useMemo(() => {
-    return lastMonthDates.concat(currentMonthDates, nextMonthDates);
-  }, [lastMonthDates, currentMonthDates, nextMonthDates]);
+    return lastMonthDates.concat(thisMonthDates, nextMonthDates);
+  }, [lastMonthDates, thisMonthDates, nextMonthDates]);
 
   return { monthDatesArray };
 };
