@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -6,8 +7,14 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
+import useSWR from "swr";
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
+  const fetcher = (url: string): Promise<any> =>
+    fetch(url).then((res) => res.json());
+  const { data, error } = useSWR("/api/getDishData", fetcher);
+  console.log(data);
+
   return (
     <div className="font-fancy">
       <Head>
@@ -22,9 +29,19 @@ const Home: NextPage = () => {
       </Head>
       <Header meal={""} isEdit={false} />
       <DailylIntakeNutrition />
-      <DishCard />
+      <div className="lg:flex flex-wrap">
+        <DishCard dishArray={data.morning} />
+        <DishCard dishArray={data.lunch} />
+        <DishCard dishArray={data.dinner} />
+      </div>
     </div>
   );
 };
 
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const res: Response = await fetch("http://localhost:3000//api/getDishData");
+//   const posts = await res.json();
+//   console.log(posts);
+//   return { props: { posts } };
+// };
 export default Home;
