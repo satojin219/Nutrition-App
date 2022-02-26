@@ -1,6 +1,7 @@
-import { Foodstuff, Nutrition } from "globalType";
+import { Foodstuff, Nutrition, UserData, DateType } from "../types/globalType";
 import { useState } from "react";
 import { NutritionList } from "../components/common/NutritionList";
+import { MdNorthWest } from "react-icons/md";
 
 type extractNutrtionType = {
   unit: string;
@@ -311,3 +312,23 @@ export const calSumNutrition = (
   });
   return res;
 };
+/**
+ * @fetchUsrData
+ * ローカルストレージまたは、Firebaseに保存してあるユーザーのデータを持ってくる。
+ */
+// export const fetchUserData: UserData = () => {};
+
+export const getTodayData = (): DateType => {
+  // Dateオブジェクトをインスタンス化するとエラーが出るので、仮の値を入れておきます。
+  return {
+    year: 2022,
+    month: 2,
+    day: 19,
+    date: 19,
+  };
+};
+/**
+ * @isEditedDate
+ * 今日の日付が既に編集済みの日付かをUserDataのeditedDayDatesの中から判定する。
+ */
+// export const isEditedDate = (date :Date): boolean => {};

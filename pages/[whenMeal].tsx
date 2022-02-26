@@ -36,7 +36,7 @@ const EditMenuPage: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <Header meal={"snack"} isEdit={true} />
+      <Header meal={"lunch"} isEdit={true} />
 
       {menuCards.map((menuCard: Menu, index: number) => (
         <EditMenuCard

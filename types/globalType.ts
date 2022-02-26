@@ -1,6 +1,3 @@
-import exp from "constants";
-import { type } from "os";
-
 export type UserData = {
   id: number;
   name: string;
@@ -14,16 +11,23 @@ export type UserData = {
 };
 
 export type dayData = {
-  selectedDay: Date;
-  menus: Menu[];
-  totalIntake: Nutrition;
+  selectedDay: DateType;
+  meals?: Meal[];
+  totalIntake?: Nutrition;
 };
 
 export type DateType = {
   year: number;
   month: number;
-  date: number;
   day: number;
+  date: number;
+};
+
+export type Meal = {
+  whenMeal: string;
+  menus?: Menu[];
+  mealTotalNutrition?: Nutrition;
+  imgUrls?: string[];
 };
 
 export type Menu = {

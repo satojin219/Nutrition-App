@@ -18,6 +18,21 @@ a {
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
+  .breakfast {
+    @apply bg-red-500;
+  }
+  .lunch {
+    @apply bg-yellow-400;
+  }
+  .dinner {
+    @apply bg-purple-500;
+  }
+  .snack {
+    @apply bg-sky-400;
+  }
+  .defaultHeaderColor {
+    @apply bg-orange-500;
+  }
   #overlay {
     position: fixed;
     top: 0;
@@ -30,8 +45,9 @@ a {
     justify-content: center;
     transition-duration: 1s;
   }
+
   #unoverlay {
-    display:none;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -40,6 +56,5 @@ a {
     /* display: flex;
     align-items: center;
     justify-content: center; */
-
   }
 }
