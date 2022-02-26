@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useContext } from "react";
 import { UserData } from "globalType";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import {
@@ -8,6 +8,9 @@ import {
 } from "react-icons/bs";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { MdFastfood } from "react-icons/md";
+import { isModalShowContext } from "../../pages/index";
+import { Modal } from "../common/Modal";
+
 type Props = {
   meal: string;
   isEdit: boolean;
@@ -69,20 +72,29 @@ export const Header: React.VFC<Props> = (props) => {
     }
   }, [props.meal]);
 
+  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
+
   return (
     <div>
       <header className={headerColor}>
         <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
-            <button>
-              <FaCalendarAlt size={40} />
-            </button>
+            <div>
+              <button
+                onClick={() => {
+                  setIsModalShow(true);
+                }}
+              >
+                <FaCalendarAlt size={40} />
+              </button>
+              <Modal modalType="calendar" />
+            </div>
           ) : (
             <button>
               <IoArrowBackCircleSharp size={40} />
             </button>
           )}
-          <div className="flex items-center  font-bold text-3xl ">
+          <div className="flex items-center font-bold text-3xl ">
             {!props.isEdit ? (
               <button className="cursor-pointer mr-2 font-bold">
                 <FaAngleLeft />

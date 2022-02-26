@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       spacing: {
         128: "32rem",
+        112: "28rem",
       },
       colors: {},
       fontFamily: {

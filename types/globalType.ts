@@ -19,7 +19,7 @@ export type dayData = {
   totalIntake: Nutrition;
 };
 
-export type Date = {
+export type DateType = {
   year: number;
   month: number;
   date: number;
