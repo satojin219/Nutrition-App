@@ -29,8 +29,8 @@ export type DateType = {
 export type Meal = {
   whenMeal: string;
   menus?: Menu[];
-  mealTotalNutrition? :Nutrition;
-  imgUrls? :string[]
+  mealTotalNutrition?: Nutrition;
+  imgUrls?: string[];
 };
 
 export type Menu = {
@@ -94,10 +94,10 @@ export type Nutrition = {
 
 export type fetchedFoodData = {
   field1: string;
-  "food-code": string;
+  foodCode: string;
   field3: string;
   id: string;
-  "food-name": string;
+  foodName: string;
   REFUSE: string;
   ENERC: string;
   ENERC_KCAL: string;

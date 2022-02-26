@@ -1,17 +1,19 @@
-import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { useEffect, useState, useMemo, useContext } from "react";
 import { UserData } from "globalType";
-import { divideIconAndColor } from "../../tools/HelpComponents"
+import { divideIconAndColor } from "../../tools/HelpComponents";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 import { IoArrowBackCircleSharp } from "react-icons/io5";
-import { route } from "next/dist/server/router";
+import { MdFastfood } from "react-icons/md";
+import { isModalShowContext } from "../../pages/index";
+import { Modal } from "../common/Modal";
+
 type Props = {
   meal: string;
   isEdit: boolean;
 };
-
 
 export const Header: React.VFC<Props> = (props) => {
   const router = useRouter();
@@ -19,22 +21,37 @@ export const Header: React.VFC<Props> = (props) => {
     return divideIconAndColor(router.query.whenMeal);
   }, [router.query.whenMeal]);
 
+  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
+
   return (
     <div>
-      <header className={router.query.whenMeal != undefined ? router.query.whenMeal : "defaultHeaderColor"}>
+      <header
+        className={
+          router.query.whenMeal != undefined
+            ? router.query.whenMeal
+            : "defaultHeaderColor"
+        }
+      >
         <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
-            <button>
-              <FaCalendarAlt size={40} />
-            </button>
+            <div>
+              <button
+                onClick={() => {
+                  setIsModalShow(true);
+                }}
+              >
+                <FaCalendarAlt size={40} />
+              </button>
+              <Modal modalType="calendar" />
+            </div>
           ) : (
             <Link href="/">
-            <a>
-              <IoArrowBackCircleSharp size={40} />
-            </a>
+              <a>
+                <IoArrowBackCircleSharp size={40} />
+              </a>
             </Link>
           )}
-          <div className="flex items-center  font-bold text-3xl ">
+          <div className="flex items-center font-bold text-3xl ">
             {!props.isEdit ? (
               <button className="cursor-pointer mr-2 font-bold">
                 <FaAngleLeft />

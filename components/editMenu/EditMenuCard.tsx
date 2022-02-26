@@ -15,7 +15,7 @@ import {
   removeElemnt,
   calSumNutrition,
 } from "../../tools/HelpMethods";
-
+import { FoodImage } from "./FoodImage";
 type Props = {
   index: number;
   menu: Menu;
@@ -65,7 +65,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
-      <div className="md:w-3/4 bg-orange-50  rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
+      <div className="md:w-3/4 bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md  p-5 sm:p-10 container">
         <div className="mb-5">
           <div className="flex justify-between">
             <h1 className="text-left text-2xl">料理名</h1>
@@ -87,11 +87,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
         </div>
 
-        <div className=" xl:flex flex-row justify-around">
-          <div className="basis-1/3 md:basis-1/3 flex justify-center items-center bg-gray-400 text-white  h-48 text-xl">
-            <img src="" alt="No Image" />
-          </div>
-          <div className="basis-2/3  my-0 mx-3 mt-5 xl:mt-0">
+        <div className="xl:flex flex-row justify-around">
+          <FoodImage />
+          <div className="basis-2/3 my-0 mx-3 mt-5 xl:mt-0">
             <div className="flex justify-between mb-2">
               <h2 className="text-left text-2xl">
                 材料{" "}
@@ -159,7 +157,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   ref={time}
                   min={0}
                   type="number"
-                  className="border text-sm  w-10 ml-1 rounded text-right"
+                  className="border text-sm w-10 ml-1 rounded text-right"
                 />{" "}
                 分
               </p>

@@ -19,11 +19,9 @@ const EditMenuPage: NextPage = () => {
   });
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
-
   };
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
-
   };
 
   return (
