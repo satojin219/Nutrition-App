@@ -27,4 +27,10 @@ const Home: NextPage = () => {
   );
 };
 
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const res: Response = await fetch("http://localhost:3000//api/getDishData");
+//   const posts = await res.json();
+//   console.log(posts);
+//   return { props: { posts } };
+// };
 export default Home;
