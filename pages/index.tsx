@@ -6,8 +6,24 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
+import classnames from "classnames";
+import React, { useState } from "react";
+
+type isFixedContextType = {
+  isModalShow: boolean;
+  setIsModalShow: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export const isModalShowContext = React.createContext({} as isFixedContextType);
 
 const Home: NextPage = () => {
+  const [isModalShow, setIsModalShow] = useState(false);
+  const value = {
+    isModalShow,
+    setIsModalShow,
+  };
+  const fixedClassNames = {
+    fixed: isModalShow,
+  };
   return (
     <div className={classnames(fixedClassNames, "font-fancy")}>
       <Head>
@@ -20,9 +36,11 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <Header meal={""} isEdit={false} />
-      <DailylIntakeNutrition />
-      <DishCard />
+      <isModalShowContext.Provider value={value}>
+        <Header meal={""} isEdit={false} />
+        <DailylIntakeNutrition />
+        <DishCard />
+      </isModalShowContext.Provider>
     </div>
   );
 };

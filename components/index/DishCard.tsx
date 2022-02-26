@@ -47,12 +47,14 @@ const protNutritionList: Nutrition = {
 
 export const DishCard: React.VFC = (props) => {
   return (
-    <div className="basis-1/2">
-      <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
-        <div className="md:w-1/4 w-1/2">
-          <div className="bg-red-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
-            <BsFillBrightnessAltHighFill size={40} className="mr-2" />
-            <p>朝食</p>
+    <div className="lg:flex flex-wrap">
+      <div className="basis-1/2">
+        <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
+          <div className="md:w-1/4 w-1/2">
+            <div className="bg-red-500 rounded-t-lg text-white text-center p-5 text-3xl flex justify-center">
+              <BsFillBrightnessAltHighFill size={40} className="mr-2" />
+              <p>朝食</p>
+            </div>
           </div>
           <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
             <div className="md:flex flex-row justify-around">
@@ -152,7 +154,6 @@ export const DishCard: React.VFC = (props) => {
               </div>
             </div>
           </div>
-          <NutritionList nutrition={props.dishArray[0].nutrition} />
         </div>
       </div>
     </div>
