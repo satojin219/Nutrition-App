@@ -324,7 +324,7 @@ export const getTodayData = (): DateType => {
     year: 2022,
     month: 2,
     day: 19,
-    dayOfWeek: 6,
+    date: 19,
   };
 };
 /**
