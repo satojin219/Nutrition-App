@@ -10,12 +10,11 @@ import { SuggestFood } from "../components/editMenu/SuggestFood";
 import useSWR from "swr";
 
 export const Home: NextPage = () => {
-  async function fetcher(url: string): Promise<any> {
+  const fetchDishData = async (url: string): Promise<any> => {
     const res = await fetch(url);
     return res.json();
-  }
-  const { data } = useSWR("/api/getDishData", fetcher);
-  console.log(data);
+  };
+  const { data } = useSWR("/api/getDishData", fetchDishData);
   if (!data) return <div>Loading...</div>;
   return (
     <div className="font-fancy">
