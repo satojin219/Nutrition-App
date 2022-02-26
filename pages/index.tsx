@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import React, { useState } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -8,30 +6,8 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
-import classnames from "classnames";
-import useSWR from "swr";
-
-type isFixedContextType = {
-  isModalShow: boolean;
-  setIsModalShow: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export const isModalShowContext = React.createContext({} as isFixedContextType);
 
 const Home: NextPage = () => {
-  const [isModalShow, setIsModalShow] = useState(false);
-  const value = {
-    isModalShow,
-    setIsModalShow,
-  };
-  const fixedClassNames = {
-    fixed: isModalShow,
-  };
-  const fetchDishData = async (url: string): Promise<any> => {
-    const res = await fetch(url);
-    return res.json();
-  };
-  const { data } = useSWR("/api/getDishData", fetchDishData);
-  if (!data) return <div>Loading...</div>;
   return (
     <div className={classnames(fixedClassNames, "font-fancy")}>
       <Head>
@@ -44,11 +20,9 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <isModalShowContext.Provider value={value}>
-        <Header meal={""} isEdit={false} />
-        <DailylIntakeNutrition />
-        <DishCard />
-      </isModalShowContext.Provider>
+      <Header meal={""} isEdit={false} />
+      <DailylIntakeNutrition />
+      <DishCard />
     </div>
   );
 };
