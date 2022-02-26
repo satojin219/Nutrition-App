@@ -5,7 +5,6 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
-import { isModalShowContext } from "../../pages/index";
 
 type datejsDateType = DateType & {
   type: string;
@@ -14,7 +13,6 @@ type datejsDateType = DateType & {
 export const Calendar: React.VFC = () => {
   const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
   const { monthDatesArray } = useCalendar(currentDate);
-  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
   const setNextMonth = (): void => {
     setCurrentDate(currentDate.add(1, "month"));
   };
@@ -22,16 +20,11 @@ export const Calendar: React.VFC = () => {
     setCurrentDate(currentDate.subtract(1, "month"));
   };
 
-  const closeModal = () => {
-    setIsModalShow(false);
-  };
-
   return (
     <div className="transition duration-1000 text-2xl">
       <table className="shadow-lg bg-white rounded-br-xl rounded-bl-xl">
         <caption className="rounded-tr-xl rounded-tl-xl bg-orange-500 text-white p-3">
-          <div className="flex justify-between">
-            <div></div>
+          <div className="flex justify-center">
             <div className="flex items-center">
               <button className="mr-3">
                 <FaAngleLeft onClick={setLastMonth} />
@@ -52,9 +45,6 @@ export const Calendar: React.VFC = () => {
                 </button>
               )}
             </div>
-            <button onClick={closeModal}>
-              <MdCancel />
-            </button>
           </div>
         </caption>
         <tbody className="">
