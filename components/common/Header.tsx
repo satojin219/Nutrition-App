@@ -8,8 +8,8 @@ import {
 } from "react-icons/bs";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { MdFastfood } from "react-icons/md";
-import { Calendar } from "../index/Calendar";
-import { isFixedContext } from "../../pages/index";
+import { isModalShowContext } from "../../pages/index";
+import { Modal } from "../common/Modal";
 
 type Props = {
   meal: string;
@@ -17,7 +17,6 @@ type Props = {
 };
 
 export const Header: React.VFC<Props> = (props) => {
-  const [isModalShow, setModalShow] = useState(false);
   const { headerIcon, headerColor } = useMemo(() => {
     switch (props.meal) {
       case "breakfast": {
@@ -73,7 +72,7 @@ export const Header: React.VFC<Props> = (props) => {
     }
   }, [props.meal]);
 
-  const { isFixed, setIsFixed } = useContext(isFixedContext);
+  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
 
   return (
     <div>
@@ -83,21 +82,12 @@ export const Header: React.VFC<Props> = (props) => {
             <div>
               <button
                 onClick={() => {
-                  setIsFixed(true);
-                  setModalShow(true);
+                  setIsModalShow(true);
                 }}
               >
                 <FaCalendarAlt size={40} />
               </button>
-              <div
-                id={isModalShow ? "overlay" : "unoverlay"}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Calendar
-                  isModalShow={isModalShow}
-                  setModalShow={setModalShow}
-                />
-              </div>
+              <Modal modalType="calendar" />
             </div>
           ) : (
             <button>

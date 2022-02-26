@@ -5,20 +5,16 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
-import { isFixedContext } from "../../pages/index";
+import { isModalShowContext } from "../../pages/index";
 
-type Props = {
-  isModalShow: boolean;
-  setModalShow(isShow: boolean): void;
-};
 type datejsDateType = DateType & {
   type: string;
 };
 
-export const Calendar: React.VFC<Props> = (props) => {
+export const Calendar: React.VFC = () => {
   const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
   const { monthDatesArray } = useCalendar(currentDate);
-  const { isFixed, setIsFixed } = useContext(isFixedContext);
+  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
   const setNextMonth = (): void => {
     setCurrentDate(currentDate.add(1, "month"));
   };
@@ -27,8 +23,7 @@ export const Calendar: React.VFC<Props> = (props) => {
   };
 
   const closeModal = () => {
-    props.setModalShow(false);
-    setIsFixed(false);
+    setIsModalShow(false);
   };
 
   return (

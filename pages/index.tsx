@@ -10,19 +10,19 @@ import { SuggestFood } from "../components/editMenu/SuggestFood";
 import classnames from "classnames";
 
 type isFixedContextType = {
-  isFixed: boolean;
-  setIsFixed: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalShow: boolean;
+  setIsModalShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export const isFixedContext = React.createContext({} as isFixedContextType);
+export const isModalShowContext = React.createContext({} as isFixedContextType);
 
 const Home: NextPage = () => {
-  const [isFixed, setIsFixed] = useState(false);
+  const [isModalShow, setIsModalShow] = useState(false);
   const value = {
-    isFixed,
-    setIsFixed,
+    isModalShow,
+    setIsModalShow,
   };
   const fixedClassNames = {
-    fixed: isFixed,
+    fixed: isModalShow,
   };
   return (
     <div className={classnames(fixedClassNames, "font-fancy")}>
@@ -36,11 +36,11 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <isFixedContext.Provider value={value}>
+      <isModalShowContext.Provider value={value}>
         <Header meal={""} isEdit={false} />
         <DailylIntakeNutrition />
         <DishCard />
-      </isFixedContext.Provider>
+      </isModalShowContext.Provider>
     </div>
   );
 };
