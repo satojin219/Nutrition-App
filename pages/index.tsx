@@ -1,11 +1,5 @@
 import type { NextPage } from "next";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { DayContext } from "./_app";
 import Head from "next/head";
 import Image from "next/image";
@@ -25,16 +19,16 @@ type isFixedContextType = {
 export const isModalShowContext = React.createContext({} as isFixedContextType);
 
 const Home: NextPage = () => {
-  const selectedDayData: dayData = useContext(DayContext);
+  const dayContext = useContext(DayContext);
   const meals = useMemo(() => {
-    selectedDayData.meals = [
+    dayContext.selectedDayData.meals = [
       { whenMeal: "breakfast" },
       { whenMeal: "lunch" },
       { whenMeal: "dinner" },
       { whenMeal: "snack" },
     ];
-    return selectedDayData.meals;
-  }, []);
+    return dayContext.selectedDayData.meals;
+  }, [dayContext]);
   const [isModalShow, setIsModalShow] = useState(false);
   const value = {
     isModalShow,
@@ -56,8 +50,10 @@ const Home: NextPage = () => {
         ></link>
       </Head>
       <isModalShowContext.Provider value={value}>
-        <Header meal={""} isEdit={false} date={selectedDayData.selectedDay} />
-        <DailylIntakeNutrition totalIntake={selectedDayData.totalIntake} />
+        {/* <Header meal={""} isEdit={false} date={dayContext.selectedDayData.selectedDay} /> */}
+        <Header meal={""} isEdit={false} />
+        {/* <DailylIntakeNutrition totalIntake={dayContext.selectedDayData.totalIntake} /> */}
+        <DailylIntakeNutrition />
         <div className="lg:flex flex-wrap">
           {meals.map((meal: Meal, index: number) => (
             <DishCard meal={meal} key={index} />

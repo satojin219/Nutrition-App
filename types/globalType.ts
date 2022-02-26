@@ -1,6 +1,3 @@
-import exp from "constants";
-import { type } from "os";
-
 export type UserData = {
   id: number;
   name: string;
@@ -23,7 +20,7 @@ export type DateType = {
   year: number;
   month: number;
   day: number;
-  dayOfWeek: number;
+  date: number;
 };
 
 export type Meal = {

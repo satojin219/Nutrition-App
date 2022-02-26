@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserData, dayData, DateType } from "globalType";
+import { dayData, DateType } from "globalType";
 import { getTodayData } from "../tools/HelpMethods";
 
 export const useSelectDay = () => {
@@ -15,5 +15,5 @@ export const useSelectDay = () => {
     setSelectedDayData({ selectedDay: date });
   };
 
-  return [selectedDayData, { setSelectedDayData, changeDay }];
+  return { selectedDayData, setSelectedDayData, changeDay };
 };

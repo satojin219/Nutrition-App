@@ -6,7 +6,7 @@ import {
 import { MdFastfood } from "react-icons/md";
 
 export const divideIconAndColor = (
-  whenMeal: string
+  whenMeal: string | string[] | undefined
 ): { headerIcon: JSX.Element } => {
   switch (whenMeal) {
     case "breakfast": {
