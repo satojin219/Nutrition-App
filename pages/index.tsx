@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -6,8 +7,15 @@ import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
+import useSWR from "swr";
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
+  const fetchDishData = async (url: string): Promise<any> => {
+    const res = await fetch(url);
+    return res.json();
+  };
+  const { data } = useSWR("/api/getDishData", fetchDishData);
+  if (!data) return <div>Loading...</div>;
   return (
     <div className="font-fancy">
       <Head>
@@ -22,7 +30,11 @@ const Home: NextPage = () => {
       </Head>
       <Header meal={""} isEdit={false} />
       <DailylIntakeNutrition />
-      <DishCard />
+      <div className="lg:flex flex-wrap">
+        <DishCard dishArray={data.morning} />
+        <DishCard dishArray={data.lunch} />
+        <DishCard dishArray={data.dinner} />
+      </div>
     </div>
   );
 };
