@@ -1,16 +1,19 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
-
+import { Modal } from "./Modal";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
+import { isModalShowContext } from "../../pages/index";
+
 type Props = {
   meal: string;
   isEdit: boolean;
 };
 
 export const Header: React.VFC<Props> = (props) => {
+  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
   const router = useRouter();
   const { headerIcon } = useMemo(() => {
     return divideIconAndColor(router.query.whenMeal);
@@ -27,9 +30,16 @@ export const Header: React.VFC<Props> = (props) => {
       >
         <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
-            <button>
-              <FaCalendarAlt size={40} />
-            </button>
+            <div>
+              <button
+                onClick={() => {
+                  setIsModalShow(true);
+                }}
+              >
+                <FaCalendarAlt size={40} />
+              </button>
+              <Modal modalType="calendar" />
+            </div>
           ) : (
             <Link href="/">
               <a>
