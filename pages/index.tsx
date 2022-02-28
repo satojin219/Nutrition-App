@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   }, [dayContext]);
 
   const fixedClassNames = {
-    fixed: isModalShowContext.isModalShow,
+    "fixed w-full": isModalShowContext.isModalShow,
   };
   return (
     <div className={classnames(fixedClassNames, "font-fancy")}>
