@@ -5,7 +5,7 @@ import { divideIconAndColor } from "../../tools/HelpComponents";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { Modal } from "./Modal";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
-import { isModalShowContext } from "../../pages/index";
+import { IsModalShowContext } from "../../pages/_app";
 
 type Props = {
   meal: string;
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const Header: React.VFC<Props> = (props) => {
-  const { isModalShow, setIsModalShow } = useContext(isModalShowContext);
+  const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
   const { headerIcon } = useMemo(() => {
     return divideIconAndColor(router.query.whenMeal);
@@ -33,7 +33,7 @@ export const Header: React.VFC<Props> = (props) => {
             <div>
               <button
                 onClick={() => {
-                  setIsModalShow(true);
+                  isModalShowContext.setIsModalShow(true);
                 }}
               >
                 <FaCalendarAlt size={40} />
