@@ -56,7 +56,7 @@ export const Header: React.VFC<Props> = (props) => {
 
             <h1 className="text-2xl"> 2022 / 01 / 22 (土) </h1>
             {!props.isEdit ? (
-              <button className=" ml-2 font-bold">
+              <button className="ml-2 font-bold">
                 <FaAngleRight />
               </button>
             ) : null}

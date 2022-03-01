@@ -1,7 +1,4 @@
-import { Foodstuff, Nutrition, UserData, DateType } from "../types/globalType";
-import { useState } from "react";
-import { NutritionList } from "../components/common/NutritionList";
-import { MdNorthWest } from "react-icons/md";
+import { Foodstuff, Nutrition, DateType } from "../types/globalType";
 
 type extractNutrtionType = {
   unit: string;

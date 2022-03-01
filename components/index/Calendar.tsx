@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
 

@@ -2,14 +2,10 @@ import type { NextPage } from "next";
 import React, { useContext, useMemo, useState } from "react";
 import { DayContext, IsModalShowContext } from "./_app";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { Header } from "../components/common/Header";
 import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
 import { DishCard } from "../components/index/DishCard";
-import { SuggestFood } from "../components/editMenu/SuggestFood";
-import { UserData, dayData, Meal } from "globalType";
-import { useSelectDay } from "../hooks/useSelectDay";
+import { Meal } from "globalType";
 import classnames from "classnames";
 
 const Home: NextPage = () => {
@@ -41,9 +37,7 @@ const Home: NextPage = () => {
         ></link>
       </Head>
 
-      {/* <Header meal={""} isEdit={false} date={dayContext.selectedDayData.selectedDay} /> */}
       <Header meal={""} isEdit={false} />
-      {/* <DailylIntakeNutrition totalIntake={dayContext.selectedDayData.totalIntake} /> */}
       <DailylIntakeNutrition />
       <div className="lg:flex flex-wrap">
         {meals.map((meal: Meal, index: number) => (
@@ -54,10 +48,4 @@ const Home: NextPage = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const res: Response = await fetch("http://localhost:3000//api/getDishData");
-//   const posts = await res.json();
-//   console.log(posts);
-//   return { props: { posts } };
-// };
 export default Home;
