@@ -51,6 +51,7 @@ export const divideIconAndColor = (
     }
     default: {
       return {
+        // ここの空divはjustify-aroundで要素を3つ並べないとズレがでてしまうので置いてあります。
         headerIcon: <div></div>,
       };
     }

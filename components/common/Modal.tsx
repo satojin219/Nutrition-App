@@ -11,9 +11,9 @@ export const Modal: React.VFC<Props> = (props) => {
 
   return (
     <div id={isModalShowContext.isModalShow ? "overlay" : "unoverlay"}>
-      <div className="grid justify-items-end">
+      <div className="absolute top-0 right-0">
         <button
-          className=" absolute top-0 right-0 text-3xl md:text-7xl font-extrabold text-white md:mx-20 mx-10 my-10"
+          className="text-3xl xs:text-7xl font-extrabold text-white md:mx-20 mx-10 my-10"
           onClick={() => {
             isModalShowContext.setIsModalShow(false);
           }}

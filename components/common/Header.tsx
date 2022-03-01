@@ -47,7 +47,7 @@ export const Header: React.VFC<Props> = (props) => {
               </a>
             </Link>
           )}
-          <div className="flex items-center  font-bold text-3xl ">
+          <div className="flex items-center font-bold text-3xl">
             {!props.isEdit ? (
               <button className="cursor-pointer mr-2 font-bold">
                 <FaAngleLeft />
