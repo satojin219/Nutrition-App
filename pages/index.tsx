@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import React, { useContext, useMemo, useState } from "react";
-import { DayContext } from "./_app";
+import { DayContext, IsModalShowContext } from "./_app";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -12,14 +12,9 @@ import { UserData, dayData, Meal } from "globalType";
 import { useSelectDay } from "../hooks/useSelectDay";
 import classnames from "classnames";
 
-type isFixedContextType = {
-  isModalShow: boolean;
-  setIsModalShow: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export const isModalShowContext = React.createContext({} as isFixedContextType);
-
 const Home: NextPage = () => {
   const dayContext = useContext(DayContext);
+  const isModalShowContext = useContext(IsModalShowContext);
   const meals = useMemo(() => {
     dayContext.selectedDayData.meals = [
       { whenMeal: "breakfast" },
@@ -29,13 +24,9 @@ const Home: NextPage = () => {
     ];
     return dayContext.selectedDayData.meals;
   }, [dayContext]);
-  const [isModalShow, setIsModalShow] = useState(false);
-  const value = {
-    isModalShow,
-    setIsModalShow,
-  };
+
   const fixedClassNames = {
-    fixed: isModalShow,
+    "fixed w-full": isModalShowContext.isModalShow,
   };
   return (
     <div className={classnames(fixedClassNames, "font-fancy")}>
@@ -49,17 +40,16 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <isModalShowContext.Provider value={value}>
-        {/* <Header meal={""} isEdit={false} date={dayContext.selectedDayData.selectedDay} /> */}
-        <Header meal={""} isEdit={false} />
-        {/* <DailylIntakeNutrition totalIntake={dayContext.selectedDayData.totalIntake} /> */}
-        <DailylIntakeNutrition />
-        <div className="lg:flex flex-wrap">
-          {meals.map((meal: Meal, index: number) => (
-            <DishCard meal={meal} key={index} />
-          ))}
-        </div>
-      </isModalShowContext.Provider>
+
+      {/* <Header meal={""} isEdit={false} date={dayContext.selectedDayData.selectedDay} /> */}
+      <Header meal={""} isEdit={false} />
+      {/* <DailylIntakeNutrition totalIntake={dayContext.selectedDayData.totalIntake} /> */}
+      <DailylIntakeNutrition />
+      <div className="lg:flex flex-wrap">
+        {meals.map((meal: Meal, index: number) => (
+          <DishCard meal={meal} key={index} />
+        ))}
+      </div>
     </div>
   );
 };
