@@ -1,11 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Nutrition } from "globalType";
+import dayjs from "dayjs";
 
 type DishData = {
   morning: { title: string; nutrition: Nutrition }[];
   lunch: { title: string; nutrition: Nutrition }[];
   dinner: { title: string; nutrition: Nutrition }[];
+};
+type validateDateError = {
+  message: string;
+  statusCode: number;
 };
 const protNutrition: Nutrition = {
   biotin: 2.7,
@@ -82,10 +87,22 @@ const dish: DishData = {
     },
   ],
 };
-
-export default function handler(
+const validateDate = (text: string): boolean => {
+  const isExistenceDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD") === text;
+  return isExistenceDate;
+};
+const handler = (
   req: NextApiRequest,
-  res: NextApiResponse<DishData>
-) {
-  res.status(200).json(dish);
-}
+  res: NextApiResponse<DishData | validateDateError>
+) => {
+  const date: string | string[] = req.query.date;
+  if (validateDate(date)) {
+    res.status(200).json(dish);
+  } else {
+    res.status(400).send({
+      message: "Parameter 'date' is not exist.",
+      statusCode: 400,
+    });
+  }
+};
+export default handler;
