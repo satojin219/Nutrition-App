@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -31,7 +32,7 @@ export const DishCard: React.VFC<Props> = (props) => {
             <div>
               <div className="md:flex flex-row justify-around">
                 <div className="basisi-1/2 md:basis-1/3 p-3">
-                  <img src="/sp_detail_main_PS_KCF_1585M.jpg" alt="" />
+                  <Image src="/sp_detail_main_PS_KCF_1585M.jpg" alt="" />
                 </div>
                 <ul className="basisi-1/2 md:text-xl list-disc p-3">
                   {props.meal.menus?.map((menu: Menu) => {

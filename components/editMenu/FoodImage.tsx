@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 export const FoodImage: React.VFC = () => {
   const [preview, setPreview] = useState("");
@@ -10,14 +11,14 @@ export const FoodImage: React.VFC = () => {
     <div className="basis-1/3 md:basis-1/3 text-xl bg-gray-400 text-white ">
       <div className="flex justify-center items-center">
         {preview != "" ? (
-          <img
+          <Image
             src={preview}
             className="object-fill w-full h-full"
             alt="preview"
           />
         ) : (
           <div className="flex justify-center items-center h-48">
-            <img src="" alt="No image" />
+            <Image src="" alt="No image" />
           </div>
         )}
       </div>
