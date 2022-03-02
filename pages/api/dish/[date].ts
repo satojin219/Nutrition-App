@@ -1,11 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Nutrition } from "globalType";
+import dayjs from "dayjs";
 
 type DishData = {
   morning: { title: string; nutrition: Nutrition }[];
   lunch: { title: string; nutrition: Nutrition }[];
   dinner: { title: string; nutrition: Nutrition }[];
+};
+type validateDateError = {
+  message: string;
+  statusCode: number;
 };
 const protNutrition: Nutrition = {
   biotin: 2.7,
@@ -82,10 +87,41 @@ const dish: DishData = {
     },
   ],
 };
-
-export default function handler(
+const isExistDate = (text: string): boolean => {
+  const formatText = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
+  return formatText === text;
+};
+const isBeforeToday = (text: string): boolean => {
+  const today = dayjs().format("YYYYMMDD");
+  const requestedDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
+  return parseInt(requestedDate) <= parseInt(today);
+};
+const handler = (
   req: NextApiRequest,
-  res: NextApiResponse<DishData>
-) {
-  res.status(200).json(dish);
-}
+  res: NextApiResponse<DishData | validateDateError>
+) => {
+  const date: string | string[] = req.query.date;
+  if (typeof date !== "string") {
+    throw new Error("Parameter date must be string");
+  }
+  try {
+    if (isExistDate(date) && isBeforeToday(date)) {
+      res.status(200).json(dish);
+    } else {
+      throw new Error("Parameter date is not exist.");
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      res.status(400).send({
+        message: e.message,
+        statusCode: 400,
+      });
+    } else {
+      res.status(500).send({
+        message: "Internal server error",
+        statusCode: 400,
+      });
+    }
+  }
+};
+export default handler;
