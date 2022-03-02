@@ -96,11 +96,14 @@ const handler = (
   res: NextApiResponse<DishData | validateDateError>
 ) => {
   const date: string | string[] = req.query.date;
+  if (typeof date !== "string") {
+    throw new Error("Parameter date must be string");
+  }
   if (validateDate(date)) {
     res.status(200).json(dish);
   } else {
     res.status(400).send({
-      message: "Parameter 'date' is not exist.",
+      message: "Parameter date is not exist.",
       statusCode: 400,
     });
   }
