@@ -87,9 +87,14 @@ const dish: DishData = {
     },
   ],
 };
-const validateDate = (text: string): boolean => {
-  const isExistenceDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD") === text;
-  return isExistenceDate;
+const isExistDate = (text: string): boolean => {
+  const formatText = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
+  return formatText === text;
+};
+const isBeforeToday = (text: string): boolean => {
+  const today = dayjs().format("YYYYMMDD");
+  const requestedDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
+  return parseInt(requestedDate) <= parseInt(today);
 };
 const handler = (
   req: NextApiRequest,
@@ -99,13 +104,24 @@ const handler = (
   if (typeof date !== "string") {
     throw new Error("Parameter date must be string");
   }
-  if (validateDate(date)) {
-    res.status(200).json(dish);
-  } else {
-    res.status(400).send({
-      message: "Parameter date is not exist.",
-      statusCode: 400,
-    });
+  try {
+    if (isExistDate(date) && isBeforeToday(date)) {
+      res.status(200).json(dish);
+    } else {
+      throw new Error("Parameter date is not exist.");
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      res.status(400).send({
+        message: e.message,
+        statusCode: 400,
+      });
+    } else {
+      res.status(500).send({
+        message: "Internal server error",
+        statusCode: 400,
+      });
+    }
   }
 };
 export default handler;
