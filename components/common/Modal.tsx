@@ -3,8 +3,9 @@ import { useContext } from "react";
 import { IsModalShowContext } from "../../pages/_app";
 import { NutritionList } from "../common/NutritionList";
 import { BsXLg } from "react-icons/bs";
+import { Nutrition } from "globalType";
 type Props = {
-  modalType: string;
+  nutrition?: Nutrition;
 };
 export const Modal: React.VFC<Props> = (props) => {
   const isModalShowContext = useContext(IsModalShowContext);
@@ -21,9 +22,9 @@ export const Modal: React.VFC<Props> = (props) => {
           <BsXLg />
         </button>
       </div>
-      {props.modalType == "calendar" ? (
+      {isModalShowContext.modalType == "calendar" ? (
         <Calendar />
-      ) : props.modalType == "nutritonList" ? (
+      ) : isModalShowContext.modalType == "nutritonList" ? (
         <NutritionList />
       ) : null}
     </div>

@@ -34,11 +34,12 @@ export const Header: React.VFC<Props> = (props) => {
               <button
                 onClick={() => {
                   isModalShowContext.setIsModalShow(true);
+                  isModalShowContext.setModalType("calendar");
                 }}
               >
                 <FaCalendarAlt size={40} />
               </button>
-              <Modal modalType="calendar" />
+              <Modal />
             </div>
           ) : (
             <Link href="/">

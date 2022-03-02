@@ -1,9 +1,17 @@
 import { foodList } from "../../json/foodList";
 import Fuse from "fuse.js";
-import React, { useRef, useState, useMemo, useCallback } from "react";
+import React, {
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+  useContext,
+} from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
 import { BsFillFileEarmarkTextFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
+import { Modal } from "../common/Modal";
+import { IsModalShowContext } from "../../pages/_app";
 
 type Props = {
   index: number;
@@ -13,8 +21,8 @@ type Props = {
 };
 
 export const SuggestFood: React.VFC<Props> = (props) => {
+  const isModalShowContext = useContext(IsModalShowContext);
   const foodstuff = props.foodstuff;
-
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
       threshold: 0.1,
@@ -141,10 +149,17 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         >
           <FaTrashAlt />
         </button>
-        <button className="flex-shrink-0 hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md">
+        <button
+          className="flex-shrink-0 hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md"
+          onClick={() => {
+            isModalShowContext.setIsModalShow(true);
+            isModalShowContext.setModalType("nutritonList");
+          }}
+        >
           {" "}
           <BsFillFileEarmarkTextFill />
         </button>
+        <Modal />
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
       </div>
       {searchCandidates.length ? (
