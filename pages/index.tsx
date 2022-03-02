@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useMemo } from "react";
 import { DayContext, IsModalShowContext } from "./_app";
 import Head from "next/head";
 import { Header } from "../components/common/Header";
