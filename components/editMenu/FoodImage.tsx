@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 export const FoodImage: React.VFC = () => {
-  const [preview, setPreview] = useState("/public/m_e_others_501.png");
+  const [preview, setPreview] = useState("/../public/m_e_others_501.png");
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
     setPreview(window.URL.createObjectURL(files![0]));
