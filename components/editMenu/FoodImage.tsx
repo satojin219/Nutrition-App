@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
+
 export const FoodImage: React.VFC = () => {
-  const [preview, setPreview] = useState("/m_e_others_501.png");
+  const NO_IMAGE_THUMBNAIL: string = "/public/m_e_others_501.png";
+  const [thumbnailUrl, setThumbnailUrl] = useState(NO_IMAGE_THUMBNAIL);
+
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
-    setPreview(window.URL.createObjectURL(files![0]));
+    setThumbnailUrl(window.URL.createObjectURL(files![0]));
   };
 
   return (
     <div className="basis-1/3 md:basis-1/3 text-xl text-white">
       <div className="bg-stone-50">
         <Image
-          src={preview}
+          src={thumbnailUrl}
           className="text-center"
           alt="No Image"
           height={300}
@@ -23,7 +26,7 @@ export const FoodImage: React.VFC = () => {
 
       <div className="relative">
         <label className="cursor-pointer text-center bg-zinc-600 text-white p-2 rounded-full shadow-md w-13 font-bold mr-4 mb-3 absolute bottom-0 right-0 text-4xl">
-          {preview == "/m_e_others_501.png" ? (
+          {thumbnailUrl == NO_IMAGE_THUMBNAIL ? (
             <MdAddAPhoto />
           ) : (
             <MdFlipCameraIos />
