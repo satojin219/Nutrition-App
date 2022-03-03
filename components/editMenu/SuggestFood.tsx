@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const SuggestFood: React.VFC<Props> = (props) => {
-  const isModalShowContext = useContext(IsModalShowContext);
+  const { openModal } = useContext(IsModalShowContext);
   const foodstuff = props.foodstuff;
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
@@ -152,8 +152,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         <button
           className="flex-shrink-0 hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md"
           onClick={() => {
-            isModalShowContext.setIsModalShow(true);
-            isModalShowContext.setModalType("nutritonList");
+            openModal("nutritonList");
           }}
         >
           {" "}

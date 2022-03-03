@@ -5,7 +5,7 @@ import { FaFire, FaBreadSlice, FaFish } from "react-icons/fa";
 import { IoWater } from "react-icons/io5";
 
 export const DailylIntakeNutrition: React.VFC = (props) => {
-  const isModalShowContext = useContext(IsModalShowContext);
+  const { openModal } = useContext(IsModalShowContext);
 
   return (
     <div>
@@ -48,8 +48,7 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
           <button
             className="sm:text-md mt-3 mr-5 pr-5 text-md font-bold"
             onClick={() => {
-              isModalShowContext.setIsModalShow(true);
-              isModalShowContext.setModalType("nutritonList");
+              openModal("nutritonList");
             }}
           >
             詳しく見る <span className="text-red-500">&gt;</span>
