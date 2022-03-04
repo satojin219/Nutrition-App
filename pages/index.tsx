@@ -10,7 +10,7 @@ import classnames from "classnames";
 
 const Home: NextPage = () => {
   const dayContext = useContext(DayContext);
-  const isModalShowContext = useContext(IsModalShowContext);
+  const { currentState } = useContext(IsModalShowContext);
   const meals = useMemo(() => {
     dayContext.selectedDayData.meals = [
       { whenMeal: "breakfast" },
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   }, [dayContext]);
 
   const fixedClassNames = {
-    "fixed w-full": isModalShowContext.isModalShow,
+    "fixed w-full": currentState.isOpen,
   };
   return (
     <div className={classnames(fixedClassNames)}>
