@@ -32,42 +32,39 @@ export const DishCard: React.VFC<Props> = (props) => {
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
           {props.dishArray != [] ? (
             <div>
-              <div className="md:flex flex-row justify-around">
-                <div className="basisi-1/2 md:basis-1/3 p-3">
-                  <div className="snap-mandatory snap-x flex   flex-nowrap overflow-x-scroll">
-                    <div className="snap-start bg-stone-50 flex flex-none">
+              <div className="xl:flex flex-row justify-around">
+                <div className="basis-1/2  flex justify-center">
+                  <div className="w-48 sm:w-64 md:w-80 snap-mandatory snap-x flex justify-between  flex-nowrap overflow-x-scroll">
+                    <div className="snap-center flex flex-none  bg-stone-50">
                       <Image
                         src={"/20180308-futako01-2.jpg"}
-                        className="text-center"
                         alt="No Image"
-                        height={300}
-                        width={500}
+                        height={200}
+                        width={400}
                         objectFit={"contain"}
                       />
                     </div>
-                    <div className="snap-start bg-stone-50 flex flex-none">
+                    <div className="snap-center flex flex-none  bg-stone-50">
                       <Image
-                        src={"/20180308-futako01-2.jpg"}
-                        className="text-center"
+                        src={"/sp_detail_main_PS_KCF_1585M.jpg"}
                         alt="No Image"
-                        height={300}
-                        width={500}
+                        height={200}
+                        width={400}
                         objectFit={"contain"}
                       />
                     </div>
-                    <div className="snap-start bg-stone-50 flex flex-none ">
+                    <div className="snap-center flex flex-none  bg-stone-50">
                       <Image
-                        src={"/20180308-futako01-2.jpg"}
-                        className="text-center"
+                        src={"/709186.jpg"}
                         alt="No Image"
-                        height={300}
-                        width={500}
+                        height={200}
+                        width={400}
                         objectFit={"contain"}
                       />
                     </div>
                   </div>
                 </div>
-                <ul className="basisi-1/2 md:text-xl list-disc p-3">
+                <ul className="basisi-1/2 md:text-xl p-3">
                   {props.dishArray?.map((dish: DishType) => {
                     return (
                       <li
