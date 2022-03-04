@@ -1,4 +1,10 @@
-import { Foodstuff, Nutrition, DateType } from "../types/globalType";
+import {
+  Foodstuff,
+  Nutrition,
+  DateType,
+  DishData,
+  DishType,
+} from "../types/globalType";
 
 type extractNutrtionType = {
   unit: string;
@@ -228,7 +234,7 @@ export const removeElemnt = <T>(
 };
 
 export const calSumNutrition = (
-  foodstuffs: Foodstuff[]
+  array: Foodstuff[] | DishType[]
 ): Nutrition | undefined => {
   let res: Nutrition = {
     calorie: 0,
@@ -265,10 +271,10 @@ export const calSumNutrition = (
     folate: 0,
     biotin: 0,
   };
-  if (foodstuffs.length == 0) return;
-  foodstuffs.map((foodstuff: Foodstuff) => {
-    if (foodstuff.name == null) return;
-    let nutrition = foodstuff.nutrition!;
+  if (array.length == 0) return;
+  array.map((item: Foodstuff | DishType) => {
+    if ("name" in item && item.name == null) return;
+    let nutrition = item.nutrition!;
     res.calorie += nutrition.calorie;
     res.carbohydrates += nutrition.carbohydrates;
     res.protein += nutrition.protein;

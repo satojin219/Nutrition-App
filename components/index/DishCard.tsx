@@ -5,13 +5,9 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
-import { Menu, Nutrition } from "globalType";
-import { FoodImage } from "../editMenu/FoodImage";
+import { DishType } from "globalType";
+import { calSumNutrition } from "../../tools/HelpMethods";
 
-type DishType = {
-  title: string;
-  nutrition: Nutrition;
-};
 type Props = {
   dishArray: DishType[];
   whenMeal: string;
@@ -39,7 +35,7 @@ export const DishCard: React.VFC<Props> = (props) => {
               <div className="md:flex flex-row justify-around">
                 <div className="basisi-1/2 md:basis-1/3 p-3">
                   <div className="snap-mandatory snap-x flex   flex-nowrap overflow-x-scroll">
-                    <div className="snap-start bg-stone-50 flex flex-none ">
+                    <div className="snap-start bg-stone-50 flex flex-none">
                       <Image
                         src={"/20180308-futako01-2.jpg"}
                         className="text-center"
@@ -84,8 +80,7 @@ export const DishCard: React.VFC<Props> = (props) => {
                   })}
                 </ul>
               </div>
-              <NutritionList />
-              {/* nutrition={props.dishArray[0].nutrition} */}
+              <NutritionList nutrition={calSumNutrition(props.dishArray)} />
             </div>
           ) : (
             <div className="flex justify-center">

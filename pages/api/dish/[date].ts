@@ -1,14 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Nutrition } from "globalType";
+import { Nutrition, DishData } from "globalType";
 import dayjs from "dayjs";
 
-type DishData = {
-  breakfast: { title: string; nutrition: Nutrition }[];
-  lunch: { title: string; nutrition: Nutrition }[];
-  dinner: { title: string; nutrition: Nutrition }[];
-  snack: { title: string; nutrition: Nutrition }[];
-};
 type validateDateError = {
   message: string;
   statusCode: number;
