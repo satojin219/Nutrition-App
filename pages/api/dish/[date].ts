@@ -4,9 +4,10 @@ import { Nutrition } from "globalType";
 import dayjs from "dayjs";
 
 type DishData = {
-  morning: { title: string; nutrition: Nutrition }[];
+  breakfast: { title: string; nutrition: Nutrition }[];
   lunch: { title: string; nutrition: Nutrition }[];
   dinner: { title: string; nutrition: Nutrition }[];
+  snack: { title: string; nutrition: Nutrition }[];
 };
 type validateDateError = {
   message: string;
@@ -48,7 +49,7 @@ const protNutrition: Nutrition = {
   zn: 0.1,
 };
 const dish: DishData = {
-  morning: [
+  breakfast: [
     {
       title: "ご飯",
       nutrition: protNutrition,
@@ -83,6 +84,16 @@ const dish: DishData = {
     },
     {
       title: "ポテトサラダ",
+      nutrition: protNutrition,
+    },
+  ],
+  snack: [
+    {
+      title: "キャベツ太郎",
+      nutrition: protNutrition,
+    },
+    {
+      title: "酢昆布",
       nutrition: protNutrition,
     },
   ],
