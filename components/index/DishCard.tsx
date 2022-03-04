@@ -38,15 +38,37 @@ export const DishCard: React.VFC<Props> = (props) => {
             <div>
               <div className="md:flex flex-row justify-around">
                 <div className="basisi-1/2 md:basis-1/3 p-3">
-                  <div className="bg-stone-50">
-                    <Image
-                      src={"/20180308-futako01-2.jpg"}
-                      className="text-center"
-                      alt="No Image"
-                      height={300}
-                      width={500}
-                      objectFit={"contain"}
-                    />
+                  <div className="snap-mandatory snap-x flex   flex-nowrap overflow-x-scroll">
+                    <div className="snap-start bg-stone-50 flex flex-none ">
+                      <Image
+                        src={"/20180308-futako01-2.jpg"}
+                        className="text-center"
+                        alt="No Image"
+                        height={300}
+                        width={500}
+                        objectFit={"contain"}
+                      />
+                    </div>
+                    <div className="snap-start bg-stone-50 flex flex-none">
+                      <Image
+                        src={"/20180308-futako01-2.jpg"}
+                        className="text-center"
+                        alt="No Image"
+                        height={300}
+                        width={500}
+                        objectFit={"contain"}
+                      />
+                    </div>
+                    <div className="snap-start bg-stone-50 flex flex-none ">
+                      <Image
+                        src={"/20180308-futako01-2.jpg"}
+                        className="text-center"
+                        alt="No Image"
+                        height={300}
+                        width={500}
+                        objectFit={"contain"}
+                      />
+                    </div>
                   </div>
                 </div>
                 <ul className="basisi-1/2 md:text-xl list-disc p-3">
