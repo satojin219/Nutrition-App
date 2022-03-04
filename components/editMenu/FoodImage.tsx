@@ -1,31 +1,32 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
+
+const NO_IMAGE_THUMBNAIL: string = "/m_e_others_501.png";
 export const FoodImage: React.VFC = () => {
-  const [preview, setPreview] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | undefined>();
+
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
-    setPreview(window.URL.createObjectURL(files![0]));
+    setThumbnailUrl(window.URL.createObjectURL(files![0]));
   };
+
   return (
-    <div className="basis-1/3 md:basis-1/3 text-xl bg-gray-400 text-white ">
-      <div className="flex justify-center items-center">
-        {preview != "" ? (
-          <Image
-            src={preview}
-            className="object-fill w-full h-full"
-            alt="preview"
-          />
-        ) : (
-          <div className="flex justify-center items-center h-48">
-            <Image src="" alt="No image" />
-          </div>
-        )}
+    <div className="basis-1/3 md:basis-1/3 text-xl text-white">
+      <div className="bg-stone-50">
+        <Image
+          src={thumbnailUrl || NO_IMAGE_THUMBNAIL}
+          className="text-center"
+          alt="No Image"
+          height={300}
+          width={500}
+          objectFit={"contain"}
+        />
       </div>
 
       <div className="relative">
         <label className="cursor-pointer text-center bg-zinc-600 text-white p-2 rounded-full shadow-md w-13 font-bold mr-4 mb-3 absolute bottom-0 right-0 text-4xl">
-          {preview == "" ? <MdAddAPhoto /> : <MdFlipCameraIos />}
+          {thumbnailUrl === undefined ? <MdAddAPhoto /> : <MdFlipCameraIos />}
           <input
             type="file"
             name="photo"
