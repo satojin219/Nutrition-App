@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import React, { useCallback, useContext } from "react";
 import { IsModalShowContext } from "../_app";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { DailylIntakeNutrition } from "../../components/index/DailylIntakeNutrition";
@@ -11,17 +12,16 @@ import { fetchDishData } from "../../schema/dishData";
 
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
-  // const fetchDishData = async (url: string): Promise<any> => {
-  //   const res = await fetch(url);
-  //   return res.json();
-  // };
-  const { data, error } = useSWR("/api/dish/20220303", fetchDishData);
+  const router = useRouter();
+  const { data, error } = useSWR(
+    `/api/dish/${router.query.currentDate}`,
+    fetchDishData
+  );
 
   const fixedClassNames = {
     "fixed w-full": isModalShowContext.isModalShow,
   };
 
-  // if (!data) return <div>Loading...</div>;
   return (
     <div className={classnames(fixedClassNames)}>
       <Head>
