@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Header } from "../components/common/Header";
-import { EditMenuCard } from "../components/editMenu/EditMenuCard";
+import { Header } from "../../components/common/Header";
+import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
 import { useState } from "react";
 import { Menu } from "globalType";
-import { addElement, removeElemnt } from "../tools/HelpMethods";
+import { addElement, removeElemnt } from "../../tools/HelpMethods";
 
 const EditMenuPage: NextPage = () => {
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
