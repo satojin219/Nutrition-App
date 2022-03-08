@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Nutrition } from "globalType";
 import dayjs from "dayjs";
+import { db } from "../../../server/firebase";
 
 type DishData = {
   breakfast: { title: string; nutrition: Nutrition }[];
@@ -112,6 +113,7 @@ const handler = (
   res: NextApiResponse<DishData | validateDateError>
 ) => {
   const date: string | string[] = req.query.date;
+  db.collection("sample").doc().create({ message: "やっほー" });
   if (typeof date !== "string") {
     throw new Error("Parameter date must be string");
   }
