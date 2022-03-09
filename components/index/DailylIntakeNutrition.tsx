@@ -1,7 +1,12 @@
+import { Modal } from "../common/Modal";
+import { IsModalShowContext } from "../../pages/_app";
+import { useContext } from "react";
 import { FaFire, FaBreadSlice, FaFish } from "react-icons/fa";
 import { IoWater } from "react-icons/io5";
 
 export const DailylIntakeNutrition: React.VFC = (props) => {
+  const { openModal } = useContext(IsModalShowContext);
+
   return (
     <div>
       <div className="rounded-b-3xl bg-orange-50 font-bold py-5 shadow-lg sm:text-xl">
@@ -40,10 +45,15 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
         </div>
 
         <div className="flex justify-end">
-          <button className="sm:text-md mt-3 mr-5 pr-5 text-md font-bold">
-            {" "}
+          <button
+            className="sm:text-md mt-3 mr-5 pr-5 text-md font-bold"
+            onClick={() => {
+              openModal("nutritonList");
+            }}
+          >
             詳しく見る <span className="text-red-500">&gt;</span>
           </button>
+          <Modal />
         </div>
       </div>
     </div>

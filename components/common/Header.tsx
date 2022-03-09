@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const Header: React.VFC<Props> = (props) => {
-  const isModalShowContext = useContext(IsModalShowContext);
+  const { openModal } = useContext(IsModalShowContext);
   const router = useRouter();
   const { headerIcon } = useMemo(() => {
     return divideIconAndColor(router.query.whenMeal);
@@ -33,12 +33,12 @@ export const Header: React.VFC<Props> = (props) => {
             <div>
               <button
                 onClick={() => {
-                  isModalShowContext.setIsModalShow(true);
+                  openModal("calendar");
                 }}
               >
                 <FaCalendarAlt size={40} />
               </button>
-              <Modal modalType="calendar" />
+              <Modal />
             </div>
           ) : (
             <Link href="/">
