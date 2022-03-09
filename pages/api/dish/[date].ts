@@ -113,7 +113,7 @@ const handler = (
   res: NextApiResponse<DishData | validateDateError>
 ) => {
   const date: string | string[] = req.query.date;
-  db.collection("sample").doc().create({ message: "やっほー" });
+
   if (typeof date !== "string") {
     throw new Error("Parameter date must be string");
   }
