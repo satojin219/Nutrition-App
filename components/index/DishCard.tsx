@@ -5,16 +5,18 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
-import { Meal, Menu } from "globalType";
+import { DishType } from "globalType";
+import { calSumNutrition } from "../../tools/HelpMethods";
 
 type Props = {
-  meal: Meal;
+  dishArray: DishType[];
+  whenMeal: string;
 };
 
 export const DishCard: React.VFC<Props> = (props) => {
   const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(props.meal.whenMeal);
-  }, [props.meal.whenMeal]);
+    return divideIconAndColor(props.whenMeal);
+  }, [props.whenMeal]);
 
   const router = useRouter();
   return (
@@ -22,34 +24,64 @@ export const DishCard: React.VFC<Props> = (props) => {
       <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
         <div className="md:w-1/4 w-1/2">
           <div
-            className={`${props.meal.whenMeal} rounded-t-lg text-white text-center p-5 text-3xl flex justify-center`}
+            className={`${props.whenMeal} rounded-t-lg text-white text-center p-5 text-3xl flex justify-center`}
           >
             {headerIcon}
           </div>
         </div>
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
-          {props.meal.menus == [] ? (
+          {props.dishArray != [] ? (
             <div>
-              <div className="md:flex flex-row justify-around">
-                <div className="basisi-1/2 md:basis-1/3 p-3">
-                  <Image src="/sp_detail_main_PS_KCF_1585M.jpg" alt="" />
+              <div className="xl:flex flex-row justify-around">
+                <div className="basis-1/2  flex justify-center">
+                  <div className="w-48 sm:w-64 md:w-80 snap-mandatory snap-x flex justify-between  flex-nowrap overflow-x-scroll">
+                    <div className="snap-center flex flex-none  bg-stone-50">
+                      <Image
+                        src={"/20180308-futako01-2.jpg"}
+                        alt="No Image"
+                        height={200}
+                        width={400}
+                        objectFit={"contain"}
+                      />
+                    </div>
+                    <div className="snap-center flex flex-none  bg-stone-50">
+                      <Image
+                        src={"/sp_detail_main_PS_KCF_1585M.jpg"}
+                        alt="No Image"
+                        height={200}
+                        width={400}
+                        objectFit={"contain"}
+                      />
+                    </div>
+                    <div className="snap-center flex flex-none  bg-stone-50">
+                      <Image
+                        src={"/709186.jpg"}
+                        alt="No Image"
+                        height={200}
+                        width={400}
+                        objectFit={"contain"}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <ul className="basisi-1/2 md:text-xl list-disc p-3">
-                  {props.meal.menus?.map((menu: Menu) => {
-                    <li
-                      key={menu.recipeName}
-                      className="border-yellow-700/50 border-b-2 my-2"
-                    >
-                      {menu.recipeName}
-                    </li>;
+                <ul className="basisi-1/2 md:text-xl p-3">
+                  {props.dishArray?.map((dish: DishType) => {
+                    return (
+                      <li
+                        key={dish.title}
+                        className="border-yellow-700/50 border-b-2 my-2"
+                      >
+                        {dish.title}
+                      </li>
+                    );
                   })}
                 </ul>
               </div>
-              <NutritionList nutrition={props.meal.mealTotalNutrition} />
+              <NutritionList nutrition={calSumNutrition(props.dishArray)} />
             </div>
           ) : (
             <div className="flex justify-center">
-              <Link href={`/${props.meal.whenMeal}`}>
+              <Link href={`/${props.whenMeal}`}>
                 <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
                   + 献立を追加する
                 </a>
