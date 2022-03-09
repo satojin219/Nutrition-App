@@ -5,28 +5,39 @@ import React, { createContext, useState } from "react";
 import { useSelectDay } from "../hooks/useSelectDay";
 import { dayData, DateType } from "globalType";
 import type { AppProps } from "next/app";
+import { useModal } from "../hooks/useModal";
 
 type DayContextType = {
   selectedDayData: dayData;
   setSelectedDayData: React.Dispatch<React.SetStateAction<dayData>>;
   changeDay: (date: DateType) => void;
 };
+type ModalType = "nutritonList" | "calendar";
 type isFixedContextType = {
-  isModalShow: boolean;
-  setIsModalShow: React.Dispatch<React.SetStateAction<boolean>>;
+  openModal: (modalType: ModalType) => void;
+  closeModal: () => void;
+  currentState: {
+    isOpen: boolean;
+    modalType: ModalType;
+  };
 };
+
 export const DayContext = createContext({} as DayContextType);
 export const IsModalShowContext = React.createContext({} as isFixedContextType);
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { selectedDayData, setSelectedDayData, changeDay } = useSelectDay();
-  const [isModalShow, setIsModalShow] = useState(false);
-  const value = {
-    isModalShow,
-    setIsModalShow,
-  };
+  const { isModalShow, modalType, openModal, closeModal } = useModal();
 
+  const isModalShowContext = {
+    openModal,
+    closeModal,
+    currentState: {
+      isOpen: isModalShow,
+      modalType: modalType,
+    },
+  };
   return (
-    <IsModalShowContext.Provider value={value}>
+    <IsModalShowContext.Provider value={isModalShowContext}>
       <DayContext.Provider
         value={{ selectedDayData, setSelectedDayData, changeDay }}
       >

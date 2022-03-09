@@ -5,6 +5,7 @@ import Router from "next/router";
 import dayjs from "dayjs";
 
 const Home: NextPage = () => {
+
   const today = dayjs().format("YYYYMMDD");
   useEffect(() => {
     Router.push(`/${today}`);
