@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   );
 
   const fixedClassNames = {
-    "fixed w-full": isModalShowContext.isModalShow,
+    "fixed w-full": isModalShowContext.currentState.isOpen,
   };
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         <title>Nutriton App</title>
       </Head>
       {!!isLoading && <Loading />}
-      {!!error && <DefaultErrorPage statusCode={error.info.statusCode} />}
+      {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
       {!!data && (
         <div>
           <Header meal={""} isEdit={false} />
