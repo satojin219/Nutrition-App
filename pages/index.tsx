@@ -1,13 +1,6 @@
 import type { NextPage } from "next";
-import React, { useCallback, useContext, useEffect } from "react";
-import { IsModalShowContext } from "./_app";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import { Header } from "../components/common/Header";
-import { DailylIntakeNutrition } from "../components/index/DailylIntakeNutrition";
-import { DishCard } from "../components/index/DishCard";
-import classnames from "classnames";
-import useSWR from "swr";
-import { fetchDishData } from "../schema/dishData";
 import Router from "next/router";
 import dayjs from "dayjs";
 

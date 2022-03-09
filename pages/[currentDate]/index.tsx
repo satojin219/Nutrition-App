@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { IsModalShowContext } from "../_app";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -9,7 +9,7 @@ import { DishCard } from "../../components/index/DishCard";
 import classnames from "classnames";
 import useSWR from "swr";
 import { fetchDishData } from "../../schema/dishData";
-
+import DefaultErrorPage from "next/error";
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
@@ -27,19 +27,25 @@ const Home: NextPage = () => {
       <Head>
         <title>Nutriton App</title>
       </Head>
-      <Header meal={""} isEdit={false} />
-      <DailylIntakeNutrition />
-      {data ? (
-        <div className="lg:flex flex-wrap">
-          <DishCard
-            dishArray={data.breakfast}
-            whenMeal={Object.keys(data)[0]}
-          />
-          <DishCard dishArray={data.lunch} whenMeal={Object.keys(data)[1]} />
-          <DishCard dishArray={data.dinner} whenMeal={Object.keys(data)[2]} />
-          <DishCard dishArray={data.snack} whenMeal={Object.keys(data)[3]} />
+      {error ? (
+        <DefaultErrorPage statusCode={error.info.statusCode} />
+      ) : data ? (
+        <div>
+          <Header meal={""} isEdit={false} />
+          <DailylIntakeNutrition />
+          <div className="lg:flex flex-wrap">
+            <DishCard
+              dishArray={data.breakfast}
+              whenMeal={Object.keys(data)[0]}
+            />
+            <DishCard dishArray={data.lunch} whenMeal={Object.keys(data)[1]} />
+            <DishCard dishArray={data.dinner} whenMeal={Object.keys(data)[2]} />
+            <DishCard dishArray={data.snack} whenMeal={Object.keys(data)[3]} />
+          </div>
         </div>
-      ) : null}
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 };
