@@ -102,12 +102,12 @@ const isBeforeToday = (text: string): boolean => {
   const requestedDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
   return parseInt(requestedDate) <= parseInt(today);
 };
-const handler = (
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<DishData | validateDateError>
 ) => {
   const date: string | string[] = req.query.date;
-
+  await db.collection("sample").doc().create({ message: "やっほー" });
   if (typeof date !== "string") {
     throw new Error("Parameter date must be string");
   }
