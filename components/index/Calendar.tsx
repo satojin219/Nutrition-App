@@ -1,9 +1,11 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
+import Router from "next/router";
+import { IsModalShowContext } from "../../pages/_app";
 
 type datejsDateType = DateType & {
   type: string;
@@ -12,11 +14,15 @@ type datejsDateType = DateType & {
 export const Calendar: React.VFC = () => {
   const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
   const { monthDatesArray } = useCalendar(currentDate);
+  const { closeModal } = useContext(IsModalShowContext);
   const setNextMonth = (): void => {
     setCurrentDate(currentDate.add(1, "month"));
   };
   const setLastMonth = (): void => {
     setCurrentDate(currentDate.subtract(1, "month"));
+  };
+  const changeDate = (date: string) => {
+    Router.push(`/${date}`);
   };
 
   return (
@@ -74,6 +80,20 @@ export const Calendar: React.VFC = () => {
                   "-" +
                   monthDate.day
                 }
+                onClick={() => {
+                  if (
+                    monthDate.type != "current" ||
+                    (dayjs().month() < monthDate.month &&
+                      dayjs().date() < monthDate.date)
+                  )
+                    return;
+                  closeModal();
+                  changeDate(
+                    String(monthDate.year) +
+                      String(monthDate.month).padStart(2, "0") +
+                      String(monthDate.date).padStart(2, "0")
+                  );
+                }}
                 className={`pt-8 pl-5 pr-2 border-dashed border border-gray-200 hover:bg-gray-300 cursor-pointer text-right ${
                   monthDate.type != "current"
                     ? "text-gray-400 hover:bg-white"
