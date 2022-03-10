@@ -23,6 +23,18 @@ export type DateType = {
   date: number;
 };
 
+export type DishType = {
+  title: string;
+  nutrition: Nutrition;
+};
+
+export type DishData = {
+  breakfast: { title: string; nutrition: Nutrition }[];
+  lunch: { title: string; nutrition: Nutrition }[];
+  dinner: { title: string; nutrition: Nutrition }[];
+  snack: { title: string; nutrition: Nutrition }[];
+};
+
 export type Meal = {
   whenMeal: string;
   menus?: Menu[];
