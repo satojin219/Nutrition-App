@@ -1,7 +1,16 @@
-import firebase from "firebase-admin";
-import { cert, initializeApp } from "firebase-admin/app";
+import { getApps, cert, initializeApp } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
-const app = initializeApp({
-  credential: cert(JSON.parse(process.env.FIREBASE_CREDENTIAL as string)),
-});
-export const db = firebase.firestore(app);
+console.log("app1", getApps());
+
+if (getApps().length === 0) {
+  const c = JSON.parse(process.env.FIREBASE_CREDENTIAL as string);
+  initializeApp({
+    credential: cert({
+      ...c,
+      privateKey: c.private_key.replace(/\\n/g, "\n"),
+    }),
+  });
+}
+
+export const db = getFirestore();
