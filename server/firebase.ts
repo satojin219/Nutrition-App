@@ -1,8 +1,6 @@
 import { getApps, cert, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-console.log("app1", getApps());
-
 if (getApps().length === 0) {
   const credEscaped = JSON.parse(process.env.FIREBASE_CREDENTIAL as string);
   initializeApp({
