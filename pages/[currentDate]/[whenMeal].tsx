@@ -23,7 +23,7 @@ const EditMenuPage: NextPage = () => {
         <title>Nutriton App</title>
       </Head>
 
-      <Header meal={"lunch"} isEdit={true} />
+      <Header isEdit={true} />
 
       {menuCards.map((menuCard: Menu, index: number) => (
         <EditMenuCard

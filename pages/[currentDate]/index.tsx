@@ -38,7 +38,7 @@ const Home: NextPage = () => {
       {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
       {!!data && (
         <div>
-          <Header meal={""} isEdit={false} />
+          <Header isEdit={false} />
           <DailylIntakeNutrition />
           <div className="lg:flex flex-wrap">
             <DishCard
