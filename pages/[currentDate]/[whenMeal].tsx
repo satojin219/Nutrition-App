@@ -5,6 +5,7 @@ import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
 import { useState } from "react";
 import { Menu } from "globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
+import { useRouter } from "next/router";
 
 const EditMenuPage: NextPage = () => {
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
@@ -16,6 +17,7 @@ const EditMenuPage: NextPage = () => {
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
   };
+  const router = useRouter();
 
   return (
     <div>
@@ -23,7 +25,7 @@ const EditMenuPage: NextPage = () => {
         <title>Nutriton App</title>
       </Head>
 
-      <Header isEdit={true} />
+      {!router.isReady ? null : <Header isEdit={true} />}
 
       {menuCards.map((menuCard: Menu, index: number) => (
         <EditMenuCard
