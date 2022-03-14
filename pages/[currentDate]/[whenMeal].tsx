@@ -2,14 +2,17 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Menu } from "globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
+import { BsCheckLg } from "react-icons/bs";
+import { IsModalShowContext } from "../../pages/_app";
+import { Modal } from "../../components/common/Modal";
 
 const EditMenuPage: NextPage = () => {
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
-  let copyMenuCards = [...menuCards];
+  const { openModal } = useContext(IsModalShowContext);
 
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
@@ -26,7 +29,10 @@ const EditMenuPage: NextPage = () => {
       </Head>
 
       {!router.isReady ? null : <Header isEdit={true} />}
-
+      <button className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80">
+        <BsCheckLg size={30} />
+      </button>
+      <Modal />
       {menuCards.map((menuCard: Menu, index: number) => (
         <EditMenuCard
           key={menuCard.id}

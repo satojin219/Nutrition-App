@@ -34,7 +34,7 @@ export const NutritionList: React.VFC<Props> = ({ nutrition }) => {
   };
 
   return (
-    <div className="border-2 border-red-700 rounded mt-10 sms:mx-20 p-4 bg-white">
+    <div className="border-2 border-red-700 rounded mt-10 sm:mx-20 p-4 bg-white">
       {nutrition != undefined ? (
         <div>
           <div

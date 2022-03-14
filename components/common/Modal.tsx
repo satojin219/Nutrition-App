@@ -2,6 +2,7 @@ import { Calendar } from "../index/Calendar";
 import { useContext } from "react";
 import { IsModalShowContext } from "../../pages/_app";
 import { NutritionList } from "../common/NutritionList";
+import { ConfirmEdit } from "../editMenu/ConfirmEidt";
 import { BsXLg } from "react-icons/bs";
 import { Nutrition } from "globalType";
 type Props = {
@@ -26,6 +27,8 @@ export const Modal: React.VFC<Props> = (props) => {
         <Calendar />
       ) : currentState.modalType == "nutritonList" ? (
         <NutritionList />
+      ) : currentState.modalType == "confirmEdit" ? (
+        <ConfirmEdit />
       ) : null}
     </div>
   );

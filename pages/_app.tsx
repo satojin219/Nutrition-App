@@ -12,7 +12,7 @@ type DayContextType = {
   setSelectedDayData: React.Dispatch<React.SetStateAction<dayData>>;
   changeDay: (date: DateType) => void;
 };
-type ModalType = "nutritonList" | "calendar";
+type ModalType = "nutritonList" | "calendar" | "confirmEdit";
 type isFixedContextType = {
   openModal: (modalType: ModalType) => void;
   closeModal: () => void;

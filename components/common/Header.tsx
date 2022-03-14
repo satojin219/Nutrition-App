@@ -47,11 +47,17 @@ export const Header: React.VFC<Props> = (props) => {
               <Modal />
             </div>
           ) : (
-            <Link href="/">
-              <a>
+            <div>
+              <button
+                onClick={() => {
+                  openModal("confirmEdit");
+                }}
+              >
                 <IoArrowBackCircleSharp size={40} />
-              </a>
-            </Link>
+              </button>
+
+              <Modal />
+            </div>
           )}
           <div className="flex items-center font-bold text-3xl">
             {!props.isEdit ? (
