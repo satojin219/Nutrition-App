@@ -26,9 +26,7 @@ export const Modal: React.VFC<Props> = (props) => {
         </button>
       </div>
       {currentState.modalType == "calendar" ? (
-        !router.isReady ? null : (
-          <Calendar />
-        )
+        <Calendar />
       ) : currentState.modalType == "nutritonList" ? (
         <NutritionList />
       ) : currentState.modalType == "confirmEdit" ? (

@@ -1,11 +1,12 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import "swiper/css/bundle";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useSelectDay } from "../hooks/useSelectDay";
 import { dayData, DateType } from "globalType";
 import type { AppProps } from "next/app";
 import { useModal } from "../hooks/useModal";
+import { useRouter } from "next/router";
 
 type DayContextType = {
   selectedDayData: dayData;
@@ -25,6 +26,11 @@ type isFixedContextType = {
 export const DayContext = createContext({} as DayContextType);
 export const IsModalShowContext = React.createContext({} as isFixedContextType);
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+  }, [router.isReady]);
+
   const { selectedDayData, setSelectedDayData, changeDay } = useSelectDay();
   const { isModalShow, modalType, openModal, closeModal } = useModal();
 
