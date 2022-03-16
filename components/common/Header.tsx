@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from "react";
+import React, { useMemo, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { divideIconAndColor } from "../../tools/HelpComponents";
@@ -16,6 +16,9 @@ type Props = {
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
   const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+  }, [router.isReady]);
 
   const { currentDate, addOneDay, subtractOneDay } = useDate(
     router.query.currentDate as string

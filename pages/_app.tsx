@@ -26,11 +26,6 @@ type isFixedContextType = {
 export const DayContext = createContext({} as DayContextType);
 export const IsModalShowContext = React.createContext({} as isFixedContextType);
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const router = useRouter();
-  useEffect(() => {
-    if (!router.isReady) return;
-  }, [router.isReady]);
-
   const { selectedDayData, setSelectedDayData, changeDay } = useSelectDay();
   const { isModalShow, modalType, openModal, closeModal } = useModal();
 

@@ -23,6 +23,11 @@ const Home: NextPage = () => {
     "fixed w-full": isModalShowContext.currentState.isOpen,
   };
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+  }, [router.isReady]);
+
   useEffect(() => {
     if (data) {
       setIsLoading(false);

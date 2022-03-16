@@ -1,5 +1,5 @@
 import { Calendar } from "../index/Calendar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { IsModalShowContext } from "../../pages/_app";
 import { NutritionList } from "../common/NutritionList";
@@ -12,6 +12,9 @@ type Props = {
 export const Modal: React.VFC<Props> = (props) => {
   const { currentState, closeModal } = useContext(IsModalShowContext);
   const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+  }, [router.isReady]);
 
   return (
     <div id={currentState.isOpen ? "overlay" : "unoverlay"}>
