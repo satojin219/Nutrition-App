@@ -25,10 +25,6 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!router.isReady) return;
-  }, [router.isReady]);
-
-  useEffect(() => {
     if (data) {
       setIsLoading(false);
     }
@@ -43,7 +39,7 @@ const Home: NextPage = () => {
       {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
       {!!data && (
         <div>
-          <Header isEdit={false} />
+          {!router.isReady ? null : <Header isEdit={true} />}
           <DailylIntakeNutrition />
           <div className="lg:flex flex-wrap">
             <DishCard
