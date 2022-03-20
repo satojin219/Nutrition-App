@@ -16,9 +16,8 @@ type Props = {
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
   const router = useRouter();
-  const queryParam = router.query.currentDate ?? dayjs().format("YYYYMMDD");
   const { currentDate, addOneDay, subtractOneDay } = useDate(
-    queryParam as string
+    router.query.currentDate as string
   );
 
   const { headerIcon } = useMemo(() => {

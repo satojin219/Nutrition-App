@@ -12,9 +12,6 @@ type Props = {
 export const Modal: React.VFC<Props> = (props) => {
   const { currentState, closeModal } = useContext(IsModalShowContext);
   const router = useRouter();
-  useEffect(() => {
-    if (!router.isReady) return;
-  }, [router.isReady]);
 
   return (
     <div id={currentState.isOpen ? "overlay" : "unoverlay"}>
@@ -29,7 +26,9 @@ export const Modal: React.VFC<Props> = (props) => {
         </button>
       </div>
       {currentState.modalType == "calendar" ? (
-        <Calendar />
+        !router.isReady ? null : (
+          <Calendar />
+        )
       ) : currentState.modalType == "nutritonList" ? (
         <NutritionList />
       ) : currentState.modalType == "confirmEdit" ? (
