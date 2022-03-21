@@ -49,6 +49,8 @@ const handler = async (
     // データそのものの有無、日付単位データの有無をAND判定
     res.status(200).json(data?.dishes?.[date] || emptyDishData);
   } catch (e) {
+    console.error(`Error!! : ${e}`);
+
     if (e instanceof MyAppError) {
       res.status(e.statusCode).send({
         message: e.message,
