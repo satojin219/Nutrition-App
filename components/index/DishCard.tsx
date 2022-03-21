@@ -32,14 +32,16 @@ export const DishCard: React.VFC<Props> = (props) => {
           </div>
         </div>
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
-          <div className="flex justify-end mb-3">
-            <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
-              <a className="hover:text-orange-700 opacity-50">
-                <BsPencilFill size={30} />
-              </a>
-            </Link>
-          </div>
-          {props.dishArray != [] ? (
+          {props.dishArray.length != 0 ? (
+            <div className="flex justify-end mb-3">
+              <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
+                <a className="hover:text-orange-700 opacity-50">
+                  <BsPencilFill size={30} />
+                </a>
+              </Link>
+            </div>
+          ) : null}
+          {props.dishArray.length != 0 ? (
             <div>
               <div className="xl:flex flex-row justify-around">
                 <div className="basis-1/2  flex justify-center">
