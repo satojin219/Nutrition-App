@@ -23,7 +23,7 @@ const handler = async (
       const data = await readDishService(date);
       res.status(200).json(data);
     } else if (req.method === "POST") {
-      const date: string | string[] = req.body.date;
+      const date: string | string[] = req.query.date;
       const dishData: DishData = req.body.data;
 
       if (typeof date !== "string") {
