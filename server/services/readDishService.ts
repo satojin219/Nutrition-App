@@ -10,13 +10,9 @@ const emptyDishData: DishData = {
   snack: [],
 };
 
-const readDishService = async (date: string | string[]): Promise<DishData> => {
-  if (typeof date !== "string") {
-    throw new MyAppError("Parameter date must be string");
-  }
-
+const readDishService = async (date: string): Promise<DishData> => {
   if (!isExistDate(date) || !isBeforeToday(date)) {
-    throw new MyAppError("Parameter date is not exist.");
+    throw new MyAppError("Parameter date is not valid.");
   }
 
   const stream = await db.collection("user").doc("GZWJqh13Te0bIAk3zrlo").get();
