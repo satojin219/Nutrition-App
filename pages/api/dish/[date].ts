@@ -25,9 +25,22 @@ const handler = async (
     } else if (req.method === "POST") {
       const date: string | string[] = req.body.date;
       const dishData: DishData = req.body.data;
+
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
       }
+      if (
+        !(
+          dishData &&
+          "breakfast" in dishData &&
+          "lunch" in dishData &&
+          "dinner" in dishData &&
+          "snack" in dishData
+        )
+      ) {
+        throw new MyAppError("Parameter dish data is not valid");
+      }
+
       await createDishService(date, dishData);
       res.status(200).send("ok");
     } else {
