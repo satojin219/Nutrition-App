@@ -29,10 +29,10 @@ export type DishType = {
 };
 
 export type DishData = {
-  breakfast: { title: string; nutrition: Nutrition }[];
-  lunch: { title: string; nutrition: Nutrition }[];
-  dinner: { title: string; nutrition: Nutrition }[];
-  snack: { title: string; nutrition: Nutrition }[];
+  breakfast: DishType[];
+  lunch: DishType[];
+  dinner: DishType[];
+  snack: DishType[];
 };
 
 export type Meal = {

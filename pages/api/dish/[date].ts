@@ -1,53 +1,51 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { DishData } from "globalType";
-import dayjs from "dayjs";
-import { db } from "../../../server/firebase";
 import MyAppError from "../../../server/customError";
+import readDishService from "../../../server/services/readDishService";
+import createDishService from "../../../server/services/createDishService";
 
 type validateDateError = {
   message: string;
   statusCode: number;
 };
-const emptyDishData: DishData = {
-  lunch: [],
-  breakfast: [],
-  dinner: [],
-  snack: [],
-};
-const isExistDate = (text: string): boolean => {
-  const formatText = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
-  return formatText === text;
-};
-const isBeforeToday = (text: string): boolean => {
-  const today = dayjs().format("YYYYMMDD");
-  const requestedDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
-  return parseInt(requestedDate) <= parseInt(today);
-};
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<DishData | validateDateError>
+  res: NextApiResponse<DishData | validateDateError | string>
 ) => {
   try {
-    const date: string | string[] = req.query.date;
+    if (req.method === "GET") {
+      const date: string | string[] = req.query.date;
+      if (typeof date !== "string") {
+        throw new MyAppError("Parameter date must be string");
+      }
+      const data = await readDishService(date);
+      res.status(200).json(data);
+    } else if (req.method === "POST") {
+      const date: string | string[] = req.query.date;
+      const dishData: DishData = req.body.data;
 
-    if (typeof date !== "string") {
-      throw new MyAppError("Parameter date must be string");
+      if (typeof date !== "string") {
+        throw new MyAppError("Parameter date must be string");
+      }
+      if (
+        !(
+          dishData &&
+          "breakfast" in dishData &&
+          "lunch" in dishData &&
+          "dinner" in dishData &&
+          "snack" in dishData
+        )
+      ) {
+        throw new MyAppError("Parameter dish data is not valid");
+      }
+
+      await createDishService(date, dishData);
+      res.status(200).send("ok");
+    } else {
+      throw new MyAppError("リクエストが不正です。");
     }
-
-    if (!isExistDate(date) || !isBeforeToday(date)) {
-      throw new MyAppError("Parameter date is not exist.");
-    }
-
-    const stream = await db
-      .collection("user")
-      .doc("GZWJqh13Te0bIAk3zrlo")
-      .get();
-    const data = stream.data();
-
-    // データそのものの有無、日付単位データの有無をAND判定
-    res.status(200).json(data?.dishes?.[date] || emptyDishData);
   } catch (e) {
     console.error(`Error!! : ${e}`);
 
