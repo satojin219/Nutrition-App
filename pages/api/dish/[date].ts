@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { DishData } from "globalType";
 import dayjs from "dayjs";
 import { db } from "../../../server/firebase";
+import MyAppError from "../../../server/customError";
 
 type validateDateError = {
   message: string;
@@ -28,37 +29,37 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<DishData | validateDateError>
 ) => {
-  const date: string | string[] = req.query.date;
-  if (typeof date !== "string") {
-    throw new Error("Parameter date must be string");
-  }
   try {
-    if (isExistDate(date) && isBeforeToday(date)) {
-      const stream = await db
-        .collection("user")
-        .doc("GZWJqh13Te0bIAk3zrlo")
-        .get();
-      const data = stream.data();
+    const date: string | string[] = req.query.date;
 
-      // データそのものの有無、日付単位データの有無をAND判定
-      if (!!data && !!data.dishes[date]) {
-        res.status(200).json(data.dishes[date]);
-      } else {
-        res.status(200).json(emptyDishData);
-      }
-    } else {
-      throw new Error("Parameter date is not exist.");
+    if (typeof date !== "string") {
+      throw new MyAppError("Parameter date must be string");
     }
+
+    if (!isExistDate(date) || !isBeforeToday(date)) {
+      throw new MyAppError("Parameter date is not exist.");
+    }
+
+    const stream = await db
+      .collection("user")
+      .doc("GZWJqh13Te0bIAk3zrlo")
+      .get();
+    const data = stream.data();
+
+    // データそのものの有無、日付単位データの有無をAND判定
+    res.status(200).json(data?.dishes?.[date] || emptyDishData);
   } catch (e) {
-    if (e instanceof Error) {
-      res.status(400).send({
+    console.error(`Error!! : ${e}`);
+
+    if (e instanceof MyAppError) {
+      res.status(e.statusCode).send({
         message: e.message,
-        statusCode: 400,
+        statusCode: e.statusCode,
       });
     } else {
       res.status(500).send({
         message: "Internal server error",
-        statusCode: 400,
+        statusCode: 500,
       });
     }
   }
