@@ -27,8 +27,7 @@ const EditMenuPage: NextPage = () => {
       <Head>
         <title>Nutriton App</title>
       </Head>
-
-      {!router.isReady ? null : <Header isEdit={true} />}
+      {router.isReady && <Header isEdit={true} />}
       <button className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80">
         <BsCheckLg size={30} />
       </button>
@@ -41,7 +40,6 @@ const EditMenuPage: NextPage = () => {
           removeMenuCard={removeMenuCard}
         />
       ))}
-
       <div className="flex justify-center my-5">
         <button
           onClick={addMenuCard}
