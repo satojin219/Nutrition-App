@@ -10,7 +10,9 @@ type Props = {
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
   const router = useRouter();
-  const { currentDate } = useDate(router.query.currentDate as string);
+  const { currentDate, addOneDay, subtractOneDay } = useDate(
+    router.query.currentDate as string
+  );
 
   return (
     <div>
@@ -26,12 +28,27 @@ export const Header: React.VFC<Props> = (props) => {
           <input
             type="text"
             placeholder="カレンダーで日付を選ぶ"
-            className="rounded w-full h-10 pl-4 text-base"
-            value={currentDate.format("YYYY/MM/DD")}
+            className="rounded w-full h-10 pl-4 text-base mb-2"
+            value={currentDate.format("YYYY年MM月DD日")}
             onClick={() => {
               openModal("calendar");
             }}
           />
+          <div className="flex justify-between">
+            <button
+              onClick={subtractOneDay}
+              className="rounded-3xl text-base text-base-white border-2 w-full py-1"
+            >
+              {currentDate.add(-1, "d").format("M月DD日")}
+            </button>
+            <div className="w-4 h-full"></div>
+            <button
+              onClick={addOneDay}
+              className="rounded-3xl text-base text-base-white border-2 w-full py-1"
+            >
+              {currentDate.add(1, "d").format("M月DD日")}
+            </button>
+          </div>
         </div>
         {/* <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
