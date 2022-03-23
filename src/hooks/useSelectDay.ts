@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { dayData, DateType } from "globalType";
+import { dayData, DateType } from "../shared/globalType";
 import { getTodayData } from "../tools/HelpMethods";
 
 export const useSelectDay = () => {

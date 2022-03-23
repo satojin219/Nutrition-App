@@ -1,9 +1,9 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import "swiper/css/bundle";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext } from "react";
 import { useSelectDay } from "../hooks/useSelectDay";
-import { dayData, DateType } from "globalType";
+import { dayData, DateType } from "../shared/globalType";
 import type { AppProps } from "next/app";
 import { useModal } from "../hooks/useModal";
 import { useRouter } from "next/router";

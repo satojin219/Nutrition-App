@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { DishData } from "globalType";
+import { DishData } from "../../../shared/globalType";
 import MyAppError from "../../../server/customError";
 import readDishService from "../../../server/services/readDishService";
 import createDishService from "../../../server/services/createDishService";

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
-import { DishType } from "globalType";
+import { DishType } from "../../shared/globalType";
 import { calSumNutrition } from "../../tools/HelpMethods";
 import { BsPencilFill } from "react-icons/bs";
 import Router from "next/router";

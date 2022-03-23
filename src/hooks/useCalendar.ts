@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useMemo } from "react";
-import { DateType } from "globalType";
+import { DateType } from "../shared/globalType";
 
 type datejsDateType = DateType & {
   type: string;
