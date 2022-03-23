@@ -3,7 +3,7 @@ import { weekdaysShort as weekdays } from "dayjs/locale/ja";
 import { useState, useContext } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useCalendar } from "../../hooks/useCalendar";
-import { DateType } from "globalType";
+import { DateType } from "../../shared/globalType";
 import Router, { useRouter } from "next/router";
 import { IsModalShowContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";

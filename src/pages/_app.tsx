@@ -5,15 +5,13 @@ import React, { createContext } from "react";
 import { useSelectDay } from "../hooks/useSelectDay";
 import { dayData, DateType } from "../shared/globalType";
 import type { AppProps } from "next/app";
-import { useModal } from "../hooks/useModal";
-import { useRouter } from "next/router";
+import { useModal, ModalType } from "../hooks/useModal";
 
 type DayContextType = {
   selectedDayData: dayData;
   setSelectedDayData: React.Dispatch<React.SetStateAction<dayData>>;
   changeDay: (date: DateType) => void;
 };
-type ModalType = "nutritonList" | "calendar" | "confirmEdit";
 type isFixedContextType = {
   openModal: (modalType: ModalType) => void;
   closeModal: () => void;
