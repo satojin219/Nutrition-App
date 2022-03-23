@@ -7,6 +7,8 @@ import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
 import { DishType } from "globalType";
 import { calSumNutrition } from "../../tools/HelpMethods";
+import { BsPencilFill } from "react-icons/bs";
+import Router from "next/router";
 
 type Props = {
   dishArray: DishType[];
@@ -30,7 +32,16 @@ export const DishCard: React.VFC<Props> = (props) => {
           </div>
         </div>
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
-          {props.dishArray != [] ? (
+          {props.dishArray.length != 0 ? (
+            <div className="flex justify-end mb-3">
+              <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
+                <a className="hover:text-orange-700 opacity-50">
+                  <BsPencilFill size={30} />
+                </a>
+              </Link>
+            </div>
+          ) : null}
+          {props.dishArray.length != 0 ? (
             <div>
               <div className="xl:flex flex-row justify-around">
                 <div className="basis-1/2  flex justify-center">
@@ -81,7 +92,7 @@ export const DishCard: React.VFC<Props> = (props) => {
             </div>
           ) : (
             <div className="flex justify-center">
-              <Link href={`/${props.whenMeal}`}>
+              <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
                 <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
                   + 献立を追加する
                 </a>

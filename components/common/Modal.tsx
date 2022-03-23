@@ -1,7 +1,9 @@
 import { Calendar } from "../index/Calendar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import { IsModalShowContext } from "../../pages/_app";
 import { NutritionList } from "../common/NutritionList";
+import { ConfirmEdit } from "../editMenu/ConfirmEidt";
 import { BsXLg } from "react-icons/bs";
 import { Nutrition } from "globalType";
 type Props = {
@@ -9,6 +11,7 @@ type Props = {
 };
 export const Modal: React.VFC<Props> = (props) => {
   const { currentState, closeModal } = useContext(IsModalShowContext);
+  const router = useRouter();
 
   return (
     <div id={currentState.isOpen ? "overlay" : "unoverlay"}>
@@ -23,9 +26,11 @@ export const Modal: React.VFC<Props> = (props) => {
         </button>
       </div>
       {currentState.modalType == "calendar" ? (
-        <Calendar />
+        router.isReady && <Calendar />
       ) : currentState.modalType == "nutritonList" ? (
         <NutritionList />
+      ) : currentState.modalType == "confirmEdit" ? (
+        <ConfirmEdit />
       ) : null}
     </div>
   );

@@ -1,22 +1,31 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "globalType";
+import Router, { useRouter } from "next/router";
+import { IsModalShowContext } from "../../pages/_app";
+import { useDate } from "../../hooks/useDate";
 
 type datejsDateType = DateType & {
   type: string;
 };
 
 export const Calendar: React.VFC = () => {
-  const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
-  const { monthDatesArray } = useCalendar(currentDate);
+  const router = useRouter();
+  const { currentDate } = useDate(router.query.currentDate as string);
+  const [currentDayJs, setCurrentDayJs] = useState<dayjs.Dayjs>(currentDate);
+  const { monthDatesArray } = useCalendar(currentDayJs);
+  const { closeModal } = useContext(IsModalShowContext);
   const setNextMonth = (): void => {
-    setCurrentDate(currentDate.add(1, "month"));
+    setCurrentDayJs(currentDayJs.add(1, "month"));
   };
   const setLastMonth = (): void => {
-    setCurrentDate(currentDate.subtract(1, "month"));
+    setCurrentDayJs(currentDayJs.subtract(1, "month"));
+  };
+  const changeDate = (date: string) => {
+    Router.push(`/${date}`);
   };
 
   return (
@@ -29,14 +38,14 @@ export const Calendar: React.VFC = () => {
                 <FaAngleLeft onClick={setLastMonth} />
               </button>
               <div>
-                {currentDate?.format("YYYY") +
+                {currentDayJs?.format("YYYY") +
                   "年" +
                   " " +
-                  currentDate?.format("M") +
+                  currentDayJs?.format("M") +
                   "月"}
               </div>
-              {dayjs().month() <= currentDate.month() &&
-              dayjs().year() <= currentDate.year() ? (
+              {dayjs().month() <= currentDayJs.month() &&
+              dayjs().year() <= currentDayJs.year() ? (
                 <div></div>
               ) : (
                 <button className="ml-3">
@@ -74,6 +83,21 @@ export const Calendar: React.VFC = () => {
                   "-" +
                   monthDate.day
                 }
+                onClick={() => {
+                  if (
+                    monthDate.type != "current" ||
+                    (dayjs().year() < monthDate.year &&
+                      dayjs().month() < monthDate.month &&
+                      dayjs().date() < monthDate.date)
+                  )
+                    return;
+                  closeModal();
+                  changeDate(
+                    String(monthDate.year) +
+                      String(monthDate.month).padStart(2, "0") +
+                      String(monthDate.date).padStart(2, "0")
+                  );
+                }}
                 className={`pt-8 pl-5 pr-2 border-dashed border border-gray-200 hover:bg-gray-300 cursor-pointer text-right ${
                   monthDate.type != "current"
                     ? "text-gray-400 hover:bg-white"

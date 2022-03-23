@@ -23,6 +23,7 @@ const Home: NextPage = () => {
     "fixed w-full": isModalShowContext.currentState.isOpen,
   };
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (data) {
       setIsLoading(false);
@@ -38,7 +39,7 @@ const Home: NextPage = () => {
       {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
       {!!data && (
         <div>
-          <Header meal={""} isEdit={false} />
+          {router.isReady && <Header isEdit={false} />}
           <DailylIntakeNutrition />
           <div className="lg:flex flex-wrap">
             <DishCard

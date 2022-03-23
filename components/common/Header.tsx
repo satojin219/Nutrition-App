@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from "react";
+import React, { useMemo, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { divideIconAndColor } from "../../tools/HelpComponents";
@@ -6,15 +6,20 @@ import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { Modal } from "./Modal";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { IsModalShowContext } from "../../pages/_app";
+import { useDate } from "../../hooks/useDate";
+import dayjs from "dayjs";
 
 type Props = {
-  meal: string;
   isEdit: boolean;
 };
 
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
   const router = useRouter();
+  const { currentDate, addOneDay, subtractOneDay } = useDate(
+    router.query.currentDate as string
+  );
+
   const { headerIcon } = useMemo(() => {
     return divideIconAndColor(router.query.whenMeal);
   }, [router.query.whenMeal]);
@@ -41,25 +46,48 @@ export const Header: React.VFC<Props> = (props) => {
               <Modal />
             </div>
           ) : (
-            <Link href="/">
-              <a>
+            <div>
+              <button
+                onClick={() => {
+                  openModal("confirmEdit");
+                }}
+              >
                 <IoArrowBackCircleSharp size={40} />
-              </a>
-            </Link>
+              </button>
+
+              <Modal />
+            </div>
           )}
           <div className="flex items-center font-bold text-3xl">
             {!props.isEdit ? (
-              <button className="cursor-pointer mr-2 font-bold">
+              <button
+                onClick={subtractOneDay}
+                className="cursor-pointer mr-2 font-bold"
+              >
                 <FaAngleLeft />
               </button>
             ) : null}
 
-            <h1 className="text-2xl"> 2022 / 01 / 22 (土) </h1>
-            {!props.isEdit ? (
-              <button className="ml-2 font-bold">
+            <h1 className="text-2xl">
+              {currentDate.format("YYYY") +
+                " / " +
+                currentDate.format("MM") +
+                " / " +
+                currentDate.format("DD") +
+                " (" +
+                currentDate.format("dd") +
+                ")"}
+            </h1>
+            {props.isEdit ? null : dayjs().add(1, "d").year() ==
+                currentDate.add(1, "d").year() &&
+              dayjs().add(1, "d").month() == currentDate.add(1, "d").month() &&
+              dayjs().add(1, "d").date() == currentDate.add(1, "d").date() ? (
+              <div></div>
+            ) : (
+              <button onClick={addOneDay} className="ml-2 font-bold">
                 <FaAngleRight />
               </button>
-            ) : null}
+            )}
           </div>
           {headerIcon}
         </div>

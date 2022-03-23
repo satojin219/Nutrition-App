@@ -1,18 +1,19 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import "swiper/css/bundle";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useSelectDay } from "../hooks/useSelectDay";
 import { dayData, DateType } from "globalType";
 import type { AppProps } from "next/app";
 import { useModal } from "../hooks/useModal";
+import { useRouter } from "next/router";
 
 type DayContextType = {
   selectedDayData: dayData;
   setSelectedDayData: React.Dispatch<React.SetStateAction<dayData>>;
   changeDay: (date: DateType) => void;
 };
-type ModalType = "nutritonList" | "calendar";
+type ModalType = "nutritonList" | "calendar" | "confirmEdit";
 type isFixedContextType = {
   openModal: (modalType: ModalType) => void;
   closeModal: () => void;
