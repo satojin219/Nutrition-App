@@ -1,13 +1,7 @@
-import React, { useMemo, useContext, useEffect } from "react";
-import Link from "next/link";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
-import { divideIconAndColor } from "../../tools/HelpComponents";
-import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { Modal } from "./Modal";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { IsModalShowContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";
-import dayjs from "dayjs";
 
 type Props = {
   isEdit: boolean;
@@ -16,13 +10,7 @@ type Props = {
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
   const router = useRouter();
-  const { currentDate, addOneDay, subtractOneDay } = useDate(
-    router.query.currentDate as string
-  );
-
-  const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(router.query.whenMeal);
-  }, [router.query.whenMeal]);
+  const { currentDate } = useDate(router.query.currentDate as string);
 
   return (
     <div>
@@ -30,10 +18,22 @@ export const Header: React.VFC<Props> = (props) => {
         className={`${
           router.query.whenMeal != undefined
             ? router.query.whenMeal
-            : "defaultHeaderColor"
+            : "bg-primary"
         }`}
       >
-        <div className="flex justify-around text-white font-bold py-5">
+        <div className="pt-5 px-2 pb-2 h-full">
+          <p className="text-2xl font-bold text-white mb-2">Nutrition App</p>
+          <input
+            type="text"
+            placeholder="カレンダーで日付を選ぶ"
+            className="rounded w-full h-10 pl-4 text-base"
+            value={currentDate.format("YYYY/MM/DD")}
+            onClick={() => {
+              openModal("calendar");
+            }}
+          />
+        </div>
+        {/* <div className="flex justify-around text-white font-bold py-5">
           {!props.isEdit ? (
             <div>
               <button
@@ -90,7 +90,7 @@ export const Header: React.VFC<Props> = (props) => {
             )}
           </div>
           {headerIcon}
-        </div>
+        </div> */}
       </header>
     </div>
   );

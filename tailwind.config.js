@@ -11,7 +11,14 @@ module.exports = {
         128: "32rem",
         112: "28rem",
       },
-      colors: {},
+      colors: {
+        primary: "#EF8934",
+        secondary: "#EEE3CD",
+        "base-brown": "#995A22",
+        "base-dark": "#1B1A17",
+        "base-white": "#FFFFFF",
+        "base-dark-xlight": "#D4D3D3",
+      },
       fontFamily: {
         fancy: ["Zen Maru Gothic"],
       },
