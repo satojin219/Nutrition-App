@@ -41,6 +41,7 @@ export const Header: React.VFC<Props> = (props) => {
             >
               {currentDate.add(-1, "d").format("M月DD日")}
             </button>
+            {/* ボタンの間を開けるために追加 */}
             <div className="w-4 h-full"></div>
             <button
               onClick={addOneDay}

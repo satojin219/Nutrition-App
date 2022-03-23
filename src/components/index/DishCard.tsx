@@ -1,14 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
-import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
 import { DishType } from "../../shared/globalType";
 import { calSumNutrition } from "../../tools/HelpMethods";
 import { BsPencilFill } from "react-icons/bs";
-import Router from "next/router";
 
 type Props = {
   dishArray: DishType[];
@@ -16,20 +13,36 @@ type Props = {
 };
 
 export const DishCard: React.VFC<Props> = (props) => {
-  const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(props.whenMeal);
-  }, [props.whenMeal]);
+  const renderSwitch = (param: string): JSX.Element => {
+    switch (param) {
+      case "breakfast":
+        return <p className="text-sm">あなたの朝ごはん</p>;
+      case "lunch":
+        return <p className="text-sm">あなたの昼ごはん</p>;
+      case "dinner":
+        return <p className="text-sm">あなたの夜ごはん</p>;
+      case "snack":
+        return <p className="text-sm">あなたの間食</p>;
+      default:
+        return <Fragment />;
+    }
+  };
+  // const { headerIcon } = useMemo(() => {
+  //   return divideIconAndColor(props.whenMeal);
+  // }, [props.whenMeal]);
 
   const router = useRouter();
+
   return (
     <div className="basis-1/2">
       <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
         <div className="md:w-1/4 w-1/2">
-          <div
+          {renderSwitch(props.whenMeal)}
+          {/* <div
             className={`${props.whenMeal} rounded-t-lg text-white text-center p-5 text-3xl flex justify-center`}
           >
             {headerIcon}
-          </div>
+          </div> */}
         </div>
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
           {props.dishArray.length != 0 ? (
@@ -44,7 +57,7 @@ export const DishCard: React.VFC<Props> = (props) => {
           {props.dishArray.length != 0 ? (
             <div>
               <div className="xl:flex flex-row justify-around">
-                <div className="basis-1/2  flex justify-center">
+                <div className="basis-1/2 flex justify-center">
                   <div className="w-48 sm:w-64 md:w-80 snap-mandatory snap-x flex justify-between  flex-nowrap overflow-x-scroll">
                     <div className="snap-center flex flex-none  bg-stone-50">
                       <Image
