@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
 import { useState, useContext, Fragment } from "react";
@@ -37,7 +38,7 @@ const EditMenuPage: NextPage = () => {
   const router = useRouter();
   const { whenMeal } = router.query;
   const [open, setOpen] = useState(false);
-  const onToggle = (e) => {
+  const onToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(!open);
   };
@@ -108,9 +109,11 @@ const EditMenuPage: NextPage = () => {
                   />
                 </div>
               </section>
-              <button className="bg-secondary w-full h-10 rounded-md text-center text-base-white my-4">
-                料理を編集する
-              </button>
+              <div className="flex items-center justify-center bg-secondary w-full h-10 rounded-md text-base-white my-4">
+                <Link href={{ pathname: "/edit", query: { id: "" } }}>
+                  料理を編集する
+                </Link>
+              </div>
             </div>
           </details>
         </article>
@@ -118,7 +121,7 @@ const EditMenuPage: NextPage = () => {
       {/* <button className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80">
         <BsCheckLg size={30} />
       </button> */}
-      <Modal />
+      {/* <Modal />
       {menuCards.map((menuCard: Menu, index: number) => (
         <EditMenuCard
           key={menuCard.id}
@@ -126,7 +129,7 @@ const EditMenuPage: NextPage = () => {
           menu={menuCard}
           removeMenuCard={removeMenuCard}
         />
-      ))}
+      ))} */}
       <div className="flex justify-center my-5">
         <button
           onClick={addMenuCard}

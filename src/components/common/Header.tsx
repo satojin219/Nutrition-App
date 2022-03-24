@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { IsModalShowContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";
 
@@ -17,7 +18,9 @@ export const Header: React.VFC<Props> = (props) => {
   return (
     <header className="bg-primary">
       <div className="pt-5 px-2 pb-2 h-full">
-        <p className="text-2xl font-bold text-white mb-2">Nutrition App</p>
+        <Link href="/">
+          <a className="text-2xl font-bold text-white mb-2">Nutrition app</a>
+        </Link>
         <input
           type="text"
           placeholder="カレンダーで日付を選ぶ"
