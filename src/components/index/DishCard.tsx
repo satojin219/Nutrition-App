@@ -73,7 +73,7 @@ export const DishCard: React.VFC<Props> = (props) => {
               alt="no image"
               width={320}
               height={200}
-              objectFit={`cover`}
+              objectFit={"cover"}
               className="rounded-t"
             />
             <div className="items-center h-10 flex">

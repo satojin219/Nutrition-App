@@ -19,9 +19,6 @@ module.exports = {
         "base-white": "#FFFFFF",
         "base-dark-xlight": "#D4D3D3",
       },
-      fontFamily: {
-        fancy: ["Zen Maru Gothic"],
-      },
     },
   },
   plugins: [],

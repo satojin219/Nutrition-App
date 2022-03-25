@@ -95,7 +95,9 @@ const EditMenuPage: NextPage = () => {
                 <div>
                   <p>調理時間</p>
                   <input
+                    disabled
                     type="text"
+                    value={"15分"}
                     className="border-2 rounded-sm p-1"
                     size={15}
                   />
@@ -103,7 +105,9 @@ const EditMenuPage: NextPage = () => {
                 <div>
                   <p>費用</p>
                   <input
+                    disabled
                     type="text"
+                    value={"1500"}
                     className="border-2 rounded-sm p-1"
                     size={15}
                   />
@@ -130,13 +134,10 @@ const EditMenuPage: NextPage = () => {
           removeMenuCard={removeMenuCard}
         />
       ))} */}
-      <div className="flex justify-center my-5">
-        <button
-          onClick={addMenuCard}
-          className="active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full w-1/2 shadow-lg"
-        >
-          <div>+ 料理を追加する</div>
-        </button>
+      <div className="flex items-center justify-center w-full h-10 rounded-md text-primary border-2 border-primary my-4">
+        <Link href={{ pathname: "/edit", query: { id: "" } }}>
+          料理を追加する
+        </Link>
       </div>
     </div>
   );
