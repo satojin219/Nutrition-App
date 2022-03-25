@@ -25,13 +25,13 @@ const Edit: React.VFC<Props> = (props) => {
   const router = useRouter();
   const { id } = router.query;
   let menuData = props.menu;
-  const recipeName = useRef(null);
-  const cost = useRef(null);
-  const time = useRef(null);
-  const tips = useRef(null);
+  const recipeName = useRef<HTMLInputElement>(null);
+  const cost = useRef<HTMLInputElement>(null);
+  const time = useRef<HTMLInputElement>(null);
+  const tips = useRef<HTMLInputElement>(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
-  //let totalNutriton: Nutrition | undefined = calSumNutrition(foodstuffs);
+  //let totalNutrition: Nutrition | undefined = calSumNutrition(foodstuffs);
 
   const addFoodstuff = () => {
     addElement(foodstuffs, setFoodstuff);
