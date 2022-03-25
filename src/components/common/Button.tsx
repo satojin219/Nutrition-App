@@ -7,8 +7,8 @@ type Props = {
   disabled?: boolean;
   onClick?: (e: React.MouseEvent) => void;
   href?: string;
-  queryName: string;
-  query: string;
+  queryName?: string;
+  query?: string;
 };
 
 export const Button: React.FC<Props> = ({
