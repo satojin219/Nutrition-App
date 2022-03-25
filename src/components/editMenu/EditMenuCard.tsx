@@ -132,13 +132,12 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               key={recipe.id}
               content={recipe.content}
               index={index}
-              addRecipe={addRecipe}
-              removeRecipe={removeRecipe}
+              // addRecipe={addRecipe}
+              // removeRecipe={removeRecipe}
               writeRecipe={writeRecipe}
             />
           ))}
         </div>
-
         <div className="my-5">
           <h4 className="text-left text-2xl mb-3 flex items-center">
             <AiOutlineExclamationCircle size={30} /> コツ・ポイント

@@ -2,9 +2,7 @@ import React, { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { NutritionList } from "../common/NutritionList";
 import { DishType } from "../../shared/globalType";
-import { calSumNutrition } from "../../tools/HelpMethods";
 
 type Props = {
   dishArray: DishType[];

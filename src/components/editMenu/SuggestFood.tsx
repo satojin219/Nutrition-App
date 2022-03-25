@@ -122,7 +122,16 @@ export const SuggestFood: React.VFC<Props> = (props) => {
   };
 
   return (
-    <form className="w-full">
+    <li>
+      <input
+        ref={inputFoodName}
+        onChange={handleOnChangeFood}
+        className="text-sm appearance-none bg-transparent border-2 w-full py-1 px-2"
+        type="text"
+        placeholder="食品名を入力して下さい"
+        aria-label="Full name"
+      />
+      {/* <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
         <input
           ref={inputFoodName}
@@ -139,8 +148,8 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           className="border text-sm w-10 ml-1 rounded text-right"
           ref={inputFoodWeight}
         />
-        g
-        <button
+        g */}
+      {/* <button
           onClick={() => {
             props.removeFoodstuff(props.index);
           }}
@@ -157,10 +166,10 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         >
           {" "}
           <BsFillFileEarmarkTextFill />
-        </button>
-        <Modal />
-        {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
-      </div>
+        </button> */}
+      <Modal />
+      {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
+      {/* </div>
       {searchCandidates.length ? (
         <select
           onChange={handleOnChangeSuggest}
@@ -178,6 +187,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           ))}
         </select>
       ) : null}
-    </form>
+    </form> */}
+    </li>
   );
 };

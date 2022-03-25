@@ -1,15 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { LinkButton, Button } from "../components/common/Button";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
 import { NutritionList } from "../components/common/NutritionList";
 import { Recipe } from "../components/editMenu/Recipe";
-import { FaTrashAlt } from "react-icons/fa";
-import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { BiTimeFive } from "react-icons/bi";
-import { RiMoneyCnyCircleLine } from "react-icons/ri";
 import { Menu, RecipeType, Foodstuff, Nutrition } from "../shared/globalType";
 import { useRef } from "react";
 import { useEffect } from "react";
@@ -36,7 +31,7 @@ const Edit: React.VFC<Props> = (props) => {
   const tips = useRef(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
-  let totalNutriton: Nutrition | undefined = calSumNutrition(foodstuffs);
+  //let totalNutriton: Nutrition | undefined = calSumNutrition(foodstuffs);
 
   const addFoodstuff = () => {
     addElement(foodstuffs, setFoodstuff);
@@ -66,7 +61,12 @@ const Edit: React.VFC<Props> = (props) => {
   };
 
   useEffect(() => {
-    addRecipe(0);
+    if (recipes.length === 0) {
+      addRecipe(0);
+    }
+    if (foodstuffs.length === 0) {
+      addFoodstuff();
+    }
   }, []);
 
   return (
@@ -136,7 +136,16 @@ const Edit: React.VFC<Props> = (props) => {
       <section>
         <p className="mt-4">食材リスト（1人前）</p>
         <ul>
-          <li className="text-sm border-2 rounded-md p-1 my-1">
+          {foodstuffs.map((foodstuff: Foodstuff, index: number) => (
+            <SuggestFood
+              key={foodstuff.id}
+              foodstuff={foodstuff}
+              index={index}
+              removeFoodstuff={removeFoodstuff}
+              updateFoodstuff={updateFoodstuff}
+            />
+          ))}
+          {/* <li className="text-sm border-2 rounded-md p-1 my-1">
             大根　1/6本（200g）
           </li>
           <li className="text-sm border-2 rounded-md p-1 my-1">
@@ -147,11 +156,11 @@ const Edit: React.VFC<Props> = (props) => {
           </li>
           <li className="text-sm border-2 rounded-md p-1 my-1">
             大根　1/6本（200g）
-          </li>
+          </li> */}
         </ul>
         <Button
           className="bg-secondary text-base-white my-4"
-          // onClick={}
+          onClick={addFoodstuff}
           disabled={false}
         >
           食材を追加する
@@ -159,9 +168,19 @@ const Edit: React.VFC<Props> = (props) => {
       </section>
       <section>
         <p className="mt-4">レシピ</p>
+        {recipes.map((recipe: RecipeType, index: number) => (
+          <Recipe
+            key={recipe.id}
+            content={recipe.content}
+            index={index}
+            // addRecipe={addRecipe}
+            // removeRecipe={removeRecipe}
+            writeRecipe={writeRecipe}
+          />
+        ))}
         <Button
           className="bg-secondary text-base-white my-4"
-          // onClick={}
+          onClick={() => addRecipe(recipes.length)}
           disabled={false}
         >
           レシピを追加する
