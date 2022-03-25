@@ -18,7 +18,7 @@ a {
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
-  .breakfast {
+  /* .breakfast {
     @apply bg-red-500;
   }
   .lunch {
@@ -32,7 +32,7 @@ a {
   }
   .defaultHeaderColor {
     @apply bg-orange-500;
-  }
+  } */
   #overlay {
     position: fixed;
     top: 0;

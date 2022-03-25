@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { NutritionList } from "../common/NutritionList";
 import { DishType } from "../../shared/globalType";
 import { calSumNutrition } from "../../tools/HelpMethods";
-import { BsPencilFill } from "react-icons/bs";
 
 type Props = {
   dishArray: DishType[];
@@ -16,13 +15,41 @@ export const DishCard: React.VFC<Props> = (props) => {
   const renderSwitch = (param: string): JSX.Element => {
     switch (param) {
       case "breakfast":
-        return <p className="text-xs">あなたの朝ごはん</p>;
+        return (
+          <>
+            <p className="text-xs">あなたの朝ごはん</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
       case "lunch":
-        return <p className="text-xs">あなたの昼ごはん</p>;
+        return (
+          <>
+            <p className="text-xs">あなたの昼ごはん</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
       case "dinner":
-        return <p className="text-xs">あなたの夜ごはん</p>;
+        return (
+          <>
+            <p className="text-xs">あなたの夜ごはん</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
       case "snack":
-        return <p className="text-xs">あなたの間食</p>;
+        return (
+          <>
+            <p className="text-xs">あなたの間食</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
       default:
         return <Fragment />;
     }
@@ -38,9 +65,6 @@ export const DishCard: React.VFC<Props> = (props) => {
       <div className="m-2">
         <div className="w-full flex justify-between my-2">
           {renderSwitch(props.whenMeal)}
-          <Link href="">
-            <p className="text-xs text-base-brown">一覧を見る</p>
-          </Link>
         </div>
         <div>
           <article className="rounded border-2 w-80 h-auto">

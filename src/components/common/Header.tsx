@@ -15,13 +15,7 @@ export const Header: React.VFC<Props> = (props) => {
   );
 
   return (
-    <header
-      className={`${
-        router.query.whenMeal != undefined
-          ? router.query.whenMeal
-          : "bg-primary"
-      }`}
-    >
+    <header className="bg-primary">
       <div className="pt-5 px-2 pb-2 h-full">
         <p className="text-2xl font-bold text-white mb-2">Nutrition App</p>
         <input
