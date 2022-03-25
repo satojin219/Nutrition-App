@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   );
 
   const fixedClassNames = {
-    "fixed w-full": isModalShowContext.currentState.isOpen,
+    "fixed w-full": isModalShowContext.currentState?.isOpen,
   };
   const [isLoading, setIsLoading] = useState(true);
 

@@ -1,4 +1,4 @@
-import { DishData } from "globalType";
+import { DishData } from "../../shared/globalType";
 import MyAppError from "../customError";
 import { db } from "../firebase";
 import { isExistDate, isBeforeToday } from "../utils";

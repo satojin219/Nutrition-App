@@ -7,7 +7,12 @@ import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { RiMoneyCnyCircleLine } from "react-icons/ri";
-import { Menu, RecipeType, Foodstuff, Nutrition } from "globalType";
+import {
+  Menu,
+  RecipeType,
+  Foodstuff,
+  Nutrition,
+} from "../../shared/globalType";
 import { useRef } from "react";
 import { useEffect } from "react";
 import {

@@ -7,7 +7,7 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-import { Nutrition, Foodstuff, fetchedFoodData } from "globalType";
+import { Nutrition, Foodstuff, fetchedFoodData } from "../../shared/globalType";
 import { BsFillFileEarmarkTextFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import { Modal } from "../common/Modal";

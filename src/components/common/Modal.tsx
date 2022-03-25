@@ -5,7 +5,7 @@ import { IsModalShowContext } from "../../pages/_app";
 import { NutritionList } from "../common/NutritionList";
 import { ConfirmEdit } from "../editMenu/ConfirmEidt";
 import { BsXLg } from "react-icons/bs";
-import { Nutrition } from "globalType";
+import { Nutrition } from "../../shared/globalType";
 type Props = {
   nutrition?: Nutrition;
 };

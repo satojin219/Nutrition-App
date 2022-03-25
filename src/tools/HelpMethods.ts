@@ -4,7 +4,7 @@ import {
   DateType,
   DishData,
   DishType,
-} from "../types/globalType";
+} from "../shared/globalType";
 
 type extractNutrtionType = {
   unit: string;
