@@ -273,7 +273,7 @@ export const calSumNutrition = (
   };
   if (array.length == 0) return;
   array.map((item: Foodstuff | DishType) => {
-    if ("name" in item && item.name == null) return;
+    if (!item.name) return;
     let nutrition = item.nutrition!;
     res.calorie += nutrition.calorie;
     res.carbohydrates += nutrition.carbohydrates;

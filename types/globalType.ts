@@ -24,7 +24,7 @@ export type DateType = {
 };
 
 export type DishType = {
-  title: string;
+  name: string;
   nutrition: Nutrition;
 };
 

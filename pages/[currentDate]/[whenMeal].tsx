@@ -2,17 +2,15 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
-import { useState, useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
 import { BsCheckLg } from "react-icons/bs";
-import { IsModalShowContext } from "../../pages/_app";
 import { Modal } from "../../components/common/Modal";
 
 const EditMenuPage: NextPage = () => {
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
-  const { openModal } = useContext(IsModalShowContext);
 
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
@@ -20,6 +18,23 @@ const EditMenuPage: NextPage = () => {
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
   };
+  const updateMenuCard = (index: number, data: any, dataType: any) => {
+    const copyMenuCard = [...menuCards];
+    if (dataType == "recipeName") copyMenuCard[index].recipeName = data;
+    if (dataType == "imgUrl") copyMenuCard[index].imgUrl = data;
+    if (dataType == "foodstuffs") copyMenuCard[index].foodstuffs = data;
+    if (dataType == "recipes") copyMenuCard[index].recipes = data;
+    if (dataType == "tips") copyMenuCard[index].tips = data;
+    if (dataType == "cost") copyMenuCard[index].cost = data;
+    if (dataType == "time") copyMenuCard[index].time = data;
+    if (dataType == "totalNutrition") copyMenuCard[index].totalNutrition = data;
+
+    setMenuCards(copyMenuCard);
+  };
+  useEffect(() => {
+    console.log(menuCards);
+  }, [menuCards]);
+
   const router = useRouter();
 
   return (
@@ -38,6 +53,7 @@ const EditMenuPage: NextPage = () => {
           index={index}
           menu={menuCard}
           removeMenuCard={removeMenuCard}
+          updateMenuCard={updateMenuCard}
         />
       ))}
       <div className="flex justify-center my-5">

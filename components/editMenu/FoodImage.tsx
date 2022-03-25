@@ -3,12 +3,22 @@ import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 
 const NO_IMAGE_THUMBNAIL: string = "/m_e_others_501.png";
-export const FoodImage: React.VFC = () => {
+type Props = {
+  index: number;
+  updateMenuCard(index: number, data: any, dataType: any): void;
+};
+
+export const FoodImage: React.VFC<Props> = (props) => {
   const [thumbnailUrl, setThumbnailUrl] = useState<string | undefined>();
 
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
     setThumbnailUrl(window.URL.createObjectURL(files![0]));
+    props.updateMenuCard(
+      props.index,
+      window.URL.createObjectURL(files![0]),
+      "imgUrl"
+    );
   };
 
   return (
