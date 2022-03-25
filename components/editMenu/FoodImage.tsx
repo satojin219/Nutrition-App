@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
+import { Menu } from "globalType";
 
 const NO_IMAGE_THUMBNAIL: string = "/m_e_others_501.png";
 type Props = {
-  index: number;
-  updateMenuCard(index: number, data: any, dataType: any): void;
+  menu: Menu;
 };
 
 export const FoodImage: React.VFC<Props> = (props) => {
@@ -14,11 +14,7 @@ export const FoodImage: React.VFC<Props> = (props) => {
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
     setThumbnailUrl(window.URL.createObjectURL(files![0]));
-    props.updateMenuCard(
-      props.index,
-      window.URL.createObjectURL(files![0]),
-      "imgUrl"
-    );
+    props.menu.imgUrl = window.URL.createObjectURL(files![0]);
   };
 
   return (
