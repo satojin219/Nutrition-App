@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { LinkButton, Button } from "../components/common/Button";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
 import { NutritionList } from "../components/common/NutritionList";
 import { Recipe } from "../components/editMenu/Recipe";
@@ -78,9 +79,13 @@ const Edit: React.VFC<Props> = (props) => {
           width={380}
           objectFit={"cover"}
         />
-        <button className="bg-base-dark flex items-center justify-center border-2 border-base-white text-base-white w-full mx-2">
+        <Button
+          className="bg-base-dark text-base-white border-2 border-base-white mx-2"
+          // onClick={}
+          disabled={false}
+        >
           写真をアップロードする
-        </button>
+        </Button>
       </section>
       <section className="mt-4">
         <p className="text-xl ml-2">料理名</p>
@@ -144,15 +149,23 @@ const Edit: React.VFC<Props> = (props) => {
             大根　1/6本（200g）
           </li>
         </ul>
-        <button className="flex items-center justify-center bg-secondary w-full h-10 rounded-md text-base-white my-4">
+        <Button
+          className="bg-secondary text-base-white my-4"
+          // onClick={}
+          disabled={false}
+        >
           食材を追加する
-        </button>
+        </Button>
       </section>
       <section>
         <p className="mt-4">レシピ</p>
-        <button className="flex items-center justify-center bg-secondary w-full h-10 rounded-md text-base-white my-4">
-          食材を追加する
-        </button>
+        <Button
+          className="bg-secondary text-base-white my-4"
+          // onClick={}
+          disabled={false}
+        >
+          レシピを追加する
+        </Button>
       </section>
       <section className="flex justify-around">
         <div>
@@ -176,9 +189,14 @@ const Edit: React.VFC<Props> = (props) => {
           />
         </div>
       </section>
-      <div className="flex items-center justify-center w-full h-10 rounded-md text-primary border-2 border-primary my-4">
-        <Link href="/">料理の編集を完了する</Link>
-      </div>
+      <LinkButton
+        className="text-primary border-2 border-primary my-4"
+        query=""
+        queryName=""
+        href="/"
+      >
+        料理の編集を完了する
+      </LinkButton>
 
       {/* <div className="my-5">
         <h3 className="text-left text-2xl mb-3">作り方</h3>

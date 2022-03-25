@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
+import { LinkButton, Button } from "../../components/common/Button";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
 import { useState, useContext, Fragment } from "react";
@@ -113,11 +113,14 @@ const EditMenuPage: NextPage = () => {
                   />
                 </div>
               </section>
-              <div className="flex items-center justify-center bg-secondary w-full h-10 rounded-md text-base-white my-4">
-                <Link href={{ pathname: "/edit", query: { id: "" } }}>
-                  料理を編集する
-                </Link>
-              </div>
+              <LinkButton
+                className="bg-secondary text-base-white my-4"
+                href="/edit"
+                query=""
+                queryName=""
+              >
+                料理を編集する
+              </LinkButton>
             </div>
           </details>
         </article>
@@ -134,11 +137,14 @@ const EditMenuPage: NextPage = () => {
           removeMenuCard={removeMenuCard}
         />
       ))} */}
-      <div className="flex items-center justify-center w-full h-10 rounded-md text-primary border-2 border-primary my-4">
-        <Link href={{ pathname: "/edit", query: { id: "" } }}>
-          料理を追加する
-        </Link>
-      </div>
+      <LinkButton
+        className="text-primary border-primary my-4 border-2"
+        href="/edit"
+        queryName=""
+        query=""
+      >
+        料理を追加する
+      </LinkButton>
     </div>
   );
 };
