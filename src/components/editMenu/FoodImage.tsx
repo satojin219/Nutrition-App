@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
+import { Menu } from "globalType";
 
 const NO_IMAGE_THUMBNAIL: string = "/m_e_others_501.png";
-export const FoodImage: React.VFC = () => {
+type Props = {
+  menu: Menu;
+};
+
+export const FoodImage: React.VFC<Props> = (props) => {
   const [thumbnailUrl, setThumbnailUrl] = useState<string | undefined>();
 
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { files } = e.currentTarget;
     setThumbnailUrl(window.URL.createObjectURL(files![0]));
+    props.menu.imgUrl = window.URL.createObjectURL(files![0]);
   };
 
   return (
