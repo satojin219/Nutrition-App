@@ -79,10 +79,10 @@ export const DishCard: React.VFC<Props> = (props) => {
                   {props.dishArray?.map((dish: DishType) => {
                     return (
                       <li
-                        key={dish.title}
+                        key={dish.name}
                         className="border-yellow-700/50 border-b-2 my-2"
                       >
-                        {dish.title}
+                        {dish.name}
                       </li>
                     );
                   })}

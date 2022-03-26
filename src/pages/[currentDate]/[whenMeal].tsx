@@ -7,12 +7,10 @@ import { Menu } from "../../shared/globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
 import { BsCheckLg } from "react-icons/bs";
-import { IsModalShowContext } from "../../pages/_app";
 import { Modal } from "../../components/common/Modal";
 
 const EditMenuPage: NextPage = () => {
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
-  const { openModal } = useContext(IsModalShowContext);
 
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
@@ -20,6 +18,7 @@ const EditMenuPage: NextPage = () => {
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
   };
+
   const router = useRouter();
 
   return (
