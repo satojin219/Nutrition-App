@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
-import { Menu } from "globalType";
+import { Menu } from "../../shared/globalType";
 
 const NO_IMAGE_THUMBNAIL: string = "/m_e_others_501.png";
 type Props = {
