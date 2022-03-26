@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Menu } from "../../shared/globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
