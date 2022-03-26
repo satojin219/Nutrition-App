@@ -3,17 +3,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { LinkButton, Button } from "../components/common/Button";
 import { SuggestFood } from "../components/editMenu/SuggestFood";
-import { NutritionList } from "../components/common/NutritionList";
+import { Header } from "../components/common/Header";
 import { Recipe } from "../components/editMenu/Recipe";
 import { Menu, RecipeType, Foodstuff, Nutrition } from "../shared/globalType";
 import { useRef } from "react";
 import { useEffect } from "react";
-import {
-  addElement,
-  removeElemnt,
-  calSumNutrition,
-} from "../tools/HelpMethods";
-import { FoodImage } from "../components/editMenu/FoodImage";
+import { addElement, removeElemnt } from "../tools/HelpMethods";
 import { useRouter } from "next/router";
 type Props = {
   index: number;
@@ -71,6 +66,7 @@ const Edit: React.VFC<Props> = (props) => {
 
   return (
     <>
+      {router.isReady && <Header isEdit={true} />}
       <section>
         <Image
           src={"/20180308-futako01-2.jpg"}
