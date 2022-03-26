@@ -47,7 +47,7 @@ export type Menu = {
   recipeName?: string;
   imgUrl?: string;
   foodstuffs?: Foodstuff[];
-  totalNutrition?: Nutrition;
+  totalNutrition: Nutrition;
   recipes?: RecipeType[];
   tips?: string;
   cost?: number;

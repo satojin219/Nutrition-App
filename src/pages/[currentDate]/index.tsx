@@ -11,10 +11,11 @@ import classnames from "classnames";
 import useSWR from "swr";
 import { fetchDishData } from "../../schema/dishData";
 import DefaultErrorPage from "next/error";
+import { DishData } from "../../shared/globalType";
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
-  const { data, error } = useSWR(
+  const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.currentDate}`,
     fetchDishData
   );
@@ -42,13 +43,10 @@ const Home: NextPage = () => {
           {router.isReady && <Header isEdit={false} />}
           <DailylIntakeNutrition />
           <div className="lg:flex flex-wrap">
-            <DishCard
-              dishArray={data.breakfast}
-              whenMeal={Object.keys(data)[0]}
-            />
-            <DishCard dishArray={data.lunch} whenMeal={Object.keys(data)[1]} />
-            <DishCard dishArray={data.dinner} whenMeal={Object.keys(data)[2]} />
-            <DishCard dishArray={data.snack} whenMeal={Object.keys(data)[3]} />
+            <DishCard menus={data.breakfast} whenMeal={"breakfast"} />
+            <DishCard menus={data.lunch} whenMeal={"lunch"} />
+            <DishCard menus={data.dinner} whenMeal={"dinner"} />
+            <DishCard menus={data.snack} whenMeal={"snack"} />
           </div>
         </div>
       )}

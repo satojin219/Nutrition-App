@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import {
   addElement,
   removeElemnt,
-  calSumNutrition,
+  calSumNutritionFromFoodstuff,
 } from "../../tools/HelpMethods";
 import { FoodImage } from "./FoodImage";
 type Props = {
@@ -35,7 +35,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const tips = useRef(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
-  let totalNutriton: Nutrition | undefined = calSumNutrition(foodstuffs);
+  let totalNutriton: Nutrition | undefined =
+    calSumNutritionFromFoodstuff(foodstuffs);
 
   const addFoodstuff = () => {
     addElement(foodstuffs, setFoodstuff);
@@ -66,7 +67,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
   useEffect(() => {
     addRecipe(0);
-  }, []);
+  }, [addRecipe]);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">

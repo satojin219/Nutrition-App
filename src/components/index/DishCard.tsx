@@ -5,13 +5,12 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { NutritionList } from "../common/NutritionList";
-import { DishType } from "../../shared/globalType";
+import { Menu } from "../../shared/globalType";
 import { calSumNutrition } from "../../tools/HelpMethods";
 import { BsPencilFill } from "react-icons/bs";
-import Router from "next/router";
 
 type Props = {
-  dishArray: DishType[];
+  menus: Menu[];
   whenMeal: string;
 };
 
@@ -32,7 +31,7 @@ export const DishCard: React.VFC<Props> = (props) => {
           </div>
         </div>
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
-          {props.dishArray.length != 0 ? (
+          {props.menus.length != 0 ? (
             <div className="flex justify-end mb-3">
               <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
                 <a className="hover:text-orange-700 opacity-50">
@@ -41,7 +40,7 @@ export const DishCard: React.VFC<Props> = (props) => {
               </Link>
             </div>
           ) : null}
-          {props.dishArray.length != 0 ? (
+          {props.menus.length != 0 ? (
             <div>
               <div className="xl:flex flex-row justify-around">
                 <div className="basis-1/2  flex justify-center">
@@ -76,19 +75,23 @@ export const DishCard: React.VFC<Props> = (props) => {
                   </div>
                 </div>
                 <ul className="basisi-1/2 md:text-xl p-3">
-                  {props.dishArray?.map((dish: DishType) => {
+                  {props.menus?.map((dish: Menu) => {
                     return (
                       <li
-                        key={dish.title}
+                        key={dish.recipeName}
                         className="border-yellow-700/50 border-b-2 my-2"
                       >
-                        {dish.title}
+                        {dish.recipeName}
                       </li>
                     );
                   })}
                 </ul>
               </div>
-              <NutritionList nutrition={calSumNutrition(props.dishArray)} />
+              <NutritionList
+                nutrition={calSumNutrition(
+                  props.menus.map((menu) => menu.totalNutrition)
+                )}
+              />
             </div>
           ) : (
             <div className="flex justify-center">
