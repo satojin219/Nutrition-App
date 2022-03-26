@@ -29,7 +29,6 @@ const handler = async (
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
       }
-      console.log(dishData);
 
       if (
         !(
