@@ -26,7 +26,6 @@ const handler = async (
     } else if (req.method === "POST") {
       const date: string | string[] = req.query.date;
       const dishData: DishData = req.body.data;
-      console.log(req.body);
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
       } else if (req.body.breakfast)
@@ -37,6 +36,8 @@ const handler = async (
         await updateDishService(date, "dinner", req.body.dinner[0]);
       else if (req.body.snack)
         await updateDishService(date, "snack", req.body.snack[0]);
+      else if (typeof date !== "string")
+        throw new MyAppError("Parameter date must be string");
       else if (
         !(
           dishData &&
