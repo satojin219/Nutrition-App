@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import { SuggestFood } from "./SuggestFood";
 import { NutritionList } from "../common/NutritionList";
@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import {
   addElement,
   removeElemnt,
-  calSumNutrition,
+  calSumNutritionFromFoodstuff,
 } from "../../tools/HelpMethods";
 import { FoodImage } from "./FoodImage";
 type Props = {
@@ -34,7 +34,12 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const tips = useRef<HTMLTextAreaElement>(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
-  let totalNutrition: Nutrition | undefined = calSumNutrition(foodstuffs);
+  const onImageChange = (imageUrl: string) => {
+    // ここでmenuに差し込むと良さそう
+    console.log("imageuUrl", imageUrl);
+  };
+  let totalNutrition: Nutrition | undefined =
+    calSumNutritionFromFoodstuff(foodstuffs);
 
   const addFoodstuff = () => {
     addElement(foodstuffs, setFoodstuff);
@@ -55,10 +60,13 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     props.menu.foodstuffs = copyFoodstuffs;
     props.menu.totalNutrition = calSumNutrition(copyFoodstuffs);
   };
-  const addRecipe = (index: number) => {
-    addElement(recipes, setRecipe, index);
-    props.menu.recipes = recipes;
-  };
+  const addRecipe = useCallback(
+    (index: number) => {
+      addElement(recipes, setRecipe, index);
+      props.menu.recipes = recipes;
+    },
+    [props.menu, recipes]
+  );
   const removeRecipe = (index: number) => {
     removeElemnt(recipes, setRecipe, index);
     props.menu.recipes = recipes;
@@ -72,7 +80,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
   useEffect(() => {
     addRecipe(0);
-  }, []);
+  }, [addRecipe]);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
@@ -102,7 +110,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
         </div>
 
         <div className="xl:flex flex-row justify-around">
-          <FoodImage menu={props.menu} />
+          <FoodImage menu={props.menu} onImageUrlChange={onImageChange} />
           <div className="basis-2/3 my-0 mx-3 mt-5 xl:mt-0">
             <div className="flex justify-between mb-2">
               <h2 className="text-left text-2xl">
@@ -206,3 +214,6 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     </div>
   );
 };
+function calSumNutrition(copyFoodstuffs: Foodstuff[]): Nutrition {
+  throw new Error("Function not implemented.");
+}
