@@ -34,6 +34,10 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const tips = useRef<HTMLTextAreaElement>(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
+  const onImageChange = (imageUrl: string) => {
+    // ここでmenuに差し込むと良さそう
+    console.log("imageuUrl", imageUrl);
+  };
   let totalNutrition: Nutrition | undefined =
     calSumNutritionFromFoodstuff(foodstuffs);
 
@@ -106,7 +110,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
         </div>
 
         <div className="xl:flex flex-row justify-around">
-          <FoodImage menu={props.menu} />
+          <FoodImage menu={props.menu} onImageUrlChange={onImageChange} />
           <div className="basis-2/3 my-0 mx-3 mt-5 xl:mt-0">
             <div className="flex justify-between mb-2">
               <h2 className="text-left text-2xl">

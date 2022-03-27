@@ -13,13 +13,15 @@ export const isBeforeToday = (text: string): boolean => {
 /**
  * バイナリファイルをBase64エンコードする。
  */
-export const arrayBufferToBinaryString = (arrayBuffer: ArrayBuffer) => {
-  let binaryString = "";
-  const bytes = new Uint8Array(arrayBuffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binaryString += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binaryString)
-}
-
+export const changeImageToBase64 = (
+  file: File
+): Promise<string | undefined> => {
+  return new Promise((resolve, reject) => {
+    var fr = new FileReader();
+    fr.onload = (event) => {
+      resolve(event.target?.result as string); //FIXME
+    };
+    fr.onerror = reject;
+    fr.readAsDataURL(file);
+  });
+};
