@@ -1,13 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
-import { divideIconAndColor } from "../../tools/HelpComponents";
-import { NutritionList } from "../common/NutritionList";
 import { Menu } from "../../shared/globalType";
-import { calSumNutrition } from "../../tools/HelpMethods";
-import { BsPencilFill } from "react-icons/bs";
 
 type Props = {
   menus: Menu[];
@@ -15,23 +10,77 @@ type Props = {
 };
 
 export const DishCard: React.VFC<Props> = (props) => {
-  const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(props.whenMeal);
-  }, [props.whenMeal]);
+  const renderSwitch = (param: string): JSX.Element => {
+    switch (param) {
+      case "breakfast":
+        return (
+          <>
+            <p className="text-xs">あなたの朝ごはん</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
+      case "lunch":
+        return (
+          <>
+            <p className="text-xs">あなたの昼ごはん</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
+      case "dinner":
+        return (
+          <>
+            <p className="text-xs">あなたの夜ごはん</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
+      case "snack":
+        return (
+          <>
+            <p className="text-xs">あなたの間食</p>
+            <Link href={`/${router.query.currentDate}/${param}`} passHref>
+              <p className="text-xs text-base-brown">一覧を見る</p>
+            </Link>
+          </>
+        );
+      default:
+        return <Fragment />;
+    }
+  };
+  // const { headerIcon } = useMemo(() => {
+  //   return divideIconAndColor(props.whenMeal);
+  // }, [props.whenMeal]);
 
   const router = useRouter();
+
   return (
-    <div className="basis-1/2">
-      <div className="my-10 lg:mx-5 sm:mx-20 mx-10">
-        <div className="md:w-1/4 w-1/2">
-          <div
-            className={`${props.whenMeal} rounded-t-lg text-white text-center p-5 text-3xl flex justify-center`}
-          >
-            {headerIcon}
-          </div>
+    <div>
+      <div className="m-2">
+        <div className="w-full flex justify-between my-2">
+          {renderSwitch(props.whenMeal)}
         </div>
-        <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
-          {props.menus.length != 0 ? (
+        <div>
+          <article className="rounded border-2 w-80 h-auto">
+            <Image
+              src={"/20180308-futako01-2.jpg"}
+              alt="no image"
+              width={320}
+              height={200}
+              objectFit={"cover"}
+              className="rounded-t"
+            />
+            <div className="items-center h-10 flex">
+              <p className="text-base-dark text-sm ml-4">料理名などなど</p>
+            </div>
+          </article>
+        </div>
+        {/* <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
+          {!!props.dishArray.length && (
             <div className="flex justify-end mb-3">
               <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
                 <a className="hover:text-orange-700 opacity-50">
@@ -39,11 +88,11 @@ export const DishCard: React.VFC<Props> = (props) => {
                 </a>
               </Link>
             </div>
-          ) : null}
-          {props.menus.length != 0 ? (
+          )}
+          {!!props.dishArray.length && (
             <div>
               <div className="xl:flex flex-row justify-around">
-                <div className="basis-1/2  flex justify-center">
+                <div className="basis-1/2 flex justify-center">
                   <div className="w-48 sm:w-64 md:w-80 snap-mandatory snap-x flex justify-between  flex-nowrap overflow-x-scroll">
                     <div className="snap-center flex flex-none  bg-stone-50">
                       <Image
@@ -93,16 +142,15 @@ export const DishCard: React.VFC<Props> = (props) => {
                 )}
               />
             </div>
-          ) : (
-            <div className="flex justify-center">
-              <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
-                <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
-                  + 献立を追加する
-                </a>
-              </Link>
-            </div>
-          )}
-        </div>
+          )} */}
+        {/* // <div className="flex justify-center">
+            //   <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
+            //     <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
+            //       + 献立を追加する
+            //     </a>
+            //   </Link>
+            // </div> */}
+        {/* </div> */}
       </div>
     </div>
   );

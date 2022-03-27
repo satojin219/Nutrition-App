@@ -3,8 +3,8 @@ import React, { useRef } from "react";
 type Props = {
   content: string | undefined;
   index: number;
-  addRecipe(index: number): void;
-  removeRecipe(index: number): void;
+  //addRecipe(index: number): void;
+  //removeRecipe(index: number): void;
   writeRecipe(index: number, value: string): void;
 };
 export const Recipe: React.VFC<Props> = (props) => {
@@ -12,15 +12,15 @@ export const Recipe: React.VFC<Props> = (props) => {
 
   return (
     <div className="my-3">
-      <div className="flex group">
-        <div className="duration-500 group-hover:mr-2 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7">
+      <div className="flex border-b-2">
+        <div className="bg-primary text-base-white p-1 rounded-full text-sm shadow-md w-7 h-7 ml-1">
           <p className="text-center">{props.index + 1}</p>
         </div>
-        <button
+        {/* <button
           onClick={() => {
             props.addRecipe(props.index);
           }}
-          className="duration-500 group-hover:opacity-100 group-hover:mr-2 opacity-0 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7"
+          className="bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7 ml-1"
         >
           <span className="inline-block text-center font-bold ml-0.5">＋</span>
         </button>
@@ -35,18 +35,17 @@ export const Recipe: React.VFC<Props> = (props) => {
               －
             </span>
           </button>
-        ) : null}
-      </div>
-      <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
+        ) : null} */}
         <textarea
           ref={inputRecipe}
           onBlur={() => {
             props.writeRecipe(props.index, inputRecipe?.current?.value ?? "");
           }}
-          className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          className="text-md appearance-none bg-transparent border-none w-full py-1 px-2 focus:outline-none"
           aria-label="Full name"
           rows={4}
         />
+        <hr />
       </div>
     </div>
   );

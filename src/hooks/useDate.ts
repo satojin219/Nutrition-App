@@ -5,11 +5,11 @@ import Router from "next/router";
 
 export const useDate = (queryParameter: string) => {
   queryParameter =
-    queryParameter.substring(0, 4) +
+    queryParameter?.substring(0, 4) +
     "-" +
-    queryParameter.substring(4, 6) +
+    queryParameter?.substring(4, 6) +
     "-" +
-    queryParameter.substring(6, 8);
+    queryParameter?.substring(6, 8);
   dayjs.locale(ja);
   const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(
     dayjs(queryParameter)
