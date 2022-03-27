@@ -29,13 +29,13 @@ const handler = async (
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
       } else if (req.body.breakfast)
-        await updateDishService(date, "breakfast", req.body.breakfast[0]);
+        await updateDishService(date, "breakfast", req.body.breakfast);
       else if (req.body.lunch)
-        await updateDishService(date, "lunch", req.body.lunch[0]);
+        await updateDishService(date, "lunch", req.body.lunch);
       else if (req.body.dinner)
-        await updateDishService(date, "dinner", req.body.dinner[0]);
+        await updateDishService(date, "dinner", req.body.dinner);
       else if (req.body.snack)
-        await updateDishService(date, "snack", req.body.snack[0]);
+        await updateDishService(date, "snack", req.body.snack);
       else if (typeof date !== "string")
         throw new MyAppError("Parameter date must be string");
       else if (

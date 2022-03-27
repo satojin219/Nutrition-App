@@ -80,7 +80,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
   useEffect(() => {
     addRecipe(0);
-  }, [addRecipe]);
+  }, []);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">

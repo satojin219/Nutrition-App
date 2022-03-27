@@ -6,14 +6,16 @@ import { isBeforeToday, isExistDate } from "../utils";
 const updateDishService = async (
   date: string,
   whenDish: string,
-  menu: Menu
-): Promise<Menu> => {
+  menus: Menu[]
+): Promise<Menu[]> => {
   const admin = require("firebase-admin");
   if (!isExistDate(date) || !isBeforeToday(date)) {
     throw new MyAppError("Parameter date is not valid.");
   }
-  (Object.keys(menu) as (keyof Menu)[]).map((key: keyof Menu) => {
-    menu[key]?.toString();
+  menus.map((menu: Menu) => {
+    (Object.keys(menu) as (keyof Menu)[]).map((key: keyof Menu) => {
+      menu[key]?.toString();
+    });
   });
 
   const menuField = db
@@ -23,9 +25,10 @@ const updateDishService = async (
     .doc(whenDish);
 
   await menuField.update({
-    menus: admin.firestore.FieldValue.arrayUnion(menu),
+    menus: menus,
   });
-  return menu;
+
+  return menus;
 };
 
 export default updateDishService;
