@@ -19,8 +19,10 @@ import {
   addElement,
   removeElemnt,
   calSumNutritionFromFoodstuff,
+  calSumNutrition,
 } from "../../tools/HelpMethods";
 import { FoodImage } from "./FoodImage";
+
 type Props = {
   index: number;
   menu: Menu;
@@ -58,7 +60,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     });
     setFoodstuff(copyFoodstuffs);
     props.menu.foodstuffs = copyFoodstuffs;
-    props.menu.totalNutrition = calSumNutrition(copyFoodstuffs);
+    props.menu.totalNutrition = calSumNutritionFromFoodstuff(copyFoodstuffs);
   };
   const addRecipe = useCallback(
     (index: number) => {
@@ -214,6 +216,3 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     </div>
   );
 };
-function calSumNutrition(copyFoodstuffs: Foodstuff[]): Nutrition {
-  throw new Error("Function not implemented.");
-}

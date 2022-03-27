@@ -46,7 +46,7 @@ const EditMenuPage: NextPage = () => {
 
   const handleOnSubmit = async () => {
     await axios
-      .post(
+      .put(
         `/api/dish/${router.query.currentDate}`,
         router.query.whenMeal == "breakfast"
           ? { breakfast: menuCards }

@@ -8,16 +8,9 @@ const updateDishService = async (
   whenDish: string,
   menus: Menu[]
 ): Promise<Menu[]> => {
-  const admin = require("firebase-admin");
   if (!isExistDate(date) || !isBeforeToday(date)) {
     throw new MyAppError("Parameter date is not valid.");
   }
-  menus.map((menu: Menu) => {
-    (Object.keys(menu) as (keyof Menu)[]).map((key: keyof Menu) => {
-      menu[key]?.toString();
-    });
-  });
-
   const menuField = db
     .collection("user")
     .doc("GZWJqh13Te0bIAk3zrlo")

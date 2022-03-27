@@ -28,17 +28,7 @@ const handler = async (
       const dishData: DishData = req.body.data;
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
-      } else if (req.body.breakfast)
-        await updateDishService(date, "breakfast", req.body.breakfast);
-      else if (req.body.lunch)
-        await updateDishService(date, "lunch", req.body.lunch);
-      else if (req.body.dinner)
-        await updateDishService(date, "dinner", req.body.dinner);
-      else if (req.body.snack)
-        await updateDishService(date, "snack", req.body.snack);
-      else if (typeof date !== "string")
-        throw new MyAppError("Parameter date must be string");
-      else if (
+      } else if (
         !(
           dishData &&
           "breakfast" in dishData &&
@@ -49,6 +39,20 @@ const handler = async (
       ) {
         throw new MyAppError("Parameter dish data is not valid");
       } else await createDishService(date, dishData);
+      res.status(200).send("ok");
+    } else if (req.method == "PUT") {
+      const date: string | string[] = req.query.date;
+      if (typeof date !== "string") {
+        throw new MyAppError("Parameter date must be string");
+      }
+      if (req.body.breakfast)
+        await updateDishService(date, "breakfast", req.body.breakfast);
+      else if (req.body.lunch)
+        await updateDishService(date, "lunch", req.body.lunch);
+      else if (req.body.dinner)
+        await updateDishService(date, "dinner", req.body.dinner);
+      else if (req.body.snack)
+        await updateDishService(date, "snack", req.body.snack);
       res.status(200).send("ok");
     } else {
       throw new MyAppError("リクエストが不正です。");
