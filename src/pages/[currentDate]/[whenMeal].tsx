@@ -21,18 +21,20 @@ const EditMenuPage: NextPage = () => {
     `/api/dish/${router.query.currentDate}`,
     fetchDishData
   );
-  const fetchedMenu =
+  const fetchedMenu: Menu[] | null =
     router.query.whenMeal == "breakfast"
       ? data!.breakfast
       : router.query.whenMeal == "lunch"
       ? data!.lunch
       : router.query.whenMeal == "dinner"
       ? data!.dinner
-      : data!.snack;
+      : router.query.whenMeal == "snack"
+      ? data!.snack
+      : null;
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [menuCards, setMenuCards] = useState<Menu[]>(fetchedMenu);
+  const [menuCards, setMenuCards] = useState<Menu[] | null>(fetchedMenu);
 
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
@@ -83,7 +85,7 @@ const EditMenuPage: NextPage = () => {
             <BsCheckLg size={30} />
           </button>
           <Modal />
-          {menuCards.map((menuCard: Menu, index: number) => (
+          {menuCards!.map((menuCard: Menu, index: number) => (
             <EditMenuCard
               key={menuCard.id}
               index={index}
