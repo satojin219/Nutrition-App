@@ -8,18 +8,10 @@ import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
 import { BsCheckLg } from "react-icons/bs";
 import { Modal } from "../../components/common/Modal";
-import useSWR, { useSWRConfig } from "swr";
-import updateDishService from "../../server/services/updateDishService";
-import { fetchDishData } from "../../schema/dishData";
 import axios from "axios";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
-  const { mutate } = useSWRConfig();
-  const { data, error } = useSWR(
-    `/api/dish/${router.query.currentDate}`,
-    fetchDishData
-  );
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
 
   const addMenuCard = () => {
@@ -30,44 +22,23 @@ const EditMenuPage: NextPage = () => {
   };
 
   const handleOnSubmit = async () => {
-    // await updateDishService(
-    //   `${router.query.currentDate}`,
-    //   `${router.query.whenMeal}`,
-    //   menuCards[0]
-    // );
-    if (router.query.whenMeal == "breakfast") {
-      await axios
-        .post(`/api/dish/${router.query.currentDate}`, {
-          breakfast: menuCards,
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch(console.error);
-      // mutate(
-      //   `/api/dish/${router.query.currentDate}`,
-      //   { ...data, breakfasst: menuCards },
-      //   false
-      // );
-    } else if (router.query.whenMeal == "lunch")
-      mutate(
+    await axios
+      .post(
         `/api/dish/${router.query.currentDate}`,
-        { ...data, lunch: menuCards },
-        false
-      );
-    else if (router.query.whenMeal == "dinner")
-      mutate(
-        `/api/dish/${router.query.currentDate}`,
-        { ...data, dinner: menuCards },
-        false
-      );
-    else
-      mutate(
-        `/api/dish/${router.query.currentDate}`,
-        { ...data, snack: menuCards },
-        false
-      );
-    mutate(`/api/dish/${router.query.currentDate}`);
+        router.query.whenMeal == "breakfast"
+          ? { breakfast: menuCards }
+          : router.query.whenMeal == "lunch"
+          ? { lunch: menuCards }
+          : router.query.whenMeal == "dinner"
+          ? { dinner: menuCards }
+          : router.query.whenMeal == "snack"
+          ? { snack: menuCards }
+          : null
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(console.error);
   };
 
   return (
