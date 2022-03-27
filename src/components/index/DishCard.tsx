@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { DishType } from "../../shared/globalType";
+import { Menu } from "../../shared/globalType";
 
 type Props = {
-  dishArray: DishType[];
+  menus: Menu[];
   whenMeal: string;
 };
 
@@ -124,19 +124,23 @@ export const DishCard: React.VFC<Props> = (props) => {
                   </div>
                 </div>
                 <ul className="basisi-1/2 md:text-xl p-3">
-                  {props.dishArray?.map((dish: DishType) => {
+                  {props.menus?.map((dish: Menu) => {
                     return (
                       <li
-                        key={dish.title}
+                        key={dish.recipeName}
                         className="border-yellow-700/50 border-b-2 my-2"
                       >
-                        {dish.title}
+                        {dish.recipeName}
                       </li>
                     );
                   })}
                 </ul>
               </div>
-              <NutritionList nutrition={calSumNutrition(props.dishArray)} />
+              <NutritionList
+                nutrition={calSumNutrition(
+                  props.menus.map((menu) => menu.totalNutrition)
+                )}
+              />
             </div>
           )} */}
         {/* // <div className="flex justify-center">

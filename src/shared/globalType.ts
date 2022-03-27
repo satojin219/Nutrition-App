@@ -24,15 +24,15 @@ export type DateType = {
 };
 
 export type DishType = {
-  title: string;
+  name: string;
   nutrition: Nutrition;
 };
 
 export type DishData = {
-  breakfast: DishType[];
-  lunch: DishType[];
-  dinner: DishType[];
-  snack: DishType[];
+  breakfast: Menu[];
+  lunch: Menu[];
+  dinner: Menu[];
+  snack: Menu[];
 };
 
 export type Meal = {
@@ -47,7 +47,7 @@ export type Menu = {
   recipeName?: string;
   imgUrl?: string;
   foodstuffs?: Foodstuff[];
-  totalNutrition?: Nutrition;
+  totalNutrition: Nutrition;
   recipes?: RecipeType[];
   tips?: string;
   cost?: number;

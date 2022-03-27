@@ -1,4 +1,4 @@
-import { DishData, DishType } from "../../shared/globalType";
+import { DishData, Menu } from "../../shared/globalType";
 import MyAppError from "../customError";
 import { db } from "../firebase";
 import { isBeforeToday, isExistDate } from "../utils";
@@ -23,10 +23,10 @@ const readDishService = async (date: string): Promise<DishData> => {
     snackStream,
   ]);
   const data = {
-    breakfast: (docs[0].data()?.menus as DishType[]) || [],
-    lunch: (docs[1].data()?.menus as DishType[]) || [],
-    dinner: (docs[2].data()?.menus as DishType[]) || [],
-    snack: (docs[3].data()?.menus as DishType[]) || [],
+    breakfast: (docs[0].data()?.menus as Menu[]) || [],
+    lunch: (docs[1].data()?.menus as Menu[]) || [],
+    dinner: (docs[2].data()?.menus as Menu[]) || [],
+    snack: (docs[3].data()?.menus as Menu[]) || [],
   };
   return data;
 };

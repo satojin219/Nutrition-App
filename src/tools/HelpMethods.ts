@@ -233,10 +233,8 @@ export const removeElemnt = <T>(
   setState(copyArray);
 };
 
-export const calSumNutrition = (
-  array: Foodstuff[] | DishType[]
-): Nutrition | undefined => {
-  let res: Nutrition = {
+export const calSumNutrition = (nutritions: Nutrition[]) => {
+  const sumNutrition: Nutrition = {
     calorie: 0,
     carbohydrates: 0,
     protein: 0,
@@ -271,49 +269,59 @@ export const calSumNutrition = (
     folate: 0,
     biotin: 0,
   };
+  nutritions.forEach((nutrition) => {
+    sumNutrition.calorie += nutrition.calorie;
+    sumNutrition.carbohydrates += nutrition.carbohydrates;
+    sumNutrition.protein += nutrition.protein;
+    sumNutrition.lipids += nutrition.lipids;
+    sumNutrition.suger += nutrition.suger;
+    sumNutrition.dietaryFiber += nutrition.dietaryFiber;
+    sumNutrition.salt += nutrition.salt;
+    sumNutrition.na += nutrition.na;
+    sumNutrition.k += nutrition.k;
+    sumNutrition.ca += nutrition.ca;
+    sumNutrition.mg += nutrition.mg;
+    sumNutrition.p += nutrition.p;
+    sumNutrition.fe += nutrition.fe;
+    sumNutrition.zn += nutrition.zn;
+    sumNutrition.cu += nutrition.cu;
+    sumNutrition.mn += nutrition.mn;
+    sumNutrition.i += nutrition.i;
+    sumNutrition.se += nutrition.se;
+    sumNutrition.cr += nutrition.cr;
+    sumNutrition.mo += nutrition.mo;
+    sumNutrition.vitA += nutrition.vitA;
+    sumNutrition.vitD += nutrition.vitD;
+    sumNutrition.vitE += nutrition.vitE;
+    sumNutrition.vitK += nutrition.vitK;
+    sumNutrition.vitB1 += nutrition.vitB1;
+    sumNutrition.vitB2 += nutrition.vitB2;
+    sumNutrition.vitB6 += nutrition.vitB6;
+    sumNutrition.vitB12 += nutrition.vitB12;
+    sumNutrition.vitC += nutrition.vitC;
+    sumNutrition.niacin += nutrition.niacin;
+    sumNutrition.pantothenicAcid += nutrition.pantothenicAcid;
+    sumNutrition.folate += nutrition.folate;
+    sumNutrition.biotin += nutrition.biotin;
+  });
+  return sumNutrition;
+};
+
+export const calSumNutritionFromFoodstuff = (
+  array: Foodstuff[] | DishType[]
+): Nutrition | undefined => {
   if (array.length == 0) return;
-  array.map((item: Foodstuff | DishType) => {
-    if ("name" in item && item.name == null) return;
-    let nutrition = item.nutrition!;
-    res.calorie += nutrition.calorie;
-    res.carbohydrates += nutrition.carbohydrates;
-    res.protein += nutrition.protein;
-    res.lipids += nutrition.lipids;
-    res.suger += nutrition.suger;
-    res.dietaryFiber += nutrition.dietaryFiber;
-    res.salt += nutrition.salt;
-    res.na += nutrition.na;
-    res.k += nutrition.k;
-    res.ca += nutrition.ca;
-    res.mg += nutrition.mg;
-    res.p += nutrition.p;
-    res.fe += nutrition.fe;
-    res.zn += nutrition.zn;
-    res.cu += nutrition.cu;
-    res.mn += nutrition.mn;
-    res.i += nutrition.i;
-    res.se += nutrition.se;
-    res.cr += nutrition.cr;
-    res.mo += nutrition.mo;
-    res.vitA += nutrition.vitA;
-    res.vitD += nutrition.vitD;
-    res.vitE += nutrition.vitE;
-    res.vitK += nutrition.vitK;
-    res.vitB1 += nutrition.vitB1;
-    res.vitB2 += nutrition.vitB2;
-    res.vitB6 += nutrition.vitB6;
-    res.vitB12 += nutrition.vitB12;
-    res.vitC += nutrition.vitC;
-    res.niacin += nutrition.niacin;
-    res.pantothenicAcid += nutrition.pantothenicAcid;
-    res.folate += nutrition.folate;
-    res.biotin += nutrition.biotin;
-  });
+  const nutritions = array
+    .map((item: Foodstuff | DishType) => item.nutrition)
+    .filter((item) => item !== undefined) as Nutrition[]; // FIXME 型安全性の確保
+  const sumNutrition = calSumNutrition(nutritions);
   //少数第３位以上のものは丸める
-  (Object.keys(res) as (keyof Nutrition)[]).map((key: keyof Nutrition) => {
-    res[key] = roundNutritionValue(res[key]);
-  });
-  return res;
+  (Object.keys(sumNutrition) as (keyof Nutrition)[]).map(
+    (key: keyof Nutrition) => {
+      sumNutrition[key] = roundNutritionValue(sumNutrition[key]);
+    }
+  );
+  return sumNutrition;
 };
 /**
  * @fetchUsrData

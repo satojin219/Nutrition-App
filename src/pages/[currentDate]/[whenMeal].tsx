@@ -1,15 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { LinkButton, Button } from "../../components/common/Button";
+import { useRouter } from "next/router";
+import { Fragment, useState } from "react";
+import { LinkButton } from "../../components/common/Button";
 import { Header } from "../../components/common/Header";
-import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
-import { useState, useContext, Fragment } from "react";
 import { Menu } from "../../shared/globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
-import { useRouter } from "next/router";
-import { IsModalShowContext } from "../../pages/_app";
-import { Modal } from "../../components/common/Modal";
 
 const EditMenuPage: NextPage = () => {
   const renderSwitch = (param: string): JSX.Element => {
@@ -27,7 +24,6 @@ const EditMenuPage: NextPage = () => {
     }
   };
   const [menuCards, setMenuCards] = useState<Menu[]>([]);
-  const { openModal } = useContext(IsModalShowContext);
 
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
@@ -35,6 +31,7 @@ const EditMenuPage: NextPage = () => {
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
   };
+
   const router = useRouter();
   const { whenMeal } = router.query;
   const [open, setOpen] = useState(false);

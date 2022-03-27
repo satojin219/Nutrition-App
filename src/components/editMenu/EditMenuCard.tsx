@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import { SuggestFood } from "./SuggestFood";
 import { NutritionList } from "../common/NutritionList";
@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import {
   addElement,
   removeElemnt,
-  calSumNutrition,
+  calSumNutritionFromFoodstuff,
 } from "../../tools/HelpMethods";
 import { FoodImage } from "./FoodImage";
 type Props = {
@@ -28,20 +28,26 @@ type Props = {
 };
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
-  let menuData = props.menu;
-  const recipeName = useRef(null);
-  const cost = useRef(null);
-  const time = useRef(null);
-  const tips = useRef(null);
+  const recipeName = useRef<HTMLInputElement>(null);
+  const cost = useRef<HTMLInputElement>(null);
+  const time = useRef<HTMLInputElement>(null);
+  const tips = useRef<HTMLTextAreaElement>(null);
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
   const [recipes, setRecipe] = useState<RecipeType[]>([]);
-  let totalNutriton: Nutrition | undefined = calSumNutrition(foodstuffs);
+  const onImageChange = (imageUrl: string) => {
+    // ここでmenuに差し込むと良さそう
+    console.log("imageuUrl", imageUrl);
+  };
+  let totalNutrition: Nutrition | undefined =
+    calSumNutritionFromFoodstuff(foodstuffs);
 
   const addFoodstuff = () => {
     addElement(foodstuffs, setFoodstuff);
+    props.menu.foodstuffs = foodstuffs;
   };
   const removeFoodstuff = (index: number) => {
     removeElemnt(foodstuffs, setFoodstuff, index);
+    props.menu.foodstuffs = foodstuffs;
   };
   const updateFoodstuff = (data: Foodstuff) => {
     let copyFoodstuffs = [...foodstuffs];
@@ -51,22 +57,30 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
       }
     });
     setFoodstuff(copyFoodstuffs);
+    props.menu.foodstuffs = copyFoodstuffs;
+    props.menu.totalNutrition = calSumNutrition(copyFoodstuffs);
   };
-  const addRecipe = (index: number) => {
-    addElement(recipes, setRecipe, index);
-  };
+  const addRecipe = useCallback(
+    (index: number) => {
+      addElement(recipes, setRecipe, index);
+      props.menu.recipes = recipes;
+    },
+    [props.menu, recipes]
+  );
   const removeRecipe = (index: number) => {
     removeElemnt(recipes, setRecipe, index);
+    props.menu.recipes = recipes;
   };
   const writeRecipe = (index: number, value: string) => {
     let copyRecipes = [...recipes];
     copyRecipes[index].content = value;
     setRecipe(copyRecipes);
+    props.menu.recipes = copyRecipes;
   };
 
   useEffect(() => {
     addRecipe(0);
-  }, []);
+  }, [addRecipe]);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
@@ -88,12 +102,15 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               type="text"
               placeholder="料理名を入力して下さい"
               aria-label="Full name"
+              onBlur={() => {
+                props.menu.recipeName = recipeName?.current?.value ?? "";
+              }}
             />
           </div>
         </div>
 
         <div className="xl:flex flex-row justify-around">
-          <FoodImage />
+          <FoodImage menu={props.menu} onImageUrlChange={onImageChange} />
           <div className="basis-2/3 my-0 mx-3 mt-5 xl:mt-0">
             <div className="flex justify-between mb-2">
               <h2 className="text-left text-2xl">
@@ -147,6 +164,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               ref={tips}
               className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               aria-label="Full name"
+              onBlur={() => {
+                props.menu.tips = tips?.current?.value ?? "";
+              }}
             />
           </div>
         </div>
@@ -162,6 +182,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   min={0}
                   type="number"
                   className="border text-sm w-10 ml-1 rounded text-right"
+                  onBlur={() => {
+                    props.menu.time = Number(time?.current?.value) ?? "";
+                  }}
                 />{" "}
                 分
               </p>
@@ -175,6 +198,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   min={0}
                   type="number"
                   className="border text-sm  w-10 ml-1 rounded text-right"
+                  onBlur={() => {
+                    props.menu.cost = Number(cost?.current?.value) ?? "";
+                  }}
                 />{" "}
                 円
               </p>
@@ -182,8 +208,11 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
         </div>
 
-        <NutritionList nutrition={totalNutriton} />
+        <NutritionList nutrition={totalNutrition} />
       </div>
     </div>
   );
 };
+function calSumNutrition(copyFoodstuffs: Foodstuff[]): Nutrition {
+  throw new Error("Function not implemented.");
+}
