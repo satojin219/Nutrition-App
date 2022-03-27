@@ -1,4 +1,4 @@
-import { DishData, Menu } from "../../shared/globalType";
+import { Menu } from "../../shared/globalType";
 import MyAppError from "../customError";
 import { db } from "../firebase";
 import { isBeforeToday, isExistDate } from "../utils";
@@ -9,6 +9,8 @@ const updateDishService = async (
   whenDish: string,
   menu: Menu
 ): Promise<Menu> => {
+  const admin = require("firebase-admin");
+  var fireStore = admin.firestore();
   if (!isExistDate(date) || !isBeforeToday(date)) {
     throw new MyAppError("Parameter date is not valid.");
   }
@@ -23,7 +25,7 @@ const updateDishService = async (
     .doc(whenDish);
 
   await menuField.update({
-    menus: firebase.firestore.FieldValue.arrayUnion(menu),
+    menus: admin.firestore.FieldValue.arrayUnion(menu),
   });
   return menu;
 };
