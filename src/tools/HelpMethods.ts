@@ -209,32 +209,28 @@ type haveId = {
   id: number;
 };
 export const addElement = <T extends haveId>(
-  state: T[] | null,
-  setState: React.Dispatch<React.SetStateAction<T[] | null>>,
+  state: T[],
+  setState: React.Dispatch<React.SetStateAction<T[]>>,
   index?: number
 ): void => {
-  if (state) {
-    let copyArray = [...state];
-    // indexが引数にない時はfoodstuffs,menuCardsコンポーネントの時、indexが引数にある時はrecipeコンポーネントの時。※途中に要素を追加するため、indexが必要
-    if (index == null || index == copyArray.length - 1) {
-      copyArray.push({ id: Math.random() } as T);
-    } else {
-      copyArray.splice(index! + 1, 0, { id: Math.random() } as T);
-    }
-    setState(copyArray);
+  let copyArray = [...state];
+  // indexが引数にない時はfoodstuffs,menuCardsコンポーネントの時、indexが引数にある時はrecipeコンポーネントの時。※途中に要素を追加するため、indexが必要
+  if (index == null || index == copyArray.length - 1) {
+    copyArray.push({ id: Math.random() } as T);
+  } else {
+    copyArray.splice(index! + 1, 0, { id: Math.random() } as T);
   }
+  setState(copyArray);
 };
 
 export const removeElemnt = <T>(
-  state: T[] | null,
-  setState: React.Dispatch<React.SetStateAction<T[] | null>>,
+  state: T[],
+  setState: React.Dispatch<React.SetStateAction<T[]>>,
   index: number
 ): void => {
-  if (state) {
-    let copyArray = [...state];
-    copyArray.splice(index, 1);
-    setState(copyArray);
-  }
+  let copyArray = [...state];
+  copyArray.splice(index, 1);
+  setState(copyArray);
 };
 
 export const calSumNutrition = (nutritions: Nutrition[]) => {

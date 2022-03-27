@@ -14,6 +14,7 @@ import useSWR from "swr";
 import { fetchDishData } from "../../schema/dishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
+import { dummyMenu } from "../../tools/dummyMenu";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
@@ -30,11 +31,11 @@ const EditMenuPage: NextPage = () => {
       ? data!.dinner
       : router.query.whenMeal == "snack"
       ? data!.snack
-      : null;
+      : dummyMenu;
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [menuCards, setMenuCards] = useState<Menu[] | null>(fetchedMenu);
+  const [menuCards, setMenuCards] = useState<Menu[]>(fetchedMenu);
 
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
