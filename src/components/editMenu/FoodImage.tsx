@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import imageCompression from "browser-image-compression";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 import { changeImageToBase64 } from "../../server/utils";
 import { Menu } from "../../shared/globalType";
@@ -20,7 +21,10 @@ export const FoodImage: React.VFC<Props> = (props) => {
   ) => {
     const { files } = e.currentTarget;
     const file = files![0];
-    const base64Image = await changeImageToBase64(file);
+    const minifiedImage = await imageCompression(file, {
+      maxSizeMB: 0.7,
+    });
+    const base64Image = await changeImageToBase64(minifiedImage);
     setThumbnailUrl(base64Image || "");
     props.onImageUrlChange(base64Image || "");
   };

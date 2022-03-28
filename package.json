@@ -29,6 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "axios": "^0.26.1",
+    "browser-image-compression": "^1.0.17",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
     "firebase": "^9.6.10",
