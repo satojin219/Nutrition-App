@@ -9,9 +9,11 @@ import { DishCard } from "../../components/index/DishCard";
 import { Loading } from "../../components/common/Loading";
 import classnames from "classnames";
 import useSWR from "swr";
-import { fetchDishData } from "../../schema/dishData";
+import { fetchDishData } from "../../schema/fetchDishData";
+import { postDishData } from "../../schema/postDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
+
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
@@ -19,6 +21,8 @@ const Home: NextPage = () => {
     `/api/dish/${router.query.currentDate}`,
     fetchDishData
   );
+
+  postDishData(`/api/dish/${router.query.currentDate}`, data!);
 
   const fixedClassNames = {
     "fixed w-full": isModalShowContext.currentState?.isOpen,

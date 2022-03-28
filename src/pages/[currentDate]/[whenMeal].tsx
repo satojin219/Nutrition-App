@@ -11,7 +11,7 @@ import { Modal } from "../../components/common/Modal";
 import axios from "axios";
 import { Loading } from "../../components/common/Loading";
 import useSWR from "swr";
-import { fetchDishData } from "../../schema/dishData";
+import { fetchDishData } from "../../schema/fetchDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { dummyMenu } from "../../tools/dummyMenu";

@@ -25,7 +25,9 @@ const handler = async (
       res.status(200).json(data);
     } else if (req.method === "POST") {
       const date: string | string[] = req.query.date;
-      const dishData: DishData = req.body.data;
+      const dishData: DishData = JSON.parse(req.body || "null");
+      console.log(dishData);
+      console.log(typeof dishData);
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
       } else if (
