@@ -140,8 +140,6 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
             {foodstuffs.map((foodstuff: Foodstuff, index: number) => (
               <SuggestFood
                 key={foodstuff.id}
-                initialNameValue={foodstuff.name ?? ""}
-                initialWeightValue={foodstuff.weight ?? 0}
                 foodstuff={foodstuff}
                 index={index}
                 removeFoodstuff={removeFoodstuff}
@@ -157,7 +155,6 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           {recipes.map((recipe: RecipeType, index: number) => (
             <Recipe
               key={recipe.id}
-              initialValue={recipe.content ?? ""}
               content={recipe.content}
               index={index}
               addRecipe={addRecipe}

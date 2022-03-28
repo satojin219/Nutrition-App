@@ -15,8 +15,6 @@ import { IsModalShowContext } from "../../pages/_app";
 
 type Props = {
   index: number;
-  initialNameValue: string;
-  initialWeightValue: number;
   foodstuff: Foodstuff;
   removeFoodstuff(index: number): void;
   updateFoodstuff(data: Foodstuff): void;
@@ -33,10 +31,10 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     return new Fuse(foodList, options);
   }, []);
 
-  const inputFoodName = useRef<HTMLInputElement>(null!);
-  const inputFoodWeight = useRef<HTMLInputElement>(null!);
-  let foodName: string = inputFoodName.current
-    ? inputFoodName.current.value
+  const inputFoodNameRef = useRef<HTMLInputElement>(null!);
+  const inputFoodWeightRef = useRef<HTMLInputElement>(null!);
+  let foodName: string = inputFoodNameRef.current
+    ? inputFoodNameRef.current.value
     : "";
 
   const [searchCandidates, setSearchCandidates] = useState<
@@ -44,12 +42,12 @@ export const SuggestFood: React.VFC<Props> = (props) => {
   >([]);
 
   const handleOnChangeFood = useCallback((): void => {
-    setSearchCandidates(fuse.search(inputFoodName.current.value));
+    setSearchCandidates(fuse.search(inputFoodNameRef.current.value));
   }, [fuse]);
 
   const handleOnChangeSuggest = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>): void => {
-      inputFoodName.current.value = e.currentTarget.value;
+      inputFoodNameRef.current.value = e.currentTarget.value;
       setSearchCandidates([]);
     },
     []
@@ -65,7 +63,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
 
   const insertFoodData = (): void => {
     const foodData = identifyFoodData();
-    if (foodData == null || inputFoodWeight.current.value == "") return;
+    if (foodData == null || inputFoodWeightRef.current.value == "") return;
     else {
       const caledNutrition: Nutrition = {
         calorie: calNutrition(foodData["ENERC_KCAL"], 0),
@@ -105,7 +103,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
       const food: Foodstuff = {
         id: foodstuff.id,
         name: foodName,
-        weight: Number(inputFoodWeight.current.value),
+        weight: Number(inputFoodWeightRef.current.value),
         nutrition: caledNutrition,
       };
       props.updateFoodstuff(food);
@@ -118,7 +116,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     return Number(
       (
         Number(nutrition) *
-        (Number(inputFoodWeight.current.value) / 100)
+        (Number(inputFoodWeightRef.current.value) / 100)
       ).toFixed(decimalPoint)
     );
   };
@@ -127,8 +125,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
         <input
-          value={props.initialNameValue}
-          ref={inputFoodName}
+          ref={inputFoodNameRef}
           onChange={handleOnChangeFood}
           className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
@@ -136,12 +133,11 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           aria-label="Full name"
         />
         <input
-          value={props.initialWeightValue}
           onBlur={insertFoodData}
           min={0}
           type="number"
           className="border text-sm w-10 ml-1 rounded text-right"
-          ref={inputFoodWeight}
+          ref={inputFoodWeightRef}
         />
         g
         <button
