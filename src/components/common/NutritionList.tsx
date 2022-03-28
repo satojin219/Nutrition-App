@@ -1,5 +1,5 @@
 import { Nutrition } from "../../shared/globalType";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { extractNutrition } from "../../tools/HelpMethods";
 import classNames from "classnames";
 

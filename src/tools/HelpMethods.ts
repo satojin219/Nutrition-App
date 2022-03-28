@@ -4,6 +4,7 @@ import {
   DateType,
   DishData,
   DishType,
+  Menu,
 } from "../shared/globalType";
 
 type extractNutrtionType = {
@@ -322,6 +323,23 @@ export const calSumNutritionFromFoodstuff = (
     }
   );
   return sumNutrition;
+};
+export const calSumDailyIntakeNutrition = (dishData: DishData) => {
+  let nutritionArray: Nutrition[] = [];
+  dishData.breakfast.map((menu: Menu) => {
+    nutritionArray.push(menu.totalNutrition);
+  });
+  dishData.lunch.map((menu: Menu) => {
+    nutritionArray.push(menu.totalNutrition);
+  });
+  dishData.dinner.map((menu: Menu) => {
+    nutritionArray.push(menu.totalNutrition);
+  });
+  dishData.snack.map((menu: Menu) => {
+    nutritionArray.push(menu.totalNutrition);
+  });
+
+  return calSumNutrition(nutritionArray);
 };
 /**
  * @fetchUsrData
