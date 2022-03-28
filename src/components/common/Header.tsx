@@ -5,7 +5,7 @@ import { divideIconAndColor } from "../../tools/HelpComponents";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { Modal } from "./Modal";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
-import { IsModalShowContext } from "../../pages/_app";
+import { IsModalShowContext, IsEditedContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";
 import dayjs from "dayjs";
 
@@ -15,6 +15,7 @@ type Props = {
 
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
+  const { isEdited, setIsEdited } = useContext(IsEditedContext);
   const router = useRouter();
   const { currentDate, addOneDay, subtractOneDay } = useDate(
     router.query.currentDate as string
