@@ -15,7 +15,7 @@ type Props = {
 
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
-  const { isEdited, setIsEdited } = useContext(IsEditedContext);
+  const { isEdited } = useContext(IsEditedContext);
   const router = useRouter();
   const { currentDate, addOneDay, subtractOneDay } = useDate(
     router.query.currentDate as string
@@ -50,7 +50,8 @@ export const Header: React.VFC<Props> = (props) => {
             <div>
               <button
                 onClick={() => {
-                  openModal("confirmEdit");
+                  if (isEdited) openModal("confirmEdit");
+                  else router.push(`/${router.query.currentDate}`);
                 }}
               >
                 <IoArrowBackCircleSharp size={40} />
