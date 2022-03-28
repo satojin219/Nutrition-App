@@ -45,33 +45,24 @@ export const DishCard: React.VFC<Props> = (props) => {
               <div className="xl:flex flex-row justify-around">
                 <div className="basis-1/2  flex justify-center">
                   <div className="w-48 sm:w-64 md:w-80 snap-mandatory snap-x flex justify-between  flex-nowrap overflow-x-scroll">
-                    <div className="snap-center flex flex-none  bg-stone-50">
-                      <Image
-                        src={"/20180308-futako01-2.jpg"}
-                        alt="No Image"
-                        height={200}
-                        width={400}
-                        objectFit={"contain"}
-                      />
-                    </div>
-                    <div className="snap-center flex flex-none  bg-stone-50">
-                      <Image
-                        src={"/sp_detail_main_PS_KCF_1585M.jpg"}
-                        alt="No Image"
-                        height={200}
-                        width={400}
-                        objectFit={"contain"}
-                      />
-                    </div>
-                    <div className="snap-center flex flex-none  bg-stone-50">
-                      <Image
-                        src={"/709186.jpg"}
-                        alt="No Image"
-                        height={200}
-                        width={400}
-                        objectFit={"contain"}
-                      />
-                    </div>
+                    {props.menus.map((menu: Menu) => {
+                      if (!menu.imgUrl)
+                        return (
+                          <div className="snap-center flex flex-none  bg-stone-50"></div>
+                        );
+                      else
+                        return (
+                          <div className="snap-center flex flex-none  bg-stone-50">
+                            <Image
+                              src={menu.imgUrl}
+                              alt="No Image"
+                              height={200}
+                              width={400}
+                              objectFit={"contain"}
+                            />
+                          </div>
+                        );
+                    })}
                   </div>
                 </div>
                 <ul className="basisi-1/2 md:text-xl p-3">
@@ -89,7 +80,7 @@ export const DishCard: React.VFC<Props> = (props) => {
               </div>
               <NutritionList
                 nutrition={calSumNutrition(
-                  props.menus.map((menu) => menu.totalNutrition)
+                  props.menus.map((menu: Menu) => menu.totalNutrition)
                 )}
               />
             </div>
