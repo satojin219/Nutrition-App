@@ -15,6 +15,8 @@ import { IsModalShowContext } from "../../pages/_app";
 
 type Props = {
   index: number;
+  initialNameValue: string;
+  initialWeightValue: number;
   foodstuff: Foodstuff;
   removeFoodstuff(index: number): void;
   updateFoodstuff(data: Foodstuff): void;
@@ -125,6 +127,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     <form className="w-full">
       <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
         <input
+          value={props.initialNameValue}
           ref={inputFoodName}
           onChange={handleOnChangeFood}
           className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
@@ -133,6 +136,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           aria-label="Full name"
         />
         <input
+          value={props.initialWeightValue}
           onBlur={insertFoodData}
           min={0}
           type="number"

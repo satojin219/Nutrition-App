@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 
 type Props = {
   content: string | undefined;
+  initialValue: string;
   index: number;
   addRecipe(index: number): void;
   removeRecipe(index: number): void;
@@ -39,6 +40,7 @@ export const Recipe: React.VFC<Props> = (props) => {
       </div>
       <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
         <textarea
+          value={inputRecipe.current?.value}
           ref={inputRecipe}
           onBlur={() => {
             props.writeRecipe(props.index, inputRecipe?.current?.value ?? "");

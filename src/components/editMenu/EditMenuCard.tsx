@@ -19,8 +19,8 @@ import {
   addElement,
   removeElemnt,
   calSumNutritionFromFoodstuff,
-  calSumNutrition,
 } from "../../tools/HelpMethods";
+import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
 
 type Props = {
@@ -30,14 +30,17 @@ type Props = {
 };
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
-  const recipeName = useRef<HTMLInputElement>(null);
-  const cost = useRef<HTMLInputElement>(null);
-  const time = useRef<HTMLInputElement>(null);
-  const tips = useRef<HTMLTextAreaElement>(null);
-  const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>([]);
-  const [recipes, setRecipe] = useState<RecipeType[]>([]);
+  const recipeNameRef = useRef<HTMLInputElement>(null!);
+  const costRef = useRef<HTMLInputElement>(null!);
+  const timeRef = useRef<HTMLInputElement>(null!);
+  const tipsRef = useRef<HTMLTextAreaElement>(null!);
+  const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>(
+    props.menu.foodstuffs ?? []
+  );
+  const [recipes, setRecipe] = useState<RecipeType[]>(props.menu.recipes ?? []);
   const onImageChange = (imageUrl: string) => {
     // ここでmenuに差し込むと良さそう
+    props.menu.imgUrl = imageUrl;
     console.log("imageuUrl", imageUrl);
   };
   let totalNutrition: Nutrition | undefined =
@@ -60,7 +63,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     });
     setFoodstuff(copyFoodstuffs);
     props.menu.foodstuffs = copyFoodstuffs;
-    props.menu.totalNutrition = calSumNutritionFromFoodstuff(copyFoodstuffs);
+    props.menu.totalNutrition =
+      calSumNutritionFromFoodstuff(copyFoodstuffs) ??
+      dummyMenu[0].totalNutrition;
   };
   const addRecipe = useCallback(
     (index: number) => {
@@ -81,7 +86,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   };
 
   useEffect(() => {
-    addRecipe(0);
+    if (props.menu.recipes?.length == 0) addRecipe(0);
+    recipeNameRef.current.value = props.menu.recipeName ?? "";
   }, []);
 
   return (
@@ -99,13 +105,13 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </div>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2 sm:w-2/3 w-full">
             <input
-              ref={recipeName}
+              ref={recipeNameRef}
               className="text-sm sm:text-xl appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               type="text"
               placeholder="料理名を入力して下さい"
               aria-label="Full name"
               onBlur={() => {
-                props.menu.recipeName = recipeName?.current?.value ?? "";
+                props.menu.recipeName = recipeNameRef?.current.value ?? "";
               }}
             />
           </div>
@@ -134,6 +140,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
             {foodstuffs.map((foodstuff: Foodstuff, index: number) => (
               <SuggestFood
                 key={foodstuff.id}
+                initialNameValue={foodstuff.name ?? ""}
+                initialWeightValue={foodstuff.weight ?? 0}
                 foodstuff={foodstuff}
                 index={index}
                 removeFoodstuff={removeFoodstuff}
@@ -149,6 +157,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           {recipes.map((recipe: RecipeType, index: number) => (
             <Recipe
               key={recipe.id}
+              initialValue={recipe.content ?? ""}
               content={recipe.content}
               index={index}
               addRecipe={addRecipe}
@@ -164,11 +173,11 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           </h4>
           <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
             <textarea
-              ref={tips}
+              ref={tipsRef}
               className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               aria-label="Full name"
               onBlur={() => {
-                props.menu.tips = tips?.current?.value ?? "";
+                props.menu.tips = tipsRef?.current?.value ?? "";
               }}
             />
           </div>
@@ -181,12 +190,12 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               <p>
                 調理時間:{" "}
                 <input
-                  ref={time}
+                  ref={timeRef}
                   min={0}
                   type="number"
                   className="border text-sm w-10 ml-1 rounded text-right"
                   onBlur={() => {
-                    props.menu.time = Number(time?.current?.value) ?? "";
+                    props.menu.time = Number(timeRef?.current?.value) ?? "";
                   }}
                 />{" "}
                 分
@@ -197,12 +206,12 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               <p>
                 費用:{" "}
                 <input
-                  ref={cost}
+                  ref={costRef}
                   min={0}
                   type="number"
                   className="border text-sm  w-10 ml-1 rounded text-right"
                   onBlur={() => {
-                    props.menu.cost = Number(cost?.current?.value) ?? "";
+                    props.menu.cost = Number(costRef?.current?.value) ?? "";
                   }}
                 />{" "}
                 円
