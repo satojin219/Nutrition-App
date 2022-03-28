@@ -111,8 +111,6 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         nutrition: caledNutrition,
       };
       props.updateFoodstuff(food);
-      // localStorage.setItem(food.name, JSON.stringify(food));
-      // return JSON.parse(localStorage.getItem(foodName)!);
     }
   };
 
@@ -162,7 +160,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           {" "}
           <BsFillFileEarmarkTextFill />
         </button>
-        <Modal />
+        <Modal nutrition={props.foodstuff.nutrition} />
         {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
       </div>
       {searchCandidates.length ? (
