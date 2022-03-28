@@ -50,15 +50,18 @@ export const DishCard: React.VFC<Props> = (props) => {
                         return (
                           <div className="snap-center flex flex-none  bg-stone-50"></div>
                         );
-                      <div className="snap-center flex flex-none  bg-stone-50">
-                        <Image
-                          src={menu.imgUrl}
-                          alt="No Image"
-                          height={200}
-                          width={400}
-                          objectFit={"contain"}
-                        />
-                      </div>;
+                      else
+                        return (
+                          <div className="snap-center flex flex-none  bg-stone-50">
+                            <Image
+                              src={menu.imgUrl}
+                              alt="No Image"
+                              height={200}
+                              width={400}
+                              objectFit={"contain"}
+                            />
+                          </div>
+                        );
                     })}
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useCallback,
   useContext,
+  useEffect,
 } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "../../shared/globalType";
 import { BsFillFileEarmarkTextFill } from "react-icons/bs";
@@ -36,7 +37,10 @@ export const SuggestFood: React.VFC<Props> = (props) => {
   let foodName: string = inputFoodNameRef.current
     ? inputFoodNameRef.current.value
     : "";
-
+  useEffect(() => {
+    inputFoodNameRef.current.value = props.foodstuff.name ?? "";
+    inputFoodWeightRef.current.value = props.foodstuff.weight?.toString() ?? "";
+  }, []);
   const [searchCandidates, setSearchCandidates] = useState<
     Fuse.FuseResult<fetchedFoodData>[]
   >([]);

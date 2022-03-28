@@ -28,7 +28,6 @@ export const FoodImage: React.VFC<Props> = (props) => {
   return (
     <div className="basis-1/3 md:basis-1/3 text-xl text-white">
       <div className="bg-stone-50">
-        {/* <img src={thumbnailUrl || NO_IMAGE_THUMBNAIL} alt="" /> */}
         <Image
           src={thumbnailUrl || NO_IMAGE_THUMBNAIL}
           className="text-center"
