@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 type Props = {
   content: string | undefined;
@@ -9,7 +9,9 @@ type Props = {
 };
 export const Recipe: React.VFC<Props> = (props) => {
   const inputRecipeRef = useRef<HTMLTextAreaElement>(null!);
-
+  useEffect(() => {
+    inputRecipeRef.current.value = props.content ?? "";
+  }, []);
   return (
     <div className="my-3">
       <div className="flex group">
