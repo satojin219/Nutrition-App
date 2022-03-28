@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 import { SuggestFood } from "./SuggestFood";
 import { NutritionList } from "../common/NutritionList";
 import { Recipe } from "./Recipe";
@@ -22,6 +21,7 @@ import {
 } from "../../tools/HelpMethods";
 import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
+import { IsEditedContext } from "../../pages/_app";
 
 type Props = {
   index: number;
@@ -30,6 +30,7 @@ type Props = {
 };
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
+  const { setIsEdited } = useContext(IsEditedContext);
   const recipeNameRef = useRef<HTMLInputElement>(null!);
   const costRef = useRef<HTMLInputElement>(null!);
   const timeRef = useRef<HTMLInputElement>(null!);
@@ -41,6 +42,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const onImageChange = (imageUrl: string) => {
     // ここでmenuに差し込むと良さそう
     props.menu.imgUrl = imageUrl;
+    setIsEdited(true);
     console.log("imageuUrl", imageUrl);
   };
   let totalNutrition: Nutrition | undefined =
@@ -116,6 +118,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               onBlur={() => {
                 props.menu.recipeName = recipeNameRef?.current.value ?? "";
               }}
+              onChange={() => {
+                setIsEdited(true);
+              }}
             />
           </div>
         </div>
@@ -179,6 +184,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               onBlur={() => {
                 props.menu.tips = tipsRef?.current?.value ?? "";
               }}
+              onChange={() => {
+                setIsEdited(true);
+              }}
             />
           </div>
         </div>
@@ -197,6 +205,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   onBlur={() => {
                     props.menu.time = Number(timeRef?.current?.value) ?? "";
                   }}
+                  onChange={() => {
+                    setIsEdited(true);
+                  }}
                 />{" "}
                 分
               </p>
@@ -212,6 +223,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   className="border text-sm  w-10 ml-1 rounded text-right"
                   onBlur={() => {
                     props.menu.cost = Number(costRef?.current?.value) ?? "";
+                  }}
+                  onChange={() => {
+                    setIsEdited(true);
                   }}
                 />{" "}
                 円
