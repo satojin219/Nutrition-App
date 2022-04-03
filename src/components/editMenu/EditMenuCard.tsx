@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 import { SuggestFood } from "./SuggestFood";
 import { NutritionList } from "../common/NutritionList";
 import { Recipe } from "./Recipe";
@@ -22,6 +21,7 @@ import {
 } from "../../tools/HelpMethods";
 import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
+import { IsEditedContext } from "../../pages/_app";
 
 type Props = {
   index: number;
@@ -31,6 +31,7 @@ type Props = {
 };
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
+  const { setIsEdited } = useContext(IsEditedContext);
   const recipeNameRef = useRef<HTMLInputElement>(null!);
   const costRef = useRef<HTMLInputElement>(null!);
   const timeRef = useRef<HTMLInputElement>(null!);
@@ -42,6 +43,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const onImageChange = (imageUrl: string) => {
     // ここでmenuに差し込むと良さそう
     props.updateMenuCard(props.index, imageUrl, "imgUrl");
+    setIsEdited(true);
     console.log("imageuUrl", imageUrl);
   };
   let totalNutrition: Nutrition | undefined =
@@ -130,6 +132,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   "recipeName"
                 );
               }}
+              onChange={() => {
+                setIsEdited(true);
+              }}
             />
           </div>
         </div>
@@ -197,6 +202,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   "tips"
                 );
               }}
+              onChange={() => {
+                setIsEdited(true);
+              }}
             />
           </div>
         </div>
@@ -219,6 +227,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                       "time"
                     );
                   }}
+                  onChange={() => {
+                    setIsEdited(true);
+                  }}
                 />{" "}
                 分
               </p>
@@ -238,6 +249,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                       costRef?.current.value ?? "",
                       "cost"
                     );
+                  }}
+                  onChange={() => {
+                    setIsEdited(true);
                   }}
                 />{" "}
                 円

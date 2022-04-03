@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Menu } from "../../shared/globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
@@ -15,9 +15,11 @@ import { fetchDishData } from "../../schema/dishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { dummyMenu } from "../../tools/dummyMenu";
+import { IsEditedContext } from "../../pages/_app";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
+  const { setIsEdited } = useContext(IsEditedContext);
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.currentDate}`,
     fetchDishData
@@ -97,7 +99,10 @@ const EditMenuPage: NextPage = () => {
         <div>
           {router.isReady && <Header isEdit={true} />}
           <button
-            onClick={handleOnSubmit}
+            onClick={() => {
+              handleOnSubmit();
+              setIsEdited(false);
+            }}
             className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80"
           >
             <BsCheckLg size={30} />
