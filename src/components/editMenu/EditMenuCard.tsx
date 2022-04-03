@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 import { SuggestFood } from "./SuggestFood";
 import { NutritionList } from "../common/NutritionList";
 import { Recipe } from "./Recipe";
@@ -22,14 +21,17 @@ import {
 } from "../../tools/HelpMethods";
 import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
+import { IsEditedContext } from "../../pages/_app";
 
 type Props = {
   index: number;
   menu: Menu;
   removeMenuCard(id: number): void;
+  updateMenuCard(index: number, data: any, dataType: any): void;
 };
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
+  const { setIsEdited } = useContext(IsEditedContext);
   const recipeNameRef = useRef<HTMLInputElement>(null!);
   const costRef = useRef<HTMLInputElement>(null!);
   const timeRef = useRef<HTMLInputElement>(null!);
@@ -40,7 +42,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   const [recipes, setRecipe] = useState<RecipeType[]>(props.menu.recipes ?? []);
   const onImageChange = (imageUrl: string) => {
     // ここでmenuに差し込むと良さそう
-    props.menu.imgUrl = imageUrl;
+    props.updateMenuCard(props.index, imageUrl, "imgUrl");
+    setIsEdited(true);
     console.log("imageuUrl", imageUrl);
   };
   let totalNutrition: Nutrition | undefined =
@@ -48,11 +51,9 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
   const addFoodstuff = () => {
     addElement(foodstuffs, setFoodstuff);
-    props.menu.foodstuffs = foodstuffs;
   };
   const removeFoodstuff = (index: number) => {
     removeElemnt(foodstuffs, setFoodstuff, index);
-    props.menu.foodstuffs = foodstuffs;
   };
   const updateFoodstuff = (data: Foodstuff) => {
     let copyFoodstuffs = [...foodstuffs];
@@ -62,36 +63,47 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
       }
     });
     setFoodstuff(copyFoodstuffs);
-    props.menu.foodstuffs = copyFoodstuffs;
-    props.menu.totalNutrition =
+    props.updateMenuCard(
+      props.index,
       calSumNutritionFromFoodstuff(copyFoodstuffs) ??
-      dummyMenu[0].totalNutrition;
+        dummyMenu[0].totalNutrition,
+      "totalNutrition"
+    );
   };
   const addRecipe = useCallback(
     (index: number) => {
       addElement(recipes, setRecipe, index);
-      props.menu.recipes = recipes;
     },
     [props.menu, recipes]
   );
   const removeRecipe = (index: number) => {
     removeElemnt(recipes, setRecipe, index);
-    props.menu.recipes = recipes;
   };
   const writeRecipe = (index: number, value: string) => {
     let copyRecipes = [...recipes];
     copyRecipes[index].content = value;
     setRecipe(copyRecipes);
-    props.menu.recipes = copyRecipes;
   };
 
   useEffect(() => {
-    if (props.menu.recipes?.length == 0) addRecipe(0);
+    if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
     recipeNameRef.current.value = props.menu.recipeName ?? "";
     costRef.current.value = props.menu.cost?.toString() ?? "";
     timeRef.current.value = props.menu.time?.toString() ?? "";
     tipsRef.current.value = props.menu.tips ?? "";
   }, []);
+
+  useEffect(() => {
+    props.updateMenuCard(props.index, recipes, "recipes");
+  }, [recipes]);
+
+  useEffect(() => {
+    props.updateMenuCard(
+      props.index,
+      recipeNameRef?.current.value ?? "",
+      "recipeName"
+    );
+  }, [foodstuffs]);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">
@@ -114,7 +126,14 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               placeholder="料理名を入力して下さい"
               aria-label="Full name"
               onBlur={() => {
-                props.menu.recipeName = recipeNameRef?.current.value ?? "";
+                props.updateMenuCard(
+                  props.index,
+                  recipeNameRef?.current.value ?? "",
+                  "recipeName"
+                );
+              }}
+              onChange={() => {
+                setIsEdited(true);
               }}
             />
           </div>
@@ -177,7 +196,14 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
               className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               aria-label="Full name"
               onBlur={() => {
-                props.menu.tips = tipsRef?.current?.value ?? "";
+                props.updateMenuCard(
+                  props.index,
+                  tipsRef?.current.value ?? "",
+                  "tips"
+                );
+              }}
+              onChange={() => {
+                setIsEdited(true);
               }}
             />
           </div>
@@ -195,7 +221,14 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   type="number"
                   className="border text-sm w-10 ml-1 rounded text-right"
                   onBlur={() => {
-                    props.menu.time = Number(timeRef?.current?.value) ?? "";
+                    props.updateMenuCard(
+                      props.index,
+                      timeRef?.current.value ?? "",
+                      "time"
+                    );
+                  }}
+                  onChange={() => {
+                    setIsEdited(true);
                   }}
                 />{" "}
                 分
@@ -211,7 +244,14 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
                   type="number"
                   className="border text-sm  w-10 ml-1 rounded text-right"
                   onBlur={() => {
-                    props.menu.cost = Number(costRef?.current?.value) ?? "";
+                    props.updateMenuCard(
+                      props.index,
+                      costRef?.current.value ?? "",
+                      "cost"
+                    );
+                  }}
+                  onChange={() => {
+                    setIsEdited(true);
                   }}
                 />{" "}
                 円

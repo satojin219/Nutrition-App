@@ -13,8 +13,7 @@ import { fetchDishData } from "../../schema/fetchDishData";
 import { postDishData } from "../../schema/postDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
-import { isAlreadyEditedDishData } from "../../server/utils";
-
+import { calSumDailyIntakeNutrition } from "../../tools/HelpMethods";
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
@@ -48,7 +47,9 @@ const Home: NextPage = () => {
       {!!data && (
         <div>
           {router.isReady && <Header isEdit={false} />}
-          <DailylIntakeNutrition />
+          <DailylIntakeNutrition
+            totalNutrition={calSumDailyIntakeNutrition(data)}
+          />
           <div className="lg:flex flex-wrap">
             <DishCard menus={data.breakfast} whenMeal={"breakfast"} />
             <DishCard menus={data.lunch} whenMeal={"lunch"} />

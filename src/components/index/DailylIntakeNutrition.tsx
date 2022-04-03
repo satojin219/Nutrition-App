@@ -3,8 +3,12 @@ import { IsModalShowContext } from "../../pages/_app";
 import { useContext } from "react";
 import { FaFire, FaBreadSlice, FaFish } from "react-icons/fa";
 import { IoWater } from "react-icons/io5";
+import { Nutrition } from "../../shared/globalType";
 
-export const DailylIntakeNutrition: React.VFC = (props) => {
+type TotalNutrition = {
+  totalNutrition: Nutrition;
+};
+export const DailylIntakeNutrition: React.VFC<TotalNutrition> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
 
   return (
@@ -16,7 +20,7 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
               <FaFire className="mr-1" />
               <p>カロリー</p>
             </div>
-            <p>2400 kcal</p>
+            <p>{props.totalNutrition.calorie} kcal</p>
           </div>
 
           <div>
@@ -24,7 +28,7 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
               <FaBreadSlice className="mr-1" />
               <p>炭水化物</p>
             </div>
-            <p>83 g</p>
+            <p>{props.totalNutrition.carbohydrates} g</p>
           </div>
 
           <div>
@@ -32,7 +36,7 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
               <FaFish className="mr-1" />
               <p>たんぱく質</p>
             </div>
-            <p>57 g</p>
+            <p>{props.totalNutrition.protein} g</p>
           </div>
 
           <div>
@@ -40,7 +44,7 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
               <IoWater className="mr-1" />
               <p>脂質</p>
             </div>
-            <p>28 g</p>
+            <p>{props.totalNutrition.lipids} g</p>
           </div>
         </div>
 
@@ -53,7 +57,7 @@ export const DailylIntakeNutrition: React.VFC = (props) => {
           >
             詳しく見る <span className="text-red-500">&gt;</span>
           </button>
-          <Modal />
+          <Modal nutrition={props.totalNutrition} />
         </div>
       </div>
     </div>

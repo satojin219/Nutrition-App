@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import "swiper/css/bundle";
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { useSelectDay } from "../hooks/useSelectDay";
 import { dayData, DateType } from "../shared/globalType";
 import type { AppProps } from "next/app";
@@ -20,12 +20,18 @@ type isFixedContextType = {
     modalType: ModalType;
   };
 };
+type isEditedContextType = {
+  isEdited: boolean;
+  setIsEdited: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export const DayContext = createContext({} as DayContextType);
 export const IsModalShowContext = React.createContext({} as isFixedContextType);
+export const IsEditedContext = React.createContext({} as isEditedContextType);
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { selectedDayData, setSelectedDayData, changeDay } = useSelectDay();
   const { isModalShow, modalType, openModal, closeModal } = useModal();
+  const [isEdited, setIsEdited] = useState(false);
 
   const isModalShowContext = {
     openModal,
@@ -40,7 +46,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <DayContext.Provider
         value={{ selectedDayData, setSelectedDayData, changeDay }}
       >
-        <Component {...pageProps} />
+        <IsEditedContext.Provider value={{ isEdited, setIsEdited }}>
+          <Component {...pageProps} />
+        </IsEditedContext.Provider>
       </DayContext.Provider>
     </IsModalShowContext.Provider>
   );

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Menu } from "../../shared/globalType";
 import { addElement, removeElemnt } from "../../tools/HelpMethods";
 import { useRouter } from "next/router";
@@ -15,9 +15,11 @@ import { fetchDishData } from "../../schema/fetchDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { dummyMenu } from "../../tools/dummyMenu";
+import { IsEditedContext } from "../../pages/_app";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
+  const { setIsEdited } = useContext(IsEditedContext);
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.currentDate}`,
     fetchDishData
@@ -42,6 +44,19 @@ const EditMenuPage: NextPage = () => {
   };
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
+  };
+  const updateMenuCard = (index: number, data: any, dataType: any) => {
+    const copyMenuCard = [...menuCards];
+    if (dataType == "recipeName") copyMenuCard[index].recipeName = data;
+    if (dataType == "imgUrl") copyMenuCard[index].imgUrl = data;
+    if (dataType == "foodstuffs") copyMenuCard[index].foodstuffs = data;
+    if (dataType == "recipes") copyMenuCard[index].recipes = data;
+    if (dataType == "tips") copyMenuCard[index].tips = data;
+    if (dataType == "cost") copyMenuCard[index].cost = data;
+    if (dataType == "time") copyMenuCard[index].time = data;
+    if (dataType == "totalNutrition") copyMenuCard[index].totalNutrition = data;
+
+    setMenuCards(copyMenuCard);
   };
 
   const handleOnSubmit = async () => {
@@ -69,6 +84,10 @@ const EditMenuPage: NextPage = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log(menuCards);
+  }, [menuCards]);
+
   return (
     <div>
       <Head>
@@ -80,7 +99,10 @@ const EditMenuPage: NextPage = () => {
         <div>
           {router.isReady && <Header isEdit={true} />}
           <button
-            onClick={handleOnSubmit}
+            onClick={() => {
+              handleOnSubmit();
+              setIsEdited(false);
+            }}
             className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80"
           >
             <BsCheckLg size={30} />
@@ -92,6 +114,7 @@ const EditMenuPage: NextPage = () => {
               index={index}
               menu={menuCard}
               removeMenuCard={removeMenuCard}
+              updateMenuCard={updateMenuCard}
             />
           ))}
           <div className="flex justify-center my-5">
