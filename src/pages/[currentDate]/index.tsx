@@ -13,16 +13,19 @@ import { fetchDishData } from "../../schema/fetchDishData";
 import { postDishData } from "../../schema/postDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
+import { isAlreadyEditedDishData } from "../../server/utils";
 
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
   const { data, error } = useSWR<DishData>(
-    `/api/dish/${router.query.currentDate}`,
+    `/api/dish/${router.query!.currentDate!}`,
     fetchDishData
   );
 
-  postDishData(`/api/dish/${router.query.currentDate}`, data!);
+  if (data) {
+    postDishData(`/api/dish/${router.query.currentDate!}`, data!);
+  }
 
   const fixedClassNames = {
     "fixed w-full": isModalShowContext.currentState?.isOpen,

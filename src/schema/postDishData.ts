@@ -13,9 +13,12 @@ export const postDishData = async (
     const error: any = new Error("An error occurred while posting the data.");
     error.info = await res.json();
     error.status = res.status;
+    console.log("error :" + error);
+    console.log(error.info);
+
     throw error;
   } else {
-    console.log(res);
+    console.log("OK :" + res.json());
   }
   return res.json();
 };

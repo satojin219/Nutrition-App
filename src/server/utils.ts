@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import { DishData } from "../shared/globalType";
+import { db } from "./firebase";
 
 export const isExistDate = (text: string): boolean => {
   const formatText = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
@@ -8,6 +10,9 @@ export const isBeforeToday = (text: string): boolean => {
   const today = dayjs().format("YYYYMMDD");
   const requestedDate = dayjs(text, "YYYYMMDD").format("YYYYMMDD");
   return parseInt(requestedDate) <= parseInt(today);
+};
+export const isAlreadyEditedDishData = (data: DishData) => {
+  if (!data) return false;
 };
 
 /**
