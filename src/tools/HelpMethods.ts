@@ -4,6 +4,7 @@ import {
   DateType,
   DishData,
   DishType,
+  Menu,
 } from "../shared/globalType";
 
 type extractNutrtionType = {
@@ -322,6 +323,29 @@ export const calSumNutritionFromFoodstuff = (
     }
   );
   return sumNutrition;
+};
+export const calSumDailyIntakeNutrition = (dishData: DishData) => {
+  let sumNutrition: Nutrition[] = [];
+  dishData.breakfast.map((menu: Menu) => {
+    sumNutrition.push(menu.totalNutrition);
+  });
+  dishData.lunch.map((menu: Menu) => {
+    sumNutrition.push(menu.totalNutrition);
+  });
+  dishData.dinner.map((menu: Menu) => {
+    sumNutrition.push(menu.totalNutrition);
+  });
+  dishData.snack.map((menu: Menu) => {
+    sumNutrition.push(menu.totalNutrition);
+  });
+  const resNutrition = calSumNutrition(sumNutrition);
+  //少数第３位以上のものは丸める
+  (Object.keys(resNutrition) as (keyof Nutrition)[]).map(
+    (key: keyof Nutrition) => {
+      resNutrition[key] = roundNutritionValue(resNutrition[key]);
+    }
+  );
+  return resNutrition;
 };
 /**
  * @fetchUsrData
