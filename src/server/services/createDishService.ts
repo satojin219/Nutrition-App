@@ -22,10 +22,10 @@ const createDishService = async (
   const snackMenus = data.snack;
 
   await Promise.all([
-    collection.doc("breakfast").create({ menus: breakfastMenus }),
-    collection.doc("lunch").create({ menus: lunchMenus }),
-    collection.doc("dinner").create({ menus: dinnerMenus }),
-    collection.doc("snack").create({ menus: snackMenus }),
+    collection.doc("breakfast").set({ menus: breakfastMenus }),
+    collection.doc("lunch").set({ menus: lunchMenus }),
+    collection.doc("dinner").set({ menus: dinnerMenus }),
+    collection.doc("snack").set({ menus: snackMenus }),
   ]);
 };
 

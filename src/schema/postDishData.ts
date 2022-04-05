@@ -20,5 +20,4 @@ export const postDishData = async (
   } else {
     console.log("OK :" + res.json());
   }
-  return res.json();
 };
