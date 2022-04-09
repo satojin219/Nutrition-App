@@ -17,7 +17,7 @@ const handler = async (
 ) => {
   try {
     if (req.method === "GET") {
-      const date: string | string[] = req.query.date;
+      const date: string | string[] | undefined = req.query.date;
       if (typeof date !== "string") {
         throw new MyAppError("Parameter date must be string");
       }

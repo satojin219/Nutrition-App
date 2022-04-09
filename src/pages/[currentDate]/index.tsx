@@ -22,8 +22,8 @@ const Home: NextPage = () => {
     fetchDishData
   );
 
-  if (data) {
-    postDishData(`/api/dish/${router.query.currentDate!}`, data!);
+  if (data && router.query.currentDate) {
+    postDishData(`/api/dish/${router.query.currentDate}`, data);
   }
 
   const fixedClassNames = {
