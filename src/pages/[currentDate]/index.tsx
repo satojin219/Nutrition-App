@@ -14,6 +14,7 @@ import { postDishData } from "../../schema/postDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { calSumDailyIntakeNutrition } from "../../tools/HelpMethods";
+import { checkBlankDishData } from "../../server/utils";
 const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
@@ -22,7 +23,8 @@ const Home: NextPage = () => {
     fetchDishData
   );
 
-  if (data && router.query.currentDate) {
+  if (data && router.query.currentDate && checkBlankDishData(data)) {
+    // 初アクセスで、全てのプロパティが空ならfirestoreにデータをPOST
     postDishData(`/api/dish/${router.query.currentDate}`, data);
   }
 

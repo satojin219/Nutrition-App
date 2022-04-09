@@ -87,6 +87,8 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
 
   useEffect(() => {
     if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
+    if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
+      addFoodstuff();
     recipeNameRef.current.value = props.menu.recipeName ?? "";
     costRef.current.value = props.menu.cost?.toString() ?? "";
     timeRef.current.value = props.menu.time?.toString() ?? "";
@@ -98,11 +100,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
   }, [recipes]);
 
   useEffect(() => {
-    props.updateMenuCard(
-      props.index,
-      recipeNameRef?.current.value ?? "",
-      "recipeName"
-    );
+    props.updateMenuCard(props.index, foodstuffs, "foodstuffs");
   }, [foodstuffs]);
 
   return (
