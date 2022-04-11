@@ -2,7 +2,20 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { app } from "../../server/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import React, { ChangeEvent, useRef } from "react";
+
 const SignUp: NextPage = () => {
+  const auth = getAuth(app);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const handleSubmit = (event: React.MouseEvent) => {
+    event.preventDefault();
+    createUserWithEmailAndPassword(
+      auth,
+      emailRef.current!.value,
+      passwordRef.current!.value
+    );
+  };
   return (
     <>
       <Head>
@@ -14,6 +27,7 @@ const SignUp: NextPage = () => {
           <div className="flex flex-col my-3">
             <label>メールアドレス</label>
             <input
+              ref={emailRef}
               className="border-yellow-700/50 border-b-2 my-2"
               name="email"
               type="email"
@@ -24,6 +38,7 @@ const SignUp: NextPage = () => {
           <div className="flex flex-col my-3">
             <label>パスワード</label>
             <input
+              ref={passwordRef}
               className="border-yellow-700/50 border-b-2 my-2"
               name="password"
               type="password"
@@ -37,7 +52,10 @@ const SignUp: NextPage = () => {
               </p>
             </div>
             <div className="flex justify-center ">
-              <button className="my-3 w-full bg-orange-500 text-white px-3 py-2 rounded-md">
+              <button
+                onClick={handleSubmit}
+                className="my-3 w-full bg-orange-500 text-white px-3 py-2 rounded-md"
+              >
                 登録
               </button>
             </div>
