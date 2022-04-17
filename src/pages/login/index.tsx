@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { app } from "../../server/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 const SignUp: NextPage = () => {
   return (

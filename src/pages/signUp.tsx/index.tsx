@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { app } from "../../server/firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import React, { ChangeEvent, useRef } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../client/firebase";
+import React, { useRef } from "react";
 
 const SignUp: NextPage = () => {
-  const auth = getAuth(app);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const handleSubmit = (event: React.MouseEvent) => {
