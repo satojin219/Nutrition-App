@@ -1,7 +1,26 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-const SignUp: NextPage = () => {
+import Link from "next/link";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../client/firebase";
+import React, { useRef } from "react";
+import dayjs from "dayjs";
+import Router from "next/router";
+
+const Login: NextPage = () => {
+  const today = dayjs().format("YYYYMMDD");
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const handleSubmit = async (event: React.MouseEvent) => {
+    event.preventDefault();
+    await signInWithEmailAndPassword(
+      auth,
+      emailRef.current!.value,
+      passwordRef.current!.value
+    );
+    Router.push(`/${today}`);
+  };
+
   return (
     <>
       <Head>
@@ -13,6 +32,7 @@ const SignUp: NextPage = () => {
           <div className="flex flex-col my-3">
             <label>メールアドレス</label>
             <input
+              ref={emailRef}
               className="border-yellow-700/50 border-b-2 my-2"
               name="email"
               type="email"
@@ -23,6 +43,7 @@ const SignUp: NextPage = () => {
           <div className="flex flex-col my-3">
             <label>パスワード</label>
             <input
+              ref={passwordRef}
               className="border-yellow-700/50 border-b-2 my-2"
               name="password"
               type="password"
@@ -32,11 +53,17 @@ const SignUp: NextPage = () => {
           <div>
             <div className="flex justify-end">
               <p className="text-xs">
-                <a className="text-blue-400">新規登録</a>はこちらから
+                <Link href={"/signUp"}>
+                  <a className="text-blue-400">新規登録</a>
+                </Link>
+                はこちらから
               </p>
             </div>
             <div className="flex justify-center ">
-              <button className="my-3 w-full bg-orange-500 text-white px-3 py-2 rounded-md">
+              <button
+                onClick={handleSubmit}
+                className="my-3 w-full bg-orange-500 text-white px-3 py-2 rounded-md"
+              >
                 ログイン
               </button>
             </div>
@@ -47,4 +74,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default Login;

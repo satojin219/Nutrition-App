@@ -1,20 +1,26 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../client/firebase";
 import React, { useRef } from "react";
+import dayjs from "dayjs";
+import Router from "next/router";
 
 const SignUp: NextPage = () => {
+  const today = dayjs().format("YYYYMMDD");
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const handleSubmit = (event: React.MouseEvent) => {
+  const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(
+    await createUserWithEmailAndPassword(
       auth,
       emailRef.current!.value,
       passwordRef.current!.value
     );
+    Router.push(`/${today}`);
   };
+
   return (
     <>
       <Head>
@@ -47,7 +53,10 @@ const SignUp: NextPage = () => {
           <div>
             <div className="flex justify-end">
               <p className="text-xs">
-                <a className="text-blue-400">ログイン</a>はこちらから
+                <Link href={"/login"}>
+                  <a className="text-blue-400">ログイン</a>
+                </Link>
+                はこちらから
               </p>
             </div>
             <div className="flex justify-center ">

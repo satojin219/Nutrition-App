@@ -7,7 +7,8 @@ import dayjs from "dayjs";
 const Home: NextPage = () => {
   const today = dayjs().format("YYYYMMDD");
   useEffect(() => {
-    Router.push(`/${today}`);
+    // Router.push(`/${today}`);
+    Router.push("/signUp");
   }, [today]);
 
   return (
