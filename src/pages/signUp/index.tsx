@@ -11,6 +11,12 @@ const SignUp: NextPage = () => {
   const today = dayjs().format("YYYYMMDD");
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const weightRef = useRef<HTMLInputElement>(null);
+  const heightRef = useRef<HTMLInputElement>(null);
+  const activeLevelRef = useRef<HTMLSelectElement>(null);
+  const sexRef = useRef<HTMLSelectElement>(null);
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
     await createUserWithEmailAndPassword(
@@ -49,6 +55,76 @@ const SignUp: NextPage = () => {
               type="password"
               required
             />
+          </div>
+          <div className="flex flex-col my-3">
+            <label>名前</label>
+            <input
+              ref={nameRef}
+              className="border-yellow-700/50 border-b-2 my-2"
+              name="name"
+              type="text"
+              required
+            />
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="flex flex-col my-3">
+              <label>年齢</label>
+              <input
+                ref={ageRef}
+                className="border-yellow-700/50 border-b-2 my-2"
+                name="age"
+                type="number"
+                required
+              />
+            </div>
+            <div className="flex flex-col my-3">
+              <label>性別</label>
+              <select
+                ref={sexRef}
+                className="border-yellow-700/50 border-b-2 my-2"
+                name="age"
+                required
+              >
+                <option value="male">男性</option>
+                <option value="female">女性</option>
+              </select>
+            </div>
+            <div className="flex flex-col my-3">
+              <label>運動レベル</label>
+              <select
+                ref={activeLevelRef}
+                className="border-yellow-700/50 border-b-2 my-2"
+                name="activeLevel"
+                required
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col my-3">
+              <label>身長(cm)</label>
+              <input
+                ref={weightRef}
+                className="border-yellow-700/50 border-b-2 my-2"
+                name="weight"
+                type="number"
+                required
+              />
+            </div>
+            <div className="flex flex-col my-3">
+              <label>体重(kg)</label>
+              <input
+                ref={heightRef}
+                className="border-yellow-700/50 border-b-2 my-2"
+                name="height"
+                type="number"
+                required
+              />
+            </div>
           </div>
           <div>
             <div className="flex justify-end">
