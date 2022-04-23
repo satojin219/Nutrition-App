@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import React, { useContext, useEffect, useState } from "react";
 import { IsModalShowContext } from "../_app";
-import { useRouter } from "next/router";
+import { useRouter, Router } from "next/router";
 import Head from "next/head";
 import { Header } from "../../components/common/Header";
 import { DailylIntakeNutrition } from "../../components/index/DailylIntakeNutrition";
@@ -15,7 +15,9 @@ import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { calSumDailyIntakeNutrition } from "../../tools/HelpMethods";
 import { checkBlankDishData } from "../../server/utils";
+import { useAuthContext } from "../../../context/AuthContext";
 const Home: NextPage = () => {
+  const { user } = useAuthContext();
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
   const { data, error } = useSWR<DishData>(
@@ -38,6 +40,10 @@ const Home: NextPage = () => {
       setIsLoading(false);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!user) router.push("/login");
+  }, []);
 
   return (
     <div className={classnames(fixedClassNames)}>

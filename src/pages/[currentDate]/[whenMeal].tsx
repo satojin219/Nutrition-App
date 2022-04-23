@@ -16,9 +16,11 @@ import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { dummyMenu } from "../../tools/dummyMenu";
 import { IsEditedContext } from "../../pages/_app";
+import { useAuthContext } from "../../../context/AuthContext";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
+  const { user } = useAuthContext();
   const { setIsEdited } = useContext(IsEditedContext);
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.currentDate}`,
@@ -78,6 +80,10 @@ const EditMenuPage: NextPage = () => {
       })
       .catch(console.error);
   };
+  useEffect(() => {
+    if (!user) router.push("/login");
+  }, []);
+
   useEffect(() => {
     if (data) {
       setIsLoading(false);
