@@ -1,11 +1,11 @@
 export type UserData = {
   id: string;
   name: string;
-  age: number;
+  age: string;
   gender: string;
-  weight: number;
-  height: number;
-  activeLevel: number;
+  weight: string;
+  height: string;
+  activeLevel: string;
 };
 
 export type dayData = {

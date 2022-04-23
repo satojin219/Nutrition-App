@@ -19,15 +19,7 @@ const SignUp: NextPage = () => {
   const heightRef = useRef<HTMLInputElement>(null);
   const activeLevelRef = useRef<HTMLSelectElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
-  const userData: UserData = {
-    id: auth.currentUser?.uid!,
-    name: nameRef.current?.value!,
-    age: Number(ageRef.current?.value!),
-    gender: genderRef.current?.value!,
-    weight: Number(weightRef.current?.value!),
-    height: Number(heightRef.current?.value!),
-    activeLevel: Number(activeLevelRef.current?.value!),
-  };
+
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
     await createUserWithEmailAndPassword(
@@ -35,6 +27,15 @@ const SignUp: NextPage = () => {
       emailRef.current!.value,
       passwordRef.current!.value
     );
+    const userData: UserData = {
+      id: auth.currentUser!.uid!,
+      name: nameRef.current?.value!,
+      age: ageRef.current?.value!,
+      gender: genderRef.current?.value!,
+      weight: weightRef.current?.value!,
+      height: heightRef.current?.value!,
+      activeLevel: activeLevelRef.current?.value!,
+    };
     await postData("/api/user", userData);
     Router.push(`/${today}`);
   };
