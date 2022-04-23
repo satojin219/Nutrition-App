@@ -1,7 +1,7 @@
-import { DishData } from "../shared/globalType";
-export const postDishData = async (
+import { DishData, UserData } from "../shared/globalType";
+export const postData = async (
   url: string,
-  data: DishData
+  data: DishData | UserData
 ): Promise<any> => {
   const param = {
     method: "POST",

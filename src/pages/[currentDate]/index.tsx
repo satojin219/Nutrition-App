@@ -10,7 +10,7 @@ import { Loading } from "../../components/common/Loading";
 import classnames from "classnames";
 import useSWR from "swr";
 import { fetchDishData } from "../../schema/fetchDishData";
-import { postDishData } from "../../schema/postDishData";
+import { postData } from "../../schema/postData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../shared/globalType";
 import { calSumDailyIntakeNutrition } from "../../tools/HelpMethods";
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
 
   if (data && router.query.currentDate && checkBlankDishData(data)) {
     // 初アクセスで、全てのプロパティが空ならfirestoreにデータをPOST
-    postDishData(`/api/dish/${router.query.currentDate}`, data);
+    postData(`/api/dish/${router.query.currentDate}`, data);
   }
 
   const fixedClassNames = {

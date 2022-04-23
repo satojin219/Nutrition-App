@@ -6,6 +6,8 @@ import { auth } from "../../../client/firebase";
 import React, { useRef } from "react";
 import dayjs from "dayjs";
 import Router from "next/router";
+import { postData } from "../../schema/postData";
+import { UserData } from "../../shared/globalType";
 
 const SignUp: NextPage = () => {
   const today = dayjs().format("YYYYMMDD");
@@ -16,7 +18,16 @@ const SignUp: NextPage = () => {
   const weightRef = useRef<HTMLInputElement>(null);
   const heightRef = useRef<HTMLInputElement>(null);
   const activeLevelRef = useRef<HTMLSelectElement>(null);
-  const sexRef = useRef<HTMLSelectElement>(null);
+  const genderRef = useRef<HTMLSelectElement>(null);
+  const userData: UserData = {
+    id: auth.currentUser?.uid!,
+    name: nameRef.current?.value!,
+    age: Number(ageRef.current?.value!),
+    gender: genderRef.current?.value!,
+    weight: Number(weightRef.current?.value!),
+    height: Number(heightRef.current?.value!),
+    activeLevel: Number(activeLevelRef.current?.value!),
+  };
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
     await createUserWithEmailAndPassword(
@@ -24,6 +35,7 @@ const SignUp: NextPage = () => {
       emailRef.current!.value,
       passwordRef.current!.value
     );
+    await postData("/api/user", userData);
     Router.push(`/${today}`);
   };
 
@@ -80,7 +92,7 @@ const SignUp: NextPage = () => {
             <div className="flex flex-col my-3">
               <label>性別</label>
               <select
-                ref={sexRef}
+                ref={genderRef}
                 className="border-yellow-700/50 border-b-2 my-2"
                 name="age"
                 required

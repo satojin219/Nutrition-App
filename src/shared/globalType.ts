@@ -1,13 +1,11 @@
 export type UserData = {
-  id: number;
+  id: string;
   name: string;
   age: number;
   gender: string;
   weight: number;
   height: number;
   activeLevel: number;
-  editedDayDates: dayData[];
-  selectedDayDate: dayData;
 };
 
 export type dayData = {
