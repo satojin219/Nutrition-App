@@ -6,6 +6,7 @@ import { useSelectDay } from "../hooks/useSelectDay";
 import { dayData, DateType } from "../shared/globalType";
 import type { AppProps } from "next/app";
 import { useModal, ModalType } from "../hooks/useModal";
+import { AuthProvider } from "../../context/AuthContext";
 
 type DayContextType = {
   selectedDayData: dayData;
@@ -42,15 +43,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     },
   };
   return (
-    <IsModalShowContext.Provider value={isModalShowContext}>
-      <DayContext.Provider
-        value={{ selectedDayData, setSelectedDayData, changeDay }}
-      >
-        <IsEditedContext.Provider value={{ isEdited, setIsEdited }}>
-          <Component {...pageProps} />
-        </IsEditedContext.Provider>
-      </DayContext.Provider>
-    </IsModalShowContext.Provider>
+    <AuthProvider>
+      <IsModalShowContext.Provider value={isModalShowContext}>
+        <DayContext.Provider
+          value={{ selectedDayData, setSelectedDayData, changeDay }}
+        >
+          <IsEditedContext.Provider value={{ isEdited, setIsEdited }}>
+            <Component {...pageProps} />
+          </IsEditedContext.Provider>
+        </DayContext.Provider>
+      </IsModalShowContext.Provider>
+    </AuthProvider>
   );
 };
 
