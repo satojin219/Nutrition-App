@@ -5,16 +5,14 @@ import { isExistDate, isBeforeToday } from "../utils";
 
 const createDishService = async (
   date: string,
+  userId: string,
   data: DishData
 ): Promise<void> => {
   if (!isExistDate(date) || !isBeforeToday(date)) {
     throw new MyAppError("Parameter date is not valid.");
   }
 
-  const collection = db
-    .collection("user")
-    .doc("GZWJqh13Te0bIAk3zrlo")
-    .collection(date);
+  const collection = db.collection("user").doc(userId).collection(date);
 
   const breakfastMenus = data.breakfast;
   const lunchMenus = data.lunch;

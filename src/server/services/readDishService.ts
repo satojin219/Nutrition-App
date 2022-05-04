@@ -3,14 +3,14 @@ import MyAppError from "../customError";
 import { db } from "../firebase";
 import { isBeforeToday, isExistDate } from "../utils";
 
-const readDishService = async (date: string): Promise<DishData> => {
+const readDishService = async (
+  date: string,
+  userId: string
+): Promise<DishData> => {
   if (!isExistDate(date) || !isBeforeToday(date)) {
     throw new MyAppError("Parameter date is not valid.");
   }
-  const collection = db
-    .collection("user")
-    .doc("GZWJqh13Te0bIAk3zrlo")
-    .collection(date);
+  const collection = db.collection("user").doc(userId).collection(date);
 
   const breakfastStream = collection.doc("breakfast").get();
   const lunchStream = collection.doc("lunch").get();

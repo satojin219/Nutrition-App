@@ -5,6 +5,7 @@ import { isBeforeToday, isExistDate } from "../utils";
 
 const updateDishService = async (
   date: string,
+  userId: string,
   whenDish: string,
   menus: Menu[]
 ): Promise<Menu[]> => {
@@ -13,7 +14,7 @@ const updateDishService = async (
   }
   const menuField = db
     .collection("user")
-    .doc("GZWJqh13Te0bIAk3zrlo")
+    .doc(userId)
     .collection(date)
     .doc(whenDish);
 

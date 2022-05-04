@@ -21,13 +21,16 @@ const Home: NextPage = () => {
   const isModalShowContext = useContext(IsModalShowContext);
   const router = useRouter();
   const { data, error } = useSWR<DishData>(
-    `/api/dish/${router.query!.currentDate!}`,
+    `/api/dish/${router.query.userId}/${router.query!.currentDate!}`,
     fetchDishData
   );
 
   if (data && router.query.currentDate && checkBlankDishData(data)) {
     // 初アクセスで、全てのプロパティが空ならfirestoreにデータをPOST
-    postData(`/api/dish/${router.query.currentDate}`, data);
+    postData(
+      `/api/dish/${router.query.userId}/${router.query.currentDate}`,
+      data
+    );
   }
 
   const fixedClassNames = {

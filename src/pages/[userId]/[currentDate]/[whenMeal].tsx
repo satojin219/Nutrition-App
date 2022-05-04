@@ -23,7 +23,7 @@ const EditMenuPage: NextPage = () => {
   const { user } = useAuthContext();
   const { setIsEdited } = useContext(IsEditedContext);
   const { data, error } = useSWR<DishData>(
-    `/api/dish/${router.query.currentDate}`,
+    `/api/dish/${router.query.userId}/${router.query.currentDate}`,
     fetchDishData
   );
   const fetchedMenu: Menu[] | null =
@@ -64,7 +64,7 @@ const EditMenuPage: NextPage = () => {
   const handleOnSubmit = async () => {
     await axios
       .put(
-        `/api/dish/${router.query.currentDate}`,
+        `/api/dish/${router.query.userId}/${router.query.currentDate}`,
         router.query.whenMeal == "breakfast"
           ? { breakfast: menuCards }
           : router.query.whenMeal == "lunch"
