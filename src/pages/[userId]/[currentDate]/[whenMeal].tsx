@@ -1,22 +1,22 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Header } from "../../components/common/Header";
-import { EditMenuCard } from "../../components/editMenu/EditMenuCard";
+import { Header } from "../../../components/common/Header";
+import { EditMenuCard } from "../../../components/editMenu/EditMenuCard";
 import { useState, useEffect, useContext } from "react";
-import { Menu } from "../../shared/globalType";
-import { addElement, removeElemnt } from "../../tools/HelpMethods";
+import { Menu } from "../../../shared/globalType";
+import { addElement, removeElemnt } from "../../../tools/HelpMethods";
 import { useRouter } from "next/router";
 import { BsCheckLg } from "react-icons/bs";
-import { Modal } from "../../components/common/Modal";
+import { Modal } from "../../../components/common/Modal";
 import axios from "axios";
-import { Loading } from "../../components/common/Loading";
+import { Loading } from "../../../components/common/Loading";
 import useSWR from "swr";
-import { fetchDishData } from "../../schema/fetchDishData";
+import { fetchDishData } from "../../../schema/fetchDishData";
 import DefaultErrorPage from "next/error";
-import { DishData } from "../../shared/globalType";
-import { dummyMenu } from "../../tools/dummyMenu";
-import { IsEditedContext } from "../../pages/_app";
-import { useAuthContext } from "../../../context/AuthContext";
+import { DishData } from "../../../shared/globalType";
+import { dummyMenu } from "../../../tools/dummyMenu";
+import { IsEditedContext } from "../../_app";
+import { useAuthContext } from "../../../../context/AuthContext";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();

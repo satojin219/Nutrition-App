@@ -10,7 +10,9 @@ export const ConfirmEdit: React.VFC = () => {
     <div className="rounded-md border-2 border-orange-500 mt-10 sm:mx-20 p-5 bg-white">
       <p>変更を保存せずに戻りますか？</p>
       <div className="mt-5 flex justify-center">
-        <Link href={`/${router.query.currentDate as string}`}>
+        <Link
+          href={`/${router.query.userId}/${router.query.currentDate as string}`}
+        >
           <a
             onClick={closeModal}
             className="text-center rounded-md  px-6 py-2 text-white bg-orange-500"

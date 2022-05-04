@@ -25,7 +25,8 @@ export const Calendar: React.VFC = () => {
     setCurrentDayJs(currentDayJs.subtract(1, "month"));
   };
   const changeDate = (date: string) => {
-    Router.push(`/${date}`);
+    console.log(router.query.userId);
+    Router.push(`/${router.query.userId}/${date}`);
   };
 
   return (

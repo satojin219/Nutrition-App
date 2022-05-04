@@ -86,7 +86,9 @@ export const DishCard: React.VFC<Props> = (props) => {
             </div>
           ) : (
             <div className="flex justify-center">
-              <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
+              <Link
+                href={`/${router.query.userId}/${router.query.currentDate}/${props.whenMeal}`}
+              >
                 <a className="bg-orange-500 text-white text-center p-2 rounded-full w-full">
                   + 献立を追加する
                 </a>

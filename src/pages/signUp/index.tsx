@@ -37,7 +37,7 @@ const SignUp: NextPage = () => {
       activeLevel: activeLevelRef.current?.value!,
     };
     await postData("/api/user", userData);
-    Router.push(`/${today}`);
+    Router.push(`/${userData.id}/${today}`);
   };
 
   return (

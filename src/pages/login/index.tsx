@@ -18,7 +18,7 @@ const Login: NextPage = () => {
       emailRef.current!.value,
       passwordRef.current!.value
     );
-    Router.push(`/${today}`);
+    Router.push(`/${auth.currentUser?.uid}/${today}`);
   };
 
   return (
