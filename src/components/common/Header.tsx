@@ -50,11 +50,11 @@ export const Header: React.VFC<Props> = (props) => {
             <div>
               <button
                 onClick={() => {
-                  if (isEdited) openModal("confirmEdit");
-                  else
-                    router.push(
-                      `/${router.query.userId}/${router.query.currentDate}`
-                    );
+                  // if (isEdited) openModal("confirmEdit");
+                  // else
+                  router.push(
+                    `/${router.query.userId}/${router.query.currentDate}`
+                  );
                 }}
               >
                 <IoArrowBackCircleSharp size={40} />

@@ -158,7 +158,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         >
           <FaTrashAlt />
         </button>
-        <button
+        {/* <button
           className="flex-shrink-0 hover:border-white border-white text-md border-4 text-orange-500 py-1 bg-white px-2 ml-2 rounded shadow-md"
           onClick={() => {
             openModal("nutritonList");
@@ -167,8 +167,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           {" "}
           <BsFillFileEarmarkTextFill />
         </button>
-        <Modal nutrition={props.foodstuff.nutrition} />
-        {/* 栄養素がモーダルウインドで表示される予定ですが、今はlocalStorageからデータを持ってくるだけです。 */}
+        <Modal nutrition={props.foodstuff.nutrition} /> */}
       </div>
       {searchCandidates.length ? (
         <select

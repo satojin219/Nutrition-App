@@ -44,9 +44,11 @@ const EditMenuPage: NextPage = () => {
   const addMenuCard = () => {
     addElement(menuCards, setMenuCards);
   };
+
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
   };
+
   const updateMenuCard = (index: number, data: any, dataType: any) => {
     const copyMenuCard = [...menuCards];
     if (dataType == "recipeName") copyMenuCard[index].recipeName = data;
