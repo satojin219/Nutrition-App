@@ -41,6 +41,8 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (data) {
       setIsLoading(false);
+    } else {
+      setIsLoading(true);
     }
   }, [data]);
 
