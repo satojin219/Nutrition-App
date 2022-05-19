@@ -33,7 +33,9 @@ export const DishCard: React.VFC<Props> = (props) => {
         <div className="bg-orange-50 rounded-tr-lg rounded-b-lg shadow-md p-5 sm:p-10 container">
           {props.menus.length != 0 ? (
             <div className="flex justify-end mb-3">
-              <Link href={`/${router.query.currentDate}/${props.whenMeal}`}>
+              <Link
+                href={`/${router.query.userId}/${router.query.currentDate}/${props.whenMeal}`}
+              >
                 <a className="hover:text-orange-700 opacity-50">
                   <BsPencilFill size={30} />
                 </a>
