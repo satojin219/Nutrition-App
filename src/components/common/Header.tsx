@@ -49,17 +49,23 @@ export const Header: React.VFC<Props> = (props) => {
       <div className="flex justify-between text-white my-2">
         <button
           onClick={subtractOneDay}
-          className="rounded-3xl text-base text-base-white border-2 w-full py-1"
+          className="rounded-3xl text-base text-base-white border-2 w-full flex justify-between items-center px-5 py-1"
         >
-          {currentDate.add(-1, "d").format("M月 DD日 (dd)")}
+          <FaAngleLeft size={20} />
+          <p>{currentDate.add(-1, "d").format("M月 DD日 (dd)")}</p>
+          {/* 間隔を空けるために追加 */}
+          <div></div>
         </button>
         {/* ボタンの間を開けるために追加 */}
         <div className="w-4 h-full"></div>
         <button
           onClick={addOneDay}
-          className="rounded-3xl text-base text-base-white border-2 w-full py-1"
+          className="rounded-3xl text-base text-base-white border-2 w-full flex justify-between items-center px-5 py-1"
         >
-          {currentDate.add(1, "d").format("M月 DD日 (dd)")}
+          {/* 間隔を空けるために追加 */}
+          <div></div>
+          <p>{currentDate.add(1, "d").format("M月 DD日 (dd)")}</p>
+          <FaAngleRight size={20} />
         </button>
       </div>
     </header>
