@@ -86,9 +86,9 @@ export const Calendar: React.VFC = () => {
                 onClick={() => {
                   if (
                     monthDate.type != "current" ||
-                    (dayjs().year() < monthDate.year &&
-                      dayjs().month() < monthDate.month &&
-                      dayjs().date() < monthDate.date)
+                    dayjs().year() < monthDate.year ||
+                    dayjs().month() + 1 < monthDate.month ||
+                    dayjs().date() < monthDate.date
                   )
                     return;
                   closeModal();

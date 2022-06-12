@@ -16,6 +16,13 @@ export const useDate = (queryParameter: string) => {
   );
   const router = useRouter();
   const addOneDay = () => {
+    // 未来の日付に進もうとしたら実行を強制終了
+    if (
+      currentDate.add(1, "d").year() &&
+      dayjs().add(1, "d").month() == currentDate.add(1, "d").month() &&
+      dayjs().add(1, "d").date() == currentDate.add(1, "d").date()
+    )
+      return;
     const nextDay = currentDate.add(1, "d");
     setCurrentDate(nextDay);
     Router.push(`/${router.query.userId}/${nextDay.format("YYYYMMDD")}`);
