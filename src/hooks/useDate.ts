@@ -32,6 +32,16 @@ export const useDate = (queryParameter: string) => {
     setCurrentDate(lastDay);
     Router.push(`/${router.query.userId}/${lastDay.format("YYYYMMDD")}`);
   };
+  const changeDate = (queryParameter: string) => {
+    queryParameter =
+      queryParameter.substring(0, 4) +
+      "-" +
+      queryParameter.substring(4, 6) +
+      "-" +
+      queryParameter.substring(6, 8);
+    dayjs.locale(ja);
+    setCurrentDate(dayjs(queryParameter));
+  };
 
-  return { currentDate, addOneDay, subtractOneDay };
+  return { currentDate, addOneDay, subtractOneDay, changeDate };
 };

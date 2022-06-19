@@ -17,9 +17,14 @@ export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useContext(IsModalShowContext);
   const { isEdited } = useContext(IsEditedContext);
   const router = useRouter();
-  const { currentDate, addOneDay, subtractOneDay } = useDate(
+  const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate(
     router.query.currentDate as string
   );
+
+  useEffect(() => {
+    if (router.query.currentDate && typeof router.query.currentDate == "string")
+      changeDate(router.query.currentDate);
+  }, [router.query.currentDate]);
 
   const { headerIcon } = useMemo(() => {
     return divideIconAndColor(router.query.whenMeal);
