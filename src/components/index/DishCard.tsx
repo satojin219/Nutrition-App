@@ -13,6 +13,10 @@ import {
   BsFillMoonFill,
 } from "react-icons/bs";
 import { MdFastfood } from "react-icons/md";
+import { AiFillPieChart } from "react-icons/ai";
+import { IsModalShowContext } from "../../pages/_app";
+import { useContext } from "react";
+import { Modal } from "../common/Modal";
 
 type Props = {
   menus: Menu[];
@@ -21,6 +25,8 @@ type Props = {
 
 export const DishCard: React.VFC<Props> = (props) => {
   const router = useRouter();
+  const { openModal } = useContext(IsModalShowContext);
+
   const renderSwitch = (param: string): JSX.Element => {
     switch (param) {
       case "breakfast":
@@ -113,10 +119,18 @@ export const DishCard: React.VFC<Props> = (props) => {
                     objectFit={"cover"}
                     className="rounded-t"
                   />
-                  <div className="items-center h-10 flex">
+                  <div className="items-center h-10 flex justify-between px-3">
                     <p className="text-base-dark text-sm ml-4">
                       {menu.recipeName}
                     </p>
+                    <button
+                      onClick={() => {
+                        openModal("nutritonList");
+                      }}
+                    >
+                      <AiFillPieChart size={20} />
+                    </button>
+                    <Modal nutrition={menu.totalNutrition} />
                   </div>
                 </article>
               );
