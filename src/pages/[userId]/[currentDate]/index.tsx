@@ -63,12 +63,10 @@ const Home: NextPage = () => {
           <DailylIntakeNutrition
             totalNutrition={calSumDailyIntakeNutrition(data)}
           />
-          <div className="lg:flex flex-wrap">
-            <DishCard menus={data.breakfast} whenMeal={"breakfast"} />
-            <DishCard menus={data.lunch} whenMeal={"lunch"} />
-            <DishCard menus={data.dinner} whenMeal={"dinner"} />
-            <DishCard menus={data.snack} whenMeal={"snack"} />
-          </div>
+          <DishCard menus={data.breakfast} whenMeal={"breakfast"} />
+          <DishCard menus={data.lunch} whenMeal={"lunch"} />
+          <DishCard menus={data.dinner} whenMeal={"dinner"} />
+          <DishCard menus={data.snack} whenMeal={"snack"} />
         </div>
       )}
     </div>
