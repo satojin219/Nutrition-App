@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Header } from "../../../components/common/Header";
+import { EditHeader } from "../../../components/editMenu/EditHeader";
 import { EditMenuCard } from "../../../components/editMenu/EditMenuCard";
 import { useState, useEffect, useContext } from "react";
 import { Menu } from "../../../shared/globalType";
@@ -105,7 +105,7 @@ const EditMenuPage: NextPage = () => {
       {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
       {!!data && (
         <div>
-          {router.isReady && <Header isEdit={true} />}
+          {router.isReady && <EditHeader isEdit={true} />}
           <button
             onClick={() => {
               handleOnSubmit();
