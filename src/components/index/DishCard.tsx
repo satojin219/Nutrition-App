@@ -13,7 +13,7 @@ import {
   BsFillMoonFill,
 } from "react-icons/bs";
 import { MdFastfood } from "react-icons/md";
-import { AiFillPieChart } from "react-icons/ai";
+import { AiFillFileText } from "react-icons/ai";
 import { IsModalShowContext } from "../../pages/_app";
 import { useContext } from "react";
 import { Modal } from "../common/Modal";
@@ -99,40 +99,40 @@ export const DishCard: React.VFC<Props> = (props) => {
         <div className="w-full flex justify-between my-2">
           {renderSwitch(props.whenMeal)}
         </div>
-        <div className="flex">
+        <div className="snap-x flex overflow-x-auto">
           {props.menus.map((menu: Menu) => {
             if (!menu.imgUrl) {
-              return (
-                <div className="snap-center flex flex-none  bg-stone-50"></div>
-              );
+              return <div className="flex flex-nonebg-stone-50"></div>;
             } else {
               return (
-                <article
-                  key={menu.id}
-                  className="rounded border-2 w-80 h-auto mx-2"
-                >
-                  <Image
-                    src={menu.imgUrl}
-                    alt="no image"
-                    width={320}
-                    height={200}
-                    objectFit={"cover"}
-                    className="rounded-t"
-                  />
-                  <div className="items-center h-10 flex justify-between px-3">
-                    <p className="text-base-dark text-sm ml-4">
-                      {menu.recipeName}
-                    </p>
-                    <button
-                      onClick={() => {
-                        openModal("nutritonList");
-                      }}
-                    >
-                      <AiFillPieChart size={20} />
-                    </button>
-                    <Modal nutrition={menu.totalNutrition} />
-                  </div>
-                </article>
+                <div className="snap-center">
+                  <article
+                    key={menu.id}
+                    className="centerrounded border-2 w-80 h-auto mx-2"
+                  >
+                    <Image
+                      src={menu.imgUrl}
+                      alt="no image"
+                      width={320}
+                      height={200}
+                      objectFit={"cover"}
+                      className="rounded-t"
+                    />
+                    <div className="items-center h-10 flex justify-between px-3">
+                      <p className="text-base-dark text-sm ml-4">
+                        {menu.recipeName}
+                      </p>
+                      <button
+                        onClick={() => {
+                          openModal("nutritonList");
+                        }}
+                      >
+                        <AiFillFileText size={20} />
+                      </button>
+                      <Modal nutrition={menu.totalNutrition} />
+                    </div>
+                  </article>
+                </div>
               );
             }
           })}
