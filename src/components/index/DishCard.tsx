@@ -40,7 +40,9 @@ export const DishCard: React.VFC<Props> = (props) => {
               href={`/${router.query.userId}/${router.query.currentDate}/${props.whenMeal}`}
               passHref
             >
-              <p className="text-xs text-base-brown">一覧を見る</p>
+              <p className="text-yellow-600 text-xs text-base-brown">
+                一覧を見る
+              </p>
             </Link>
           </>
         );
@@ -55,7 +57,9 @@ export const DishCard: React.VFC<Props> = (props) => {
               href={`/${router.query.userId}/${router.query.currentDate}/${props.whenMeal}`}
               passHref
             >
-              <p className="text-xs text-base-brown">一覧を見る</p>
+              <p className="text-yellow-600 text-xs text-base-brown">
+                一覧を見る
+              </p>
             </Link>
           </>
         );
@@ -70,7 +74,9 @@ export const DishCard: React.VFC<Props> = (props) => {
               href={`/${router.query.userId}/${router.query.currentDate}/${props.whenMeal}`}
               passHref
             >
-              <p className="text-xs text-base-brown">一覧を見る</p>
+              <p className="text-yellow-600 text-xs text-base-brown">
+                一覧を見る
+              </p>
             </Link>
           </>
         );
@@ -85,7 +91,9 @@ export const DishCard: React.VFC<Props> = (props) => {
               href={`/${router.query.userId}/${router.query.currentDate}/${props.whenMeal}`}
               passHref
             >
-              <p className="text-xs text-base-brown">一覧を見る</p>
+              <p className="text-yellow-600 text-xs text-base-brown">
+                一覧を見る
+              </p>
             </Link>
           </>
         );
