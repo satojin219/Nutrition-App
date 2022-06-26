@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useContext } from "react";
 import { SuggestFood } from "./SuggestFood";
 import { NutritionList } from "../common/NutritionList";
-import { Recipe } from "./Recipe";
+import { EditRecipe } from "./EditRecipe";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
@@ -173,7 +173,7 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
           <h3 className="text-left text-2xl mb-3">作り方</h3>
 
           {recipes.map((recipe: RecipeType, index: number) => (
-            <Recipe
+            <EditRecipe
               key={recipe.id}
               content={recipe.content}
               index={index}

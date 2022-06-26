@@ -17,6 +17,7 @@ import { DishData } from "../../../shared/globalType";
 import { dummyMenu } from "../../../tools/dummyMenu";
 import { IsEditedContext } from "../../_app";
 import { useAuthContext } from "../../../../context/AuthContext";
+import MenuItem from "../../../components/editMenu/MenuItem";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
@@ -116,15 +117,19 @@ const EditMenuPage: NextPage = () => {
             <BsCheckLg size={30} />
           </button>
           <Modal />
-          {menuCards!.map((menuCard: Menu, index: number) => (
-            <EditMenuCard
-              key={menuCard.id}
-              index={index}
-              menu={menuCard}
-              removeMenuCard={removeMenuCard}
-              updateMenuCard={updateMenuCard}
-            />
-          ))}
+          <div className="m-10">
+            {menuCards!.map((menuCard: Menu, index: number) => (
+              // <EditMenuCard
+              //   key={menuCard.id}
+              //   index={index}
+              //   menu={menuCard}
+              //   removeMenuCard={removeMenuCard}
+              //   updateMenuCard={updateMenuCard}
+              // />
+              <MenuItem key={menuCard.id} menu={menuCard} />
+            ))}
+          </div>
+
           <div className="flex justify-center my-5">
             <button
               onClick={addMenuCard}

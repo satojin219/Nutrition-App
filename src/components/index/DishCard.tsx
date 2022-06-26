@@ -116,7 +116,7 @@ export const DishCard: React.VFC<Props> = (props) => {
                 <div className="snap-center">
                   <article
                     key={menu.id}
-                    className="centerrounded border-2 w-80 h-auto mx-2"
+                    className="rounded-lg border-2 w-80 h-auto mx-2"
                   >
                     <Image
                       src={menu.imgUrl}
@@ -124,10 +124,10 @@ export const DishCard: React.VFC<Props> = (props) => {
                       width={320}
                       height={200}
                       objectFit={"cover"}
-                      className="rounded-t"
+                      className="rounded-lg"
                     />
-                    <div className="items-center h-10 flex justify-between px-3">
-                      <p className="text-base-dark text-sm ml-4">
+                    <div className="border-t items-center h-10 flex justify-between px-3">
+                      <p className=" text-base-dark text-sm ml-4">
                         {menu.recipeName}
                       </p>
                       <button

@@ -50,7 +50,7 @@ export const NutritionList: React.VFC<Props> = ({ nutrition, isModal }) => {
     <div
       className={classNames(
         isModalClassNames,
-        "border-2 border-red-700 rounded mt-10 sm:mx-20 p-4 bg-white"
+        "border-2 border-yellow-700/50 rounded mt-10 sm:mx-20 p-4 bg-white"
       )}
     >
       {nutrition != undefined ? (
