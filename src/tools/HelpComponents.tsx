@@ -11,7 +11,12 @@ export const divideIconAndColor = (
   switch (whenMeal) {
     case "breakfast": {
       return {
-        headerIcon: <BsFillBrightnessAltHighFill size={40} className="mr-2" />,
+        headerIcon: (
+          <div className="text-3xl flex">
+            <BsFillBrightnessAltHighFill size={40} className="mr-2" />
+            <p>朝食</p>
+          </div>
+        ),
       };
     }
     case "lunch": {

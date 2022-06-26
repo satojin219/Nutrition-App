@@ -37,9 +37,7 @@ export const EditHeader: React.VFC<Props> = (props) => {
           : "defaultHeaderColor"
       } p-2 pt-8 text-white`}
     >
-      <Link href="/">
-        <a className="text-2xl font-bold text-white  ">Nutrition app</a>
-      </Link>
+      {headerIcon}
       <div className="flex">
         <button
           className="mr-3"
