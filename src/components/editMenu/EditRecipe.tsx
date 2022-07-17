@@ -27,7 +27,7 @@ export const EditRecipe: React.VFC<Props> = (props) => {
           }}
           className="duration-500 group-hover:opacity-100 group-hover:mr-2 opacity-0 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7"
         >
-          <span className="inline-block text-center font-bold ml-0.5">＋</span>
+          <span className="inline-block text-center font-bold ml-0.5">+</span>
         </button>
         {props.index != 0 ? (
           <button

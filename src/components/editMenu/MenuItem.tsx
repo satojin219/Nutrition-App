@@ -57,7 +57,7 @@ const MenuItem: NextPage<Props> = (props) => {
       <details open={open}>
         <summary className="hidden"></summary>
         <hr />
-        <div className="px-1">
+        <div className="p-5">
           <section>
             <p className="mt-4">
               食材リスト
@@ -109,14 +109,16 @@ const MenuItem: NextPage<Props> = (props) => {
             nutrition={props.menu.totalNutrition}
             isModal={false}
           />
-          <LinkButton
-            className="bg-orange-500 text-white my-4"
-            href="/edit"
-            query=""
-            queryName=""
+          <button
+            className="bg-orange-500 text-white p-2 mt-5  w-full rounded-md"
+            onClick={() =>
+              router.push(
+                `/${router.query.userId}/${router.query.currentDate}/${whenMeal}/edit`
+              )
+            }
           >
             料理を編集する
-          </LinkButton>
+          </button>
         </div>
       </details>
     </article>
