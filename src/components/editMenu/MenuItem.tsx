@@ -113,7 +113,7 @@ const MenuItem: NextPage<Props> = (props) => {
             className="bg-orange-500 text-white p-2 mt-5  w-full rounded-md"
             onClick={() =>
               router.push(
-                `/${router.query.userId}/${router.query.currentDate}/${whenMeal}/edit`
+                `/${router.query.userId}/${router.query.currentDate}/${whenMeal}/${props.menu.id}`
               )
             }
           >

@@ -216,10 +216,11 @@ export const addElement = <T extends haveId>(
 ): void => {
   let copyArray = [...state];
   // indexが引数にない時はfoodstuffs,menuCardsコンポーネントの時、indexが引数にある時はrecipeコンポーネントの時。※途中に要素を追加するため、indexが必要
+  const uniqeID: number = new Date().getTime();
   if (index == null || index == copyArray.length - 1) {
-    copyArray.push({ id: Math.random() } as T);
+    copyArray.push({ id: uniqeID } as T);
   } else {
-    copyArray.splice(index! + 1, 0, { id: Math.random() } as T);
+    copyArray.splice(index! + 1, 0, { id: uniqeID } as T);
   }
   setState(copyArray);
 };
