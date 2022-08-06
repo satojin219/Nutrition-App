@@ -19,6 +19,7 @@ import { IsEditedContext } from "../../../_app";
 import { useAuthContext } from "../../../../../context/AuthContext";
 import MenuItem from "../../../../components/editMenu/MenuItem";
 import { query } from "express";
+import EditMenuItem from "../../../../components/editMenu/EditMenuItem";
 
 const Edit: NextPage = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const Edit: NextPage = () => {
     `/api/dish/${router.query.userId}/${router.query.currentDate}`,
     fetchDishData
   );
+  const [isLoading, setIsLoading] = useState(true);
   const fetchedMenus: Menu[] | null =
     router.query.whenMeal == "breakfast"
       ? data!.breakfast
@@ -39,18 +41,14 @@ const Edit: NextPage = () => {
       ? data!.snack
       : dummyMenu;
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  // const [menuCard, setMenuCard] = useState<Menu>();
-
   const [menuCards, setMenuCards] = useState<Menu[]>(fetchedMenus);
-  const menuCard = fetchedMenus.filter((fetchedMenu) => {
-    return fetchedMenu.id === Number(router.query.menuID);
+  let menuCardIndex = 0;
+  const menuCard = fetchedMenus.filter((fetchedMenu, index) => {
+    if (fetchedMenu.id === Number(router.query.menuID)) {
+      menuCardIndex = index;
+      return true;
+    }
   })[0];
-
-  const addMenuCard = () => {
-    addElement(menuCards, setMenuCards);
-  };
 
   const removeMenuCard = (index: number) => {
     removeElemnt(menuCards, setMenuCards, index);
@@ -98,10 +96,10 @@ const Edit: NextPage = () => {
       setIsLoading(false);
     }
   }, [data]);
-
   useEffect(() => {
-    console.log(menuCard);
+    console.log(menuCards);
   });
+
   return (
     <div>
       <Head>
@@ -112,26 +110,16 @@ const Edit: NextPage = () => {
       {!!data && (
         <div>
           {router.isReady && <EditHeader isEdit={true} />}
-          <button
-            onClick={() => {
-              handleOnSubmit();
-              setIsEdited(false);
-            }}
-            className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80"
-          >
-            <BsCheckLg size={30} />
-          </button>
           <Modal />
           <div className="m-10">
-            {menuCards!.map((menuCard: Menu, index: number) => (
-              <EditMenuCard
-                key={menuCard.id}
-                index={index}
-                menu={menuCard}
-                removeMenuCard={removeMenuCard}
-                updateMenuCard={updateMenuCard}
-              />
-            ))}
+            <EditMenuItem
+              key={menuCard.id}
+              index={menuCardIndex}
+              menu={menuCard}
+              removeMenuCard={removeMenuCard}
+              updateMenuCard={updateMenuCard}
+              handleOnSubmit={handleOnSubmit}
+            />
           </div>
         </div>
       )}

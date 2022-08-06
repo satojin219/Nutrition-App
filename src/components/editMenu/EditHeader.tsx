@@ -43,7 +43,11 @@ export const EditHeader: React.VFC<Props> = (props) => {
           className="mr-3"
           onClick={() => {
             if (isEdited) openModal("confirmEdit");
-            else {
+            else if (props.isEdit) {
+              router.push(
+                `/${router.query.userId}/${router.query.currentDate}/${router.query.whenMeal}`
+              );
+            } else {
               router.push(
                 `/${router.query.userId}/${router.query.currentDate}`
               );

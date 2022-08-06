@@ -107,15 +107,6 @@ const EditMenuPage: NextPage = () => {
       {!!data && (
         <div>
           {router.isReady && <EditHeader isEdit={true} />}
-          <button
-            onClick={() => {
-              handleOnSubmit();
-              setIsEdited(false);
-            }}
-            className="bg-orange-500 text-white rounded-full p-3 mr-10 mb-5 fixed bottom-0 right-0 shadow-lg hover:opacity-80"
-          >
-            <BsCheckLg size={30} />
-          </button>
           <Modal />
           <div className="m-10">
             {menuCards!.map((menuCard: Menu, index: number) => (
