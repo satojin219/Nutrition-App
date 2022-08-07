@@ -3,10 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-import { NutritionList } from "../common/NutritionList";
 import { Menu } from "../../shared/globalType";
-import { calSumNutrition } from "../../tools/HelpMethods";
-import { BsPencilFill } from "react-icons/bs";
 import {
   BsFillBrightnessAltHighFill,
   BsFillSunFill,

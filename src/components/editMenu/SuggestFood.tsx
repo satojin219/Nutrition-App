@@ -126,7 +126,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
 
   return (
     <form className="w-full">
-      <div className="flex justify-around items-center border-b-2 border-yellow-700/50 py-2">
+      <div className="flex justify-around items-center ">
         <input
           ref={inputFoodNameRef}
           onChange={() => {

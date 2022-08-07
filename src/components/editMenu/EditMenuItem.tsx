@@ -21,6 +21,7 @@ import {
 import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
 import { IsEditedContext } from "../../pages/_app";
+import { SuggestFood } from "./SuggestFood";
 
 type Props = {
   index: number;
@@ -151,22 +152,36 @@ const EditMenuItem: NextPage<Props> = (props) => {
 
       <div className="p-5">
         <section>
-          <p className="mt-4">
-            食材リスト
-            <span className="text-red-500 font-bold">（1人前）</span>
-          </p>
+          <div className="flex justify-between">
+            <p>
+              食材リスト
+              <span className="text-red-500 font-bold">（1人前）</span>
+            </p>
+            <button
+              className="text-yellow-600 text-sm text-base-brown"
+              onClick={addFoodstuff}
+            >
+              食材を追加する
+            </button>
+          </div>
           <ul>
-            {props.menu.foodstuffs?.map((foodstuff: Foodstuff) => {
-              return (
-                <li
-                  key={foodstuff.id}
-                  className="text-sm border-2 rounded-md p-1 my-1 flex justify-between"
-                >
-                  <p>{foodstuff.name}</p>
-                  <p className="mr-5">({foodstuff.weight}g)</p>
-                </li>
-              );
-            })}
+            {props.menu.foodstuffs?.map(
+              (foodstuff: Foodstuff, index: number) => {
+                return (
+                  <li
+                    key={foodstuff.id}
+                    className="text-sm border-2 rounded-md p-1 my-1 flex justify-between"
+                  >
+                    <SuggestFood
+                      index={index}
+                      foodstuff={foodstuff}
+                      removeFoodstuff={removeFoodstuff}
+                      updateFoodstuff={updateFoodstuff}
+                    />
+                  </li>
+                );
+              }
+            )}
           </ul>
         </section>
         <section>
