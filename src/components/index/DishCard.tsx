@@ -110,11 +110,8 @@ export const DishCard: React.VFC<Props> = (props) => {
               return <div className="flex flex-nonebg-stone-50"></div>;
             } else {
               return (
-                <div className="snap-center">
-                  <article
-                    key={menu.id}
-                    className="rounded-lg border-2 w-80 h-auto mx-2"
-                  >
+                <div key={menu.id} className="snap-center">
+                  <article className="rounded-lg border-2 w-80 h-auto mx-2">
                     <Image
                       src={menu.imgUrl}
                       alt="no image"

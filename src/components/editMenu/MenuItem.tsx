@@ -45,6 +45,7 @@ const MenuItem: NextPage<Props> = (props) => {
       );
     }
   };
+  if (Object.keys(props.menu).length == 1) return <div></div>;
   return (
     <article className="rounded-xl border-2 w-full h-auto my-5">
       {renderSwitchImage()}
