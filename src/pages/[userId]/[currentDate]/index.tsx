@@ -50,6 +50,15 @@ const Home: NextPage = () => {
     if (!user) router.push("/login");
   }, []);
 
+  useEffect(() => {
+    fetch("/api/authors").then((res) => res.json());
+  }, []);
+  const handleClick = async () => {
+    await fetch("/api/authors", {
+      method: "POST",
+    });
+  };
+
   return (
     <div className={classnames(fixedClassNames)}>
       <Head>
@@ -67,6 +76,7 @@ const Home: NextPage = () => {
           <DishCard menus={data.lunch} whenMeal={"lunch"} />
           <DishCard menus={data.dinner} whenMeal={"dinner"} />
           <DishCard menus={data.snack} whenMeal={"snack"} />
+          <button onClick={handleClick}>post</button>
         </div>
       )}
     </div>
