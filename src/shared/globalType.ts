@@ -1,3 +1,6 @@
+import { ModalType } from "./../hooks/useModal";
+
+import { useSelectDay } from "./../hooks/useSelectDay";
 export type UserData = {
   id: string;
   name: string;
@@ -13,12 +16,22 @@ export type dayData = {
   meals?: Meal[];
   totalIntake?: Nutrition;
 };
+export type CurrentDateData = {
+  SelectedDate: string;
+  DishData: DishData;
+};
+export type MealTime = "breakfast" | "lunch" | "dinner" | "snack" | "all";
 
 export type DateType = {
   year: number;
   month: number;
   day: number;
   date: number;
+};
+
+export type Modal = {
+  isModal: boolean;
+  modaltype: "nutritonList" | "calendar" | "confirmEdit";
 };
 
 export type DishType = {
