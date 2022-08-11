@@ -21,8 +21,8 @@ import {
 } from "../../tools/HelpMethods";
 import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
-import { IsEditedContext } from "../../pages/_app";
-
+import { useRecoilState } from "recoil";
+import { isEditedState } from "../../states/isEditedState";
 type Props = {
   index: number;
   menu: Menu;
@@ -31,7 +31,7 @@ type Props = {
 };
 
 export const EditMenuCard: React.VFC<Props> = (props) => {
-  const { setIsEdited } = useContext(IsEditedContext);
+  const [_, setIsEdited] = useRecoilState(isEditedState);
   const recipeNameRef = useRef<HTMLInputElement>(null!);
   const costRef = useRef<HTMLInputElement>(null!);
   const timeRef = useRef<HTMLInputElement>(null!);

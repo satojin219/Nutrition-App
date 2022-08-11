@@ -5,15 +5,15 @@ import React, {
   useState,
   useMemo,
   useCallback,
-  useContext,
   useEffect,
 } from "react";
 import { Nutrition, Foodstuff, fetchedFoodData } from "../../shared/globalType";
 import { BsFillFileEarmarkTextFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import { Modal } from "../common/Modal";
-import { IsEditedContext } from "../../pages/_app";
 import { useModal } from "../../hooks/useModal";
+import { useRecoilState } from "recoil";
+import { isEditedState } from "../../states/isEditedState";
 
 type Props = {
   index: number;
@@ -24,7 +24,7 @@ type Props = {
 
 export const SuggestFood: React.VFC<Props> = (props) => {
   const { openModal } = useModal();
-  const { setIsEdited } = useContext(IsEditedContext);
+  const [_, setIsEdited] = useRecoilState(isEditedState);
   const foodstuff = props.foodstuff;
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {

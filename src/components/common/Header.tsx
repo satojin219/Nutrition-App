@@ -1,13 +1,9 @@
-import React, { useMemo, useContext, useEffect } from "react";
+import React, { useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { Modal } from "./Modal";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
-import { IsEditedContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";
-import dayjs from "dayjs";
 import { useModal } from "../../hooks/useModal";
 
 type Props = {
@@ -16,7 +12,6 @@ type Props = {
 
 export const Header: React.VFC<Props> = (props) => {
   const { openModal } = useModal();
-  const { isEdited } = useContext(IsEditedContext);
   const router = useRouter();
   const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate(
     router.query.currentDate as string

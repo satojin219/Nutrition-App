@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useCallback, useState, useContext } from "react";
+import React, { useCallback, useState } from "react";
 import { NutritionList } from "../common/NutritionList";
 import { EditRecipe } from "./EditRecipe";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
@@ -20,8 +20,9 @@ import {
 } from "../../tools/HelpMethods";
 import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
-import { IsEditedContext } from "../../pages/_app";
 import { SuggestFood } from "./SuggestFood";
+import { useRecoilState } from "recoil";
+import { isEditedState } from "../../states/isEditedState";
 
 type Props = {
   index: number;
@@ -33,7 +34,7 @@ type Props = {
 const EditMenuItem: NextPage<Props> = (props) => {
   const router = useRouter();
   const { whenMeal } = router.query;
-  const { setIsEdited } = useContext(IsEditedContext);
+  const [_, setIsEdited] = useRecoilState(isEditedState);
   const recipeNameRef = useRef<HTMLInputElement>(null!);
   const costRef = useRef<HTMLInputElement>(null!);
   const timeRef = useRef<HTMLInputElement>(null!);

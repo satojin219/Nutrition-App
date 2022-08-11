@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useContext } from "react";
-import { IsEditedContext } from "../../pages/_app";
+import React, { useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
+import { isEditedState } from "../../states/isEditedState";
 
 type Props = {
   content: string | undefined;
@@ -10,7 +11,7 @@ type Props = {
 };
 export const EditRecipe: React.VFC<Props> = (props) => {
   const inputRecipeRef = useRef<HTMLTextAreaElement>(null!);
-  const { setIsEdited } = useContext(IsEditedContext);
+  const [_, setIsEdited] = useRecoilState(isEditedState);
   useEffect(() => {
     inputRecipeRef.current.value = props.content ?? "";
   }, []);
