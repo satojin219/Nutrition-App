@@ -3,7 +3,6 @@ import ja from "dayjs/locale/ja";
 import { atom, selector } from "recoil";
 import { json } from "stream/consumers";
 import { CurrentDateData } from "../shared/globalType";
-import { mealTimeState } from "./MealTimeState";
 
 export const currentDateState = atom<string>({
   key: "currentDateAtom",

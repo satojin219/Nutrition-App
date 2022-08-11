@@ -30,8 +30,8 @@ export type DateType = {
 };
 
 export type Modal = {
-  isModal: boolean;
-  modaltype: "nutritonList" | "calendar" | "confirmEdit";
+  isOpen: boolean;
+  modalType: "nutritonList" | "calendar" | "confirmEdit";
 };
 
 export type DishType = {

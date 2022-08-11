@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
-import React, { useContext, useEffect, useState } from "react";
-import { IsModalShowContext } from "../../_app";
-import { useRouter, Router } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import { Header } from "../../../components/common/Header";
 import { DailylIntakeNutrition } from "../../../components/index/DailylIntakeNutrition";
@@ -16,9 +15,11 @@ import { DishData } from "../../../shared/globalType";
 import { calSumDailyIntakeNutrition } from "../../../tools/HelpMethods";
 import { checkBlankDishData } from "../../../server/utils";
 import { useAuthContext } from "../../../../context/AuthContext";
+import { useModal } from "../../../hooks/useModal";
 const Home: NextPage = () => {
   const { user } = useAuthContext();
-  const isModalShowContext = useContext(IsModalShowContext);
+  const { modal } = useModal();
+
   const router = useRouter();
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.userId}/${router.query!.currentDate!}`,
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
   }
 
   const fixedClassNames = {
-    "fixed w-full": isModalShowContext.currentState?.isOpen,
+    "fixed w-full": modal.isOpen,
   };
   const [isLoading, setIsLoading] = useState(true);
 

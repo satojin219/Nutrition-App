@@ -11,9 +11,8 @@ import {
 } from "react-icons/bs";
 import { MdFastfood } from "react-icons/md";
 import { AiFillFileText } from "react-icons/ai";
-import { IsModalShowContext } from "../../pages/_app";
-import { useContext } from "react";
 import { Modal } from "../common/Modal";
+import { useModal } from "../../hooks/useModal";
 
 type Props = {
   menus: Menu[];
@@ -22,7 +21,7 @@ type Props = {
 
 export const DishCard: React.VFC<Props> = (props) => {
   const router = useRouter();
-  const { openModal } = useContext(IsModalShowContext);
+  const { openModal } = useModal();
 
   const renderSwitch = (param: string): JSX.Element => {
     switch (param) {

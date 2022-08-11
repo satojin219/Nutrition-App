@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "../../shared/globalType";
 import Router, { useRouter } from "next/router";
-import { IsModalShowContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";
+import { useModal } from "../../hooks/useModal";
 
 type datejsDateType = DateType & {
   type: string;
@@ -17,7 +17,7 @@ export const Calendar: React.VFC = () => {
   const { currentDate } = useDate(router.query.currentDate as string);
   const [currentDayJs, setCurrentDayJs] = useState<dayjs.Dayjs>(currentDate);
   const { monthDatesArray } = useCalendar(currentDayJs);
-  const { closeModal } = useContext(IsModalShowContext);
+  const { closeModal } = useModal();
   const setNextMonth = (): void => {
     setCurrentDayJs(currentDayJs.add(1, "month"));
   };

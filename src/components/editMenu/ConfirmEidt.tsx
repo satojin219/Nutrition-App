@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { useContext } from "react";
-import { IsModalShowContext } from "../../pages/_app";
 import { useRouter } from "next/router";
+import { useModal } from "../../hooks/useModal";
 
 export const ConfirmEdit: React.VFC = () => {
-  const { closeModal } = useContext(IsModalShowContext);
+  const { closeModal } = useModal();
   const router = useRouter();
   return (
     <div className="rounded-md border-2 border-orange-500 mt-10 sm:mx-20 p-5 bg-white">

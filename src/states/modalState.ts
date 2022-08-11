@@ -4,8 +4,8 @@ import { Modal } from "../shared/globalType";
 export const modalState = atom<Modal>({
   key: "modalState",
   default: {
-    isModal: false,
-    modaltype: "calendar",
+    isOpen: false,
+    modalType: "calendar",
   },
 });
 

@@ -4,16 +4,17 @@ import { useRouter } from "next/router";
 import { divideIconAndColor } from "../../tools/HelpComponents";
 import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
-import { IsModalShowContext, IsEditedContext } from "../../pages/_app";
+import { IsEditedContext } from "../../pages/_app";
 import { useDate } from "../../hooks/useDate";
 import dayjs from "dayjs";
+import { useModal } from "../../hooks/useModal";
 
 type Props = {
   isEdit: boolean;
 };
 
 export const EditHeader: React.VFC<Props> = (props) => {
-  const { openModal } = useContext(IsModalShowContext);
+  const { openModal } = useModal();
   const { isEdited } = useContext(IsEditedContext);
   const router = useRouter();
   const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate(

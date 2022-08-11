@@ -1,15 +1,14 @@
 import { Modal } from "../common/Modal";
-import { IsModalShowContext } from "../../pages/_app";
-import { useContext } from "react";
 import { FaFire, FaBreadSlice, FaFish } from "react-icons/fa";
 import { IoWater } from "react-icons/io5";
 import { Nutrition } from "../../shared/globalType";
+import { useModal } from "../../hooks/useModal";
 
 type TotalNutrition = {
   totalNutrition: Nutrition;
 };
 export const DailylIntakeNutrition: React.VFC<TotalNutrition> = (props) => {
-  const { openModal } = useContext(IsModalShowContext);
+  const { openModal } = useModal();
 
   return (
     <div>

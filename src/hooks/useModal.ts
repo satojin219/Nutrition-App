@@ -1,14 +1,23 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { modalState } from "../states/modalState";
+
 export type ModalType = "nutritonList" | "calendar" | "confirmEdit";
+
 export const useModal = () => {
-  const [isModalShow, setIsModalShow] = useState(false);
-  const [modalType, setModalType] = useState<ModalType>("calendar");
+  const [modal, setModal] = useRecoilState(modalState);
+  console.log(modal);
   const openModal = (modalType: ModalType) => {
-    setIsModalShow(true);
-    setModalType(modalType);
+    setModal({
+      isOpen: true,
+      modalType: modalType,
+    });
   };
   const closeModal = () => {
-    setIsModalShow(false);
+    setModal({
+      ...modal,
+      isOpen: false,
+    });
   };
-  return { isModalShow, modalType, openModal, closeModal };
+  return { modal, openModal, closeModal };
 };
