@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import Router from "next/router";
 import { postData } from "../../schema/postData";
 import { UserData } from "../../shared/globalType";
+import { useAuthenticate } from "../../hooks/useAuthenicate";
 
 const SignUp: NextPage = () => {
   const today = dayjs().format("YYYYMMDD");
@@ -19,10 +20,11 @@ const SignUp: NextPage = () => {
   const heightRef = useRef<HTMLInputElement>(null);
   const activeLevelRef = useRef<HTMLSelectElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
+  const { user, setUser } = useAuthenticate();
 
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
-    await createUserWithEmailAndPassword(
+    const signUpAuth = await createUserWithEmailAndPassword(
       auth,
       emailRef.current!.value,
       passwordRef.current!.value
@@ -36,6 +38,7 @@ const SignUp: NextPage = () => {
       height: heightRef.current?.value!,
       activeLevel: activeLevelRef.current?.value!,
     };
+    setUser(signUpAuth.user);
     await postData("/api/user", userData);
     Router.push(`/${userData.id}/${today}`);
   };

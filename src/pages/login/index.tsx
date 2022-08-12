@@ -6,18 +6,21 @@ import { auth } from "../../../client/firebase";
 import React, { useRef } from "react";
 import dayjs from "dayjs";
 import Router from "next/router";
+import { useAuthenticate } from "../../hooks/useAuthenicate";
 
 const Login: NextPage = () => {
   const today = dayjs().format("YYYYMMDD");
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const { user, setUser } = useAuthenticate();
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
-    await signInWithEmailAndPassword(
+    const loginAuth = await signInWithEmailAndPassword(
       auth,
       emailRef.current!.value,
       passwordRef.current!.value
     );
+    setUser(loginAuth.user);
     Router.push(`/${auth.currentUser?.uid}/${today}`);
   };
 

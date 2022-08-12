@@ -15,14 +15,12 @@ import { fetchDishData } from "../../../schema/fetchDishData";
 import DefaultErrorPage from "next/error";
 import { DishData } from "../../../shared/globalType";
 import { dummyMenu } from "../../../tools/dummyMenu";
-import { IsEditedContext } from "../../_app";
-import { useAuthContext } from "../../../../context/AuthContext";
 import MenuItem from "../../../components/editMenu/MenuItem";
+import { useAuthenticate } from "../../../hooks/useAuthenicate";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
-  const { user } = useAuthContext();
-  const { setIsEdited } = useContext(IsEditedContext);
+  const { user } = useAuthenticate();
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.userId}/${router.query.currentDate}`,
     fetchDishData

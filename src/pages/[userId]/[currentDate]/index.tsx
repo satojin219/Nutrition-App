@@ -14,12 +14,12 @@ import DefaultErrorPage from "next/error";
 import { DishData } from "../../../shared/globalType";
 import { calSumDailyIntakeNutrition } from "../../../tools/HelpMethods";
 import { checkBlankDishData } from "../../../server/utils";
-import { useAuthContext } from "../../../../context/AuthContext";
 import { useModal } from "../../../hooks/useModal";
-const Home: NextPage = () => {
-  const { user } = useAuthContext();
-  const { modal } = useModal();
+import { useAuthenticate } from "../../../hooks/useAuthenicate";
 
+const Home: NextPage = () => {
+  const { user } = useAuthenticate();
+  const { modal } = useModal();
   const router = useRouter();
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.userId}/${router.query!.currentDate!}`,
@@ -51,15 +51,6 @@ const Home: NextPage = () => {
     if (!user) router.push("/login");
   }, []);
 
-  useEffect(() => {
-    fetch("/api/authors").then((res) => res.json());
-  }, []);
-  const handleClick = async () => {
-    await fetch("/api/authors", {
-      method: "POST",
-    });
-  };
-
   return (
     <div className={classnames(fixedClassNames)}>
       <Head>
@@ -77,7 +68,6 @@ const Home: NextPage = () => {
           <DishCard menus={data.lunch} whenMeal={"lunch"} />
           <DishCard menus={data.dinner} whenMeal={"dinner"} />
           <DishCard menus={data.snack} whenMeal={"snack"} />
-          <button onClick={handleClick}>post</button>
         </div>
       )}
     </div>
