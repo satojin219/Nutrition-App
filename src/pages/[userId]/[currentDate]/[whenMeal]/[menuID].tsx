@@ -18,22 +18,25 @@ import { dummyMenu } from "../../../../tools/dummyMenu";
 import MenuItem from "../../../../components/editMenu/MenuItem";
 import EditMenuItem from "../../../../components/editMenu/EditMenuItem";
 import { useAuthenticate } from "../../../../hooks/useAuthenicate";
+import { useRecoilValue } from "recoil";
+import { mealTimeState } from "../../../../states/MealTimeState";
 const Edit: NextPage = () => {
   const router = useRouter();
   const { user } = useAuthenticate();
+  const mealTime = useRecoilValue(mealTimeState);
   const { data, error } = useSWR<DishData>(
     `/api/dish/${router.query.userId}/${router.query.currentDate}`,
     fetchDishData
   );
   const [isLoading, setIsLoading] = useState(true);
   const fetchedMenus: Menu[] | null =
-    router.query.whenMeal == "breakfast"
+    mealTime == "breakfast"
       ? data!.breakfast
-      : router.query.whenMeal == "lunch"
+      : mealTime == "lunch"
       ? data!.lunch
-      : router.query.whenMeal == "dinner"
+      : mealTime == "dinner"
       ? data!.dinner
-      : router.query.whenMeal == "snack"
+      : mealTime == "snack"
       ? data!.snack
       : dummyMenu;
 
@@ -68,13 +71,13 @@ const Edit: NextPage = () => {
     await axios
       .put(
         `/api/dish/${router.query.userId}/${router.query.currentDate}`,
-        router.query.whenMeal == "breakfast"
+        mealTime == "breakfast"
           ? { breakfast: menuCards }
-          : router.query.whenMeal == "lunch"
+          : mealTime == "lunch"
           ? { lunch: menuCards }
-          : router.query.whenMeal == "dinner"
+          : mealTime == "dinner"
           ? { dinner: menuCards }
-          : router.query.whenMeal == "snack"
+          : mealTime == "snack"
           ? { snack: menuCards }
           : null
       )

@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { useModal } from "../../hooks/useModal";
 import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
+import { mealTimeState } from "../../states/MealTimeState";
 
 type Props = {
   isEdit: boolean;
@@ -17,6 +18,7 @@ type Props = {
 export const EditHeader: React.VFC<Props> = (props) => {
   const { openModal } = useModal();
   const [isEdited, _] = useRecoilState(isEditedState);
+  const [mealTime, setMealTime] = useRecoilState(mealTimeState);
   const router = useRouter();
   const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate(
     router.query.currentDate as string
@@ -28,31 +30,22 @@ export const EditHeader: React.VFC<Props> = (props) => {
   }, [router.query.currentDate]);
 
   const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(router.query.whenMeal);
-  }, [router.query.whenMeal]);
+    return divideIconAndColor(mealTime);
+  }, [mealTime]);
 
   return (
-    <header
-      className={`${
-        router.query.whenMeal != undefined
-          ? router.query.whenMeal
-          : "defaultHeaderColor"
-      } p-2 pt-8 text-white`}
-    >
+    <header className={`${mealTime} p-2 pt-8 text-white`}>
       {headerIcon}
       <div className="flex">
         <button
           className="mr-3"
           onClick={() => {
             if (isEdited) openModal("confirmEdit");
-            else if (props.isEdit) {
-              router.push(
-                `/${router.query.userId}/${router.query.currentDate}/${router.query.whenMeal}`
-              );
-            } else {
+            else {
               router.push(
                 `/${router.query.userId}/${router.query.currentDate}`
               );
+              setMealTime("all");
             }
           }}
         >
@@ -66,67 +59,3 @@ export const EditHeader: React.VFC<Props> = (props) => {
     </header>
   );
 };
-
-// <div className="flex justify-around text-white font-bold py-5">
-//   {!props.isEdit ? (
-//     <div>
-//       <button
-//         onClick={() => {
-//           openModal("calendar");
-//         }}
-//       >
-//         <FaCalendarAlt size={40} />
-//       </button>
-//       <Modal />
-//     </div>
-//   ) : (
-//     <div>
-//       <button
-//         onClick={() => {
-//           if (isEdited) openModal("confirmEdit");
-//           else {
-//             router.push(
-//               `/${router.query.userId}/${router.query.currentDate}`
-//             );
-//           }
-//         }}
-//       >
-//         <IoArrowBackCircleSharp size={40} />
-//       </button>
-
-//       <Modal />
-//     </div>
-//   )}
-//   <div className="flex items-center font-bold text-3xl">
-//     {!props.isEdit ? (
-//       <button
-//         onClick={subtractOneDay}
-//         className="cursor-pointer mr-2 font-bold"
-//       >
-//         <FaAngleLeft />
-//       </button>
-//     ) : null}
-
-//     <h1 className="text-2xl">
-//       {currentDate.format("YYYY") +
-//         " / " +
-//         currentDate.format("MM") +
-//         " / " +
-//         currentDate.format("DD") +
-//         " (" +
-//         currentDate.format("dd") +
-//         ")"}
-//     </h1>
-//     {props.isEdit ? null : dayjs().add(1, "d").year() ==
-//         currentDate.add(1, "d").year() &&
-//       dayjs().add(1, "d").month() == currentDate.add(1, "d").month() &&
-//       dayjs().add(1, "d").date() == currentDate.add(1, "d").date() ? (
-//       <div></div>
-//     ) : (
-//       <button onClick={addOneDay} className="ml-2 font-bold">
-//         <FaAngleRight />
-//       </button>
-//     )}
-//   </div>
-//   {headerIcon}
-// </div>;

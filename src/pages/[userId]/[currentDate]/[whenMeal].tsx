@@ -17,6 +17,8 @@ import { DishData } from "../../../shared/globalType";
 import { dummyMenu } from "../../../tools/dummyMenu";
 import MenuItem from "../../../components/editMenu/MenuItem";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
+import { useRecoilValue } from "recoil";
+import { mealTimeState } from "../../../states/MealTimeState";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
@@ -25,14 +27,15 @@ const EditMenuPage: NextPage = () => {
     `/api/dish/${router.query.userId}/${router.query.currentDate}`,
     fetchDishData
   );
+  const mealTime = useRecoilValue(mealTimeState);
   const fetchedMenu: Menu[] | null =
-    router.query.whenMeal == "breakfast"
+    mealTime == "breakfast"
       ? data!.breakfast
-      : router.query.whenMeal == "lunch"
+      : mealTime == "lunch"
       ? data!.lunch
-      : router.query.whenMeal == "dinner"
+      : mealTime == "dinner"
       ? data!.dinner
-      : router.query.whenMeal == "snack"
+      : mealTime == "snack"
       ? data!.snack
       : dummyMenu;
 
@@ -66,13 +69,13 @@ const EditMenuPage: NextPage = () => {
     await axios
       .put(
         `/api/dish/${router.query.userId}/${router.query.currentDate}`,
-        router.query.whenMeal == "breakfast"
+        mealTime == "breakfast"
           ? { breakfast: menuCards }
-          : router.query.whenMeal == "lunch"
+          : mealTime == "lunch"
           ? { lunch: menuCards }
-          : router.query.whenMeal == "dinner"
+          : mealTime == "dinner"
           ? { dinner: menuCards }
-          : router.query.whenMeal == "snack"
+          : mealTime == "snack"
           ? { snack: menuCards }
           : null
       )
@@ -107,14 +110,7 @@ const EditMenuPage: NextPage = () => {
           {router.isReady && <EditHeader isEdit={true} />}
           <Modal />
           <div className="m-10">
-            {menuCards!.map((menuCard: Menu, index: number) => (
-              // <EditMenuCard
-              //   key={menuCard.id}
-              //   index={index}
-              //   menu={menuCard}
-              //   removeMenuCard={removeMenuCard}
-              //   updateMenuCard={updateMenuCard}
-              // />
+            {menuCards!.map((menuCard: Menu) => (
               <MenuItem key={menuCard.id} menu={menuCard} />
             ))}
           </div>

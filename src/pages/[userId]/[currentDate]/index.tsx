@@ -60,14 +60,14 @@ const Home: NextPage = () => {
       {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
       {!!data && (
         <div>
-          {router.isReady && <Header isEdit={false} />}
+          {router.isReady && <Header />}
           <DailylIntakeNutrition
             totalNutrition={calSumDailyIntakeNutrition(data)}
           />
-          <DishCard menus={data.breakfast} whenMeal={"breakfast"} />
-          <DishCard menus={data.lunch} whenMeal={"lunch"} />
-          <DishCard menus={data.dinner} whenMeal={"dinner"} />
-          <DishCard menus={data.snack} whenMeal={"snack"} />
+          <DishCard menus={data.breakfast} mealTime={"breakfast"} />
+          <DishCard menus={data.lunch} mealTime={"lunch"} />
+          <DishCard menus={data.dinner} mealTime={"dinner"} />
+          <DishCard menus={data.snack} mealTime={"snack"} />
         </div>
       )}
     </div>
