@@ -1,19 +1,16 @@
-import { useState } from "react";
+import {
+  currentDateSelector,
+  currentDateState,
+} from "./../states/currentDateState";
 import dayjs from "dayjs";
-import ja from "dayjs/locale/ja";
 import Router from "next/router";
 import { useRouter } from "next/router";
-export const useDate = (queryParameter: string) => {
-  queryParameter =
-    queryParameter.substring(0, 4) +
-    "-" +
-    queryParameter.substring(4, 6) +
-    "-" +
-    queryParameter.substring(6, 8);
-  dayjs.locale(ja);
-  const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(
-    dayjs(queryParameter)
-  );
+import { useRecoilValue, useRecoilState } from "recoil";
+
+export const useDate = () => {
+  const [_, setCurrentDateFormat] = useRecoilState(currentDateState);
+  const currentDate = useRecoilValue(currentDateSelector);
+
   const router = useRouter();
   const addOneDay = () => {
     // 未来の日付に進もうとしたら実行を強制終了
@@ -24,23 +21,16 @@ export const useDate = (queryParameter: string) => {
     )
       return;
     const nextDay = currentDate.add(1, "d");
-    setCurrentDate(nextDay);
+    setCurrentDateFormat(nextDay.format("YYYYMMDD"));
     Router.push(`/${router.query.userId}/${nextDay.format("YYYYMMDD")}`);
   };
   const subtractOneDay = () => {
     const lastDay = currentDate.subtract(1, "d");
-    setCurrentDate(lastDay);
+    setCurrentDateFormat(lastDay.format("YYYYMMDD"));
     Router.push(`/${router.query.userId}/${lastDay.format("YYYYMMDD")}`);
   };
   const changeDate = (queryParameter: string) => {
-    queryParameter =
-      queryParameter.substring(0, 4) +
-      "-" +
-      queryParameter.substring(4, 6) +
-      "-" +
-      queryParameter.substring(6, 8);
-    dayjs.locale(ja);
-    setCurrentDate(dayjs(queryParameter));
+    setCurrentDateFormat(queryParameter);
   };
 
   return { currentDate, addOneDay, subtractOneDay, changeDate };

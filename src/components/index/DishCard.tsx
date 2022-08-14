@@ -30,7 +30,16 @@ export const DishCard: React.VFC<Props> = (props) => {
     return (
       <>
         <div className="flex">
-          <BsFillBrightnessAltHighFill className="mr-2" />
+          {props.mealTime == "breakfast" ? (
+            <BsFillBrightnessAltHighFill className="mr-2" />
+          ) : props.mealTime == "lunch" ? (
+            <BsFillSunFill className="mr-2" />
+          ) : props.mealTime == "dinner" ? (
+            <BsFillMoonFill className="mr-2" />
+          ) : (
+            <MdFastfood className="mr-2" />
+          )}
+
           <p className="text-xs">
             `あなたの
             {props.mealTime == "breakfast"

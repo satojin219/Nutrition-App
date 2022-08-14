@@ -20,9 +20,7 @@ export const EditHeader: React.VFC<Props> = (props) => {
   const [isEdited, _] = useRecoilState(isEditedState);
   const [mealTime, setMealTime] = useRecoilState(mealTimeState);
   const router = useRouter();
-  const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate(
-    router.query.currentDate as string
-  );
+  const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate();
 
   useEffect(() => {
     if (router.query.currentDate && typeof router.query.currentDate == "string")

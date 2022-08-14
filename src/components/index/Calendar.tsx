@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { weekdaysShort as weekdays } from "dayjs/locale/ja";
-import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "../../shared/globalType";
@@ -14,17 +13,16 @@ type datejsDateType = DateType & {
 
 export const Calendar: React.VFC = () => {
   const router = useRouter();
-  const { currentDate } = useDate(router.query.currentDate as string);
-  const [currentDayJs, setCurrentDayJs] = useState<dayjs.Dayjs>(currentDate);
-  const { monthDatesArray } = useCalendar(currentDayJs);
+  const { currentDate, changeDate } = useDate();
+  const { monthDatesArray } = useCalendar(currentDate);
   const { closeModal } = useModal();
   const setNextMonth = (): void => {
-    setCurrentDayJs(currentDayJs.add(1, "month"));
+    changeDate(currentDate.add(1, "month").format("YYYYMMDD"));
   };
   const setLastMonth = (): void => {
-    setCurrentDayJs(currentDayJs.subtract(1, "month"));
+    changeDate(currentDate.subtract(1, "month").format("YYYYMMDD"));
   };
-  const changeDate = (date: string) => {
+  const changeDateRoute = (date: string) => {
     Router.push(`/${router.query.userId}/${date}`);
   };
 
@@ -38,14 +36,14 @@ export const Calendar: React.VFC = () => {
                 <FaAngleLeft onClick={setLastMonth} />
               </button>
               <div>
-                {currentDayJs?.format("YYYY") +
+                {currentDate?.format("YYYY") +
                   "年" +
                   " " +
-                  currentDayJs?.format("M") +
+                  currentDate?.format("M") +
                   "月"}
               </div>
-              {dayjs().month() <= currentDayJs.month() &&
-              dayjs().year() <= currentDayJs.year() ? (
+              {dayjs().month() <= currentDate.month() &&
+              dayjs().year() <= currentDate.year() ? (
                 <div></div>
               ) : (
                 <button className="ml-3">
@@ -92,7 +90,7 @@ export const Calendar: React.VFC = () => {
                   )
                     return;
                   closeModal();
-                  changeDate(
+                  changeDateRoute(
                     String(monthDate.year) +
                       String(monthDate.month).padStart(2, "0") +
                       String(monthDate.date).padStart(2, "0")

@@ -1,15 +1,15 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import ja from "dayjs/locale/ja";
 import { atom, selector } from "recoil";
 import { json } from "stream/consumers";
 import { CurrentDateData } from "../shared/globalType";
 
-export const currentDateState = atom<string>({
+export const currentDateState = atom({
   key: "currentDateAtom",
   default: dayjs().format("YYYYMMDD"),
 });
 
-export const currentDateSelector = selector({
+export const currentDateSelector = selector<dayjs.Dayjs>({
   key: "dayJsDate",
   get: ({ get }) => {
     let currentDateFormat = get(currentDateState);
