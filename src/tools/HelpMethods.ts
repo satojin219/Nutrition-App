@@ -207,7 +207,7 @@ export const roundNutritionValue = (nutritionValue: number): number => {
   return Number(strValue);
 };
 type haveId = {
-  id: number;
+  id?: number;
 };
 export const addElement = <T extends haveId>(
   state: T[],

@@ -1,5 +1,7 @@
+import { BiTimeFive } from "react-icons/bi";
 import { atom, selector } from "recoil";
-import { DishData } from "../shared/globalType";
+import { fetchDishData } from "../schema/fetchDishData";
+import { DishData, Menu } from "../shared/globalType";
 import { mealTimeState } from "./MealTimeState";
 
 const initaldata: DishData = {
@@ -13,7 +15,7 @@ export const currentDishState = atom<DishData>({
   default: initaldata,
 });
 
-export const currentDishSelector = selector({
+export const currentDishSelector = selector<Menu[]>({
   key: "currentMeal",
   get: ({ get }) => {
     const dishData = get(currentDishState);
@@ -25,10 +27,8 @@ export const currentDishSelector = selector({
         return dishData.lunch;
       case "dinner":
         return dishData.dinner;
-      case "snack":
+      default:
         return dishData.snack;
-      case "all":
-        return dishData;
     }
   },
 });

@@ -23,6 +23,7 @@ import { dummyMenu } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
 import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
+import { Recipe } from "../../../Nutrition-App/types/globalType";
 type Props = {
   index: number;
   menu: Menu;

@@ -16,6 +16,8 @@ import { calSumDailyIntakeNutrition } from "../../../tools/HelpMethods";
 import { checkBlankDishData } from "../../../server/utils";
 import { useModal } from "../../../hooks/useModal";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
+import { useRecoilState } from "recoil";
+import { currentDishState } from "../../../states/dishState";
 
 const Home: NextPage = () => {
   const { user } = useAuthenticate();
@@ -25,6 +27,7 @@ const Home: NextPage = () => {
     `/api/dish/${router.query.userId}/${router.query!.currentDate!}`,
     fetchDishData
   );
+  const [dishdata, setDishdata] = useRecoilState(currentDishState);
 
   if (data && router.query.currentDate && checkBlankDishData(data)) {
     // 初アクセスで、全てのプロパティが空ならfirestoreにデータをPOST
@@ -41,6 +44,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (data) {
+      setDishdata(data);
       setIsLoading(false);
     } else {
       setIsLoading(true);
@@ -58,16 +62,16 @@ const Home: NextPage = () => {
       </Head>
       {!!isLoading && <Loading />}
       {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
-      {!!data && (
+      {!!dishdata && (
         <div>
           {router.isReady && <Header />}
           <DailylIntakeNutrition
-            totalNutrition={calSumDailyIntakeNutrition(data)}
+            totalNutrition={calSumDailyIntakeNutrition(dishdata)}
           />
-          <DishCard menus={data.breakfast} mealTime={"breakfast"} />
-          <DishCard menus={data.lunch} mealTime={"lunch"} />
-          <DishCard menus={data.dinner} mealTime={"dinner"} />
-          <DishCard menus={data.snack} mealTime={"snack"} />
+          <DishCard menus={dishdata.breakfast} mealTime={"breakfast"} />
+          <DishCard menus={dishdata.lunch} mealTime={"lunch"} />
+          <DishCard menus={dishdata.dinner} mealTime={"dinner"} />
+          <DishCard menus={dishdata.snack} mealTime={"snack"} />
         </div>
       )}
     </div>
