@@ -7,13 +7,17 @@ import { LinkButton } from "../common/Button";
 import { Recipe } from "./Recipe";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { NutritionList } from "../common/NutritionList";
+import { useSetRecoilState } from "recoil";
+import { editMenuState } from "../../states/EditMenuState";
 type Props = {
   menu: Menu;
+  index: number;
 };
 const MenuItem: NextPage<Props> = (props) => {
   const router = useRouter();
   const { whenMeal } = router.query;
   const [open, setOpen] = useState(false);
+  const setMenuCard = useSetRecoilState(editMenuState);
   const onToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(!open);
@@ -112,11 +116,12 @@ const MenuItem: NextPage<Props> = (props) => {
           />
           <button
             className="bg-orange-500 text-white p-2 mt-5  w-full rounded-md"
-            onClick={() =>
+            onClick={() => {
+              setMenuCard(props.menu);
               router.push(
                 `/${router.query.userId}/${router.query.currentDate}/${whenMeal}/${props.menu.id}`
-              )
-            }
+              );
+            }}
           >
             料理を編集する
           </button>

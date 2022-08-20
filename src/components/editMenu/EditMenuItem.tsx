@@ -18,7 +18,7 @@ import {
   removeElemnt,
   calSumNutritionFromFoodstuff,
 } from "../../tools/HelpMethods";
-import { dummyMenu } from "../../tools/dummyMenu";
+import { dummyMenu, initialNutrition } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
 import { SuggestFood } from "./SuggestFood";
 import { useRecoilState } from "recoil";
@@ -93,23 +93,23 @@ const EditMenuItem: NextPage<Props> = (props) => {
     setRecipe(copyRecipes);
   };
 
-  useEffect(() => {
-    if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
-    if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
-      addFoodstuff();
-    recipeNameRef.current.value = props.menu.recipeName ?? "";
-    costRef.current.value = props.menu.cost?.toString() ?? "";
-    timeRef.current.value = props.menu.time?.toString() ?? "";
-    tipsRef.current.value = props.menu.tips ?? "";
-  }, []);
+  // useEffect(() => {
+  //   if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
+  //   if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
+  //     addFoodstuff();
+  //   recipeNameRef.current.value = props.menu.recipeName ?? "";
+  //   costRef.current.value = props.menu.cost?.toString() ?? "";
+  //   timeRef.current.value = props.menu.time?.toString() ?? "";
+  //   tipsRef.current.value = props.menu.tips ?? "";
+  // }, []);
 
-  useEffect(() => {
-    props.updateMenuCard(props.index, recipes, "recipes");
-  }, [recipes]);
+  // useEffect(() => {
+  //   props.updateMenuCard(props.index, recipes, "recipes");
+  // }, [recipes]);
 
-  useEffect(() => {
-    props.updateMenuCard(props.index, foodstuffs, "foodstuffs");
-  }, [foodstuffs]);
+  // useEffect(() => {
+  //   props.updateMenuCard(props.index, foodstuffs, "foodstuffs");
+  // }, [foodstuffs]);
 
   const renderSwitchImage = (): JSX.Element => {
     if (props.menu.imgUrl) {
@@ -258,7 +258,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
           </div>
         </section>
 
-        <NutritionList nutrition={totalNutrition} isModal={false} />
+        <NutritionList nutrition={initialNutrition} isModal={false} />
         <button
           className="bg-pink-400 text-white p-2 mt-5  w-full rounded-md"
           onClick={() => {

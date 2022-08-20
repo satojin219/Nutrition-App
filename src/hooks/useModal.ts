@@ -6,7 +6,6 @@ export type ModalType = "nutritonList" | "calendar" | "confirmEdit";
 
 export const useModal = () => {
   const [modal, setModal] = useRecoilState(modalState);
-  console.log(modal);
   const openModal = (modalType: ModalType) => {
     setModal({
       isOpen: true,

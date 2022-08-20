@@ -1,19 +1,21 @@
-import { DishData } from "./../shared/globalType";
-import { currentDateSelector } from "./../states/currentDateState";
+import { initialNutrition } from "./../tools/dummyMenu";
 import { useEffect, useState } from "react";
-import { mealTimeSelector, mealTimeState } from "./../states/MealTimeState";
+import { mealTimeState } from "./../states/MealTimeState";
 import { currentDishSelector, currentDishState } from "./../states/dishState";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Menu } from "../shared/globalType";
 import { addElement, removeElemnt } from "../tools/HelpMethods";
+import { editMenuState } from "../states/EditMenuState";
+import Router from "next/router";
 
 export const useMenuCards = () => {
   const [dishData, setDishData] = useRecoilState(currentDishState);
   const [menuCards, setMenuCards] = useState<Menu[]>(
     useRecoilValue(currentDishSelector)
   );
-  const mealTime = useRecoilValue(mealTimeState);
+  const setEditMenuCard = useSetRecoilState(editMenuState);
 
+  const mealTime = useRecoilValue(mealTimeState);
   const updateDishData = (newDishData: Menu[]) => {
     switch (mealTime) {
       case "breakfast":
@@ -39,7 +41,20 @@ export const useMenuCards = () => {
     }
   };
   const addMenuCard = () => {
-    addElement(menuCards, setMenuCards);
+    let copyArray = [...menuCards];
+
+    const uniqeID: number = new Date().getTime();
+    const newMenu: Menu = { id: uniqeID, totalNutrition: initialNutrition };
+
+    copyArray.push(newMenu);
+    setEditMenuCard(newMenu);
+    setMenuCards(copyArray);
+    updateDishData(copyArray);
+    Router.push(
+      `/${Router.query.userId}/${Router.query.currentDate}/${mealTime}/${
+        copyArray[copyArray.length - 1].id
+      }`
+    );
   };
 
   const removeMenuCard = (index: number) => {
@@ -60,9 +75,9 @@ export const useMenuCards = () => {
     setMenuCards(copyMenuCard);
   };
 
-  useEffect(() => {
-    updateDishData(menuCards);
-  }, [menuCards]);
+  // useEffect(() => {
+  //   updateDishData(menuCards);
+  // }, [menuCards]);
 
   return { menuCards, addMenuCard, removeMenuCard, updateMenuCard };
 };

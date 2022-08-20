@@ -4,6 +4,7 @@ const nextConfig = {
     optimizeFonts: true,
   },
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
 };
 
 module.exports = nextConfig;

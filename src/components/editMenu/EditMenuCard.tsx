@@ -86,23 +86,23 @@ export const EditMenuCard: React.VFC<Props> = (props) => {
     setRecipe(copyRecipes);
   };
 
-  useEffect(() => {
-    if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
-    if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
-      addFoodstuff();
-    recipeNameRef.current.value = props.menu.recipeName ?? "";
-    costRef.current.value = props.menu.cost?.toString() ?? "";
-    timeRef.current.value = props.menu.time?.toString() ?? "";
-    tipsRef.current.value = props.menu.tips ?? "";
-  }, []);
+  // useEffect(() => {
+  //   if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
+  //   if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
+  //     addFoodstuff();
+  //   recipeNameRef.current.value = props.menu.recipeName ?? "";
+  //   costRef.current.value = props.menu.cost?.toString() ?? "";
+  //   timeRef.current.value = props.menu.time?.toString() ?? "";
+  //   tipsRef.current.value = props.menu.tips ?? "";
+  // }, []);
 
-  useEffect(() => {
-    props.updateMenuCard(props.index, recipes, "recipes");
-  }, [recipes]);
+  // useEffect(() => {
+  //   props.updateMenuCard(props.index, recipes, "recipes");
+  // }, [recipes]);
 
-  useEffect(() => {
-    props.updateMenuCard(props.index, foodstuffs, "foodstuffs");
-  }, [foodstuffs]);
+  // useEffect(() => {
+  //   props.updateMenuCard(props.index, foodstuffs, "foodstuffs");
+  // }, [foodstuffs]);
 
   return (
     <div className="flex justify-center my-10 lg:mx-5 sm:mx-20 mx-10">

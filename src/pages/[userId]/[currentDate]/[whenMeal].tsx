@@ -8,14 +8,21 @@ import { Modal } from "../../../components/common/Modal";
 import axios from "axios";
 import MenuItem from "../../../components/editMenu/MenuItem";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { mealTimeState } from "../../../states/MealTimeState";
 import { useMenuCards } from "../../../hooks/useMenuCard";
+import { editMenuState } from "../../../states/EditMenuState";
+import Link from "next/link";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
   const { user } = useAuthenticate();
+  const mealTime = useRecoilValue(mealTimeState);
   const { menuCards, addMenuCard } = useMenuCards();
+
+  // const routeNewMenuPage = () => {
+  //   const id = menuCards[menuCards.length].id;
+  // };
   // const mealTime = useRecoilValue(mealTimeState);
 
   // const handleOnSubmit = async () => {
@@ -41,9 +48,9 @@ const EditMenuPage: NextPage = () => {
     if (!user) router.push("/login");
   }, []);
 
-  useEffect(() => {
-    console.log(menuCards);
-  }, [menuCards]);
+  // useEffect(() => {
+  //   console.log(menuCards);
+  // }, [menuCards]);
 
   return (
     <>
@@ -54,17 +61,19 @@ const EditMenuPage: NextPage = () => {
         {router.isReady && <EditHeader isEdit={true} />}
         <Modal />
         <div className="m-10">
-          {menuCards!.map((menuCard: Menu) => (
-            <MenuItem key={menuCard.id} menu={menuCard} />
+          {menuCards!.map((menuCard: Menu, index: number) => (
+            <MenuItem key={menuCard.id} menu={menuCard} index={index} />
           ))}
         </div>
 
         <div className="flex justify-center my-5">
           <button
-            onClick={addMenuCard}
+            onClick={() => {
+              addMenuCard();
+            }}
             className="active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full w-1/2 shadow-lg"
           >
-            <div>+ 料理を追加する</div>
+            + 料理を追加する
           </button>
         </div>
       </div>
