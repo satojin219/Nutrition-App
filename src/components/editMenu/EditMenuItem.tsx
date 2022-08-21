@@ -44,13 +44,6 @@ const EditMenuItem: NextPage<Props> = (props) => {
 
   const [menuState, setMenuState] = useRecoilState(editMenuState);
 
-  const onImageChange = (imageUrl: string) => {
-    // ここでmenuに差し込むと良さそう
-    props.updateMenuCard(props.index, imageUrl, "imgUrl");
-    setIsEdited(true);
-    console.log("imageuUrl", imageUrl);
-  };
-
   useEffect(() => {
     recipeNameRef.current.value = props.menu.recipeName ?? "";
     costRef.current.value = props.menu.cost?.toString() ?? "";
@@ -62,26 +55,9 @@ const EditMenuItem: NextPage<Props> = (props) => {
     console.log(menuState);
   }, [menuState]);
 
-  const renderSwitchImage = (): JSX.Element => {
-    if (props.menu.imgUrl) {
-      return <FoodImage menu={props.menu} onImageUrlChange={onImageChange} />;
-    } else {
-      return (
-        <Image
-          src="/public/m_e_others_501.png"
-          alt="no image"
-          width={380}
-          height={240}
-          layout="responsive"
-          objectFit="cover"
-          className="rounded-t"
-        />
-      );
-    }
-  };
   return (
     <article className="rounded-xl border-2 w-full h-auto my-5">
-      {renderSwitchImage()}
+      <FoodImage imgUrl={props.menu.imgUrl} isEditPage={true} />
       <div className="border-t-2 items-center h-16 flex justify-between">
         <input
           ref={recipeNameRef}
@@ -100,7 +76,6 @@ const EditMenuItem: NextPage<Props> = (props) => {
           }}
         />
       </div>
-
       <div className="p-5">
         <SuggestFoods foodstuffs={props.menu.foodstuffs ?? []} />
 

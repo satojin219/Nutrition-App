@@ -1,23 +1,9 @@
-import { foodList } from "../../json/foodList";
-import Fuse from "fuse.js";
-import React, {
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-} from "react";
-import { Nutrition, Foodstuff, fetchedFoodData } from "../../shared/globalType";
-import { BsFillFileEarmarkTextFill } from "react-icons/bs";
-import { FaTrashAlt } from "react-icons/fa";
-import { Modal } from "../common/Modal";
-import { useModal } from "../../hooks/useModal";
+import React, { useState, useCallback, useEffect } from "react";
+import { Foodstuff } from "../../shared/globalType";
 import { useRecoilState } from "recoil";
-import { isEditedState } from "../../states/isEditedState";
 import { SuggestFood } from "./SuggestFood";
 import {
   addElement,
-  calSumDailyIntakeNutrition,
   calSumNutritionFromFoodstuff,
   removeElemnt,
 } from "../../tools/HelpMethods";

@@ -9,6 +9,7 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { NutritionList } from "../common/NutritionList";
 import { useSetRecoilState } from "recoil";
 import { editMenuState } from "../../states/EditMenuState";
+import { FoodImage } from "./FoodImage";
 type Props = {
   menu: Menu;
   index: number;
@@ -22,37 +23,11 @@ const MenuItem: NextPage<Props> = (props) => {
     e.preventDefault();
     setOpen(!open);
   };
-  const renderSwitchImage = (): JSX.Element => {
-    if (props.menu.imgUrl) {
-      return (
-        <Image
-          src={props.menu.imgUrl}
-          alt="no image"
-          width={380}
-          height={240}
-          layout="responsive"
-          objectFit="cover"
-          className="rounded-t"
-        />
-      );
-    } else {
-      return (
-        <Image
-          src="/public/m_e_others_501.png"
-          alt="no image"
-          width={380}
-          height={240}
-          layout="responsive"
-          objectFit="cover"
-          className="rounded-t"
-        />
-      );
-    }
-  };
+
   if (Object.keys(props.menu).length == 1) return <div></div>;
   return (
     <article className="rounded-xl border-2 w-full h-auto my-5">
-      {renderSwitchImage()}
+      <FoodImage imgUrl={props.menu.imgUrl} isEditPage={false} />
       <div className="border-t-2 items-center h-16 flex justify-between">
         <p className=" text-base-dark text-xl ml-4">{props.menu.recipeName}</p>
         <button onClick={(e) => onToggle(e)} className="mr-4">
