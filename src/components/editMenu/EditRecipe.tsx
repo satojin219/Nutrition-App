@@ -12,9 +12,11 @@ type Props = {
 export const EditRecipe: React.VFC<Props> = (props) => {
   const inputRecipeRef = useRef<HTMLTextAreaElement>(null!);
   const [_, setIsEdited] = useRecoilState(isEditedState);
+
   useEffect(() => {
     inputRecipeRef.current.value = props.content ?? "";
   }, []);
+
   return (
     <div className="my-3">
       <div className="flex group">

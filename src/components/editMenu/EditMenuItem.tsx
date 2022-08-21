@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import { NutritionList } from "../common/NutritionList";
-import { EditRecipe } from "./EditRecipe";
+import { EditRecipes } from "./EditRecipes";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import {
   Menu,
@@ -23,6 +23,7 @@ import { FoodImage } from "./FoodImage";
 import { SuggestFood } from "./SuggestFood";
 import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
+import { editMenuState } from "../../states/EditMenuState";
 
 type Props = {
   index: number;
@@ -42,7 +43,8 @@ const EditMenuItem: NextPage<Props> = (props) => {
   const [foodstuffs, setFoodstuff] = useState<Foodstuff[]>(
     props.menu.foodstuffs ?? []
   );
-  const [recipes, setRecipe] = useState<RecipeType[]>(props.menu.recipes ?? []);
+
+  const [menuState, setMenuState] = useRecoilState(editMenuState);
 
   const onImageChange = (imageUrl: string) => {
     // ここでmenuに差し込むと良さそう
@@ -78,38 +80,22 @@ const EditMenuItem: NextPage<Props> = (props) => {
     );
   };
 
-  const addRecipe = useCallback(
-    (index: number) => {
-      addElement(recipes, setRecipe, index);
-    },
-    [props.menu, recipes]
-  );
-  const removeRecipe = (index: number) => {
-    removeElemnt(recipes, setRecipe, index);
-  };
-  const writeRecipe = (index: number, value: string) => {
-    let copyRecipes = [...recipes];
-    copyRecipes[index].content = value;
-    setRecipe(copyRecipes);
-  };
-
-  // useEffect(() => {
-  //   if (!props.menu.recipes || props.menu.recipes?.length == 0) addRecipe(0);
-  //   if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
-  //     addFoodstuff();
-  //   recipeNameRef.current.value = props.menu.recipeName ?? "";
-  //   costRef.current.value = props.menu.cost?.toString() ?? "";
-  //   timeRef.current.value = props.menu.time?.toString() ?? "";
-  //   tipsRef.current.value = props.menu.tips ?? "";
-  // }, []);
-
-  // useEffect(() => {
-  //   props.updateMenuCard(props.index, recipes, "recipes");
-  // }, [recipes]);
+  useEffect(() => {
+    if (!props.menu.foodstuffs || props.menu.foodstuffs.length == 0)
+      addFoodstuff();
+    recipeNameRef.current.value = props.menu.recipeName ?? "";
+    costRef.current.value = props.menu.cost?.toString() ?? "";
+    timeRef.current.value = props.menu.time?.toString() ?? "";
+    tipsRef.current.value = props.menu.tips ?? "";
+  }, []);
 
   // useEffect(() => {
   //   props.updateMenuCard(props.index, foodstuffs, "foodstuffs");
   // }, [foodstuffs]);
+
+  useEffect(() => {
+    console.log(menuState);
+  }, [menuState]);
 
   const renderSwitchImage = (): JSX.Element => {
     if (props.menu.imgUrl) {
@@ -139,11 +125,10 @@ const EditMenuItem: NextPage<Props> = (props) => {
           placeholder="料理名を入力して下さい"
           aria-label="Full name"
           onBlur={() => {
-            props.updateMenuCard(
-              props.index,
-              recipeNameRef?.current.value ?? "",
-              "recipeName"
-            );
+            setMenuState({
+              ...menuState,
+              recipeName: recipeNameRef?.current.value,
+            });
           }}
           onChange={() => {
             setIsEdited(true);
@@ -187,16 +172,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
         </section>
         <section>
           <p className="mt-4">レシピ</p>
-          {recipes.map((recipe: RecipeType, index: number) => (
-            <EditRecipe
-              key={recipe.id}
-              content={recipe.content}
-              index={index}
-              addRecipe={addRecipe}
-              removeRecipe={removeRecipe}
-              writeRecipe={writeRecipe}
-            />
-          ))}
+          <EditRecipes recipes={props.menu.recipes ?? []} />
         </section>
         <section>
           <p className="text-left mt-4 flex items-center">
@@ -230,11 +206,10 @@ const EditMenuItem: NextPage<Props> = (props) => {
               className="text-right border-2 rounded-sm p-1"
               size={15}
               onBlur={() => {
-                props.updateMenuCard(
-                  props.index,
-                  timeRef?.current.value ?? "",
-                  "time"
-                );
+                setMenuState({
+                  ...menuState,
+                  time: Number(timeRef?.current.value),
+                });
               }}
             />
             分
@@ -247,18 +222,17 @@ const EditMenuItem: NextPage<Props> = (props) => {
               className="text-right border-2 rounded-sm p-1"
               size={15}
               onBlur={() => {
-                props.updateMenuCard(
-                  props.index,
-                  costRef?.current.value ?? "",
-                  "cost"
-                );
+                setMenuState({
+                  ...menuState,
+                  cost: Number(costRef?.current.value),
+                });
               }}
             />
             円
           </div>
         </section>
 
-        <NutritionList nutrition={initialNutrition} isModal={false} />
+        <NutritionList nutrition={totalNutrition} isModal={false} />
         <button
           className="bg-pink-400 text-white p-2 mt-5  w-full rounded-md"
           onClick={() => {
