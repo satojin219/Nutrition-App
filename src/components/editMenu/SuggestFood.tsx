@@ -152,6 +152,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         g
         <button
           onClick={() => {
+            if (props.index === 0) return;
             props.removeFoodstuff(props.index);
           }}
           className="flex-shrink-0 bg-orange-500 hover:bg-orange-500 border-orange-500 hover:border-orange-500 text-md border-4 text-white py-1 px-2 ml-2 rounded shadow-md"
