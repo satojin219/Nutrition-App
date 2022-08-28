@@ -18,23 +18,24 @@ import { useModal } from "../../../hooks/useModal";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
 import { useRecoilState } from "recoil";
 import { currentDishState } from "../../../states/dishState";
+import { useSelectDay } from "../../../hooks/useSelectDay";
+import { useDate } from "../../../hooks/useDate";
 
 const Home: NextPage = () => {
   const { user } = useAuthenticate();
   const { modal } = useModal();
   const router = useRouter();
+  const { currentDate } = useDate();
+
   const { data, error } = useSWR<DishData>(
-    `/api/dish/${router.query.userId}/${router.query!.currentDate!}`,
+    `/api/dish/${user?.uid}/${currentDate.format("YYYYMMDD")}`,
     fetchDishData
   );
   const [dishdata, setDishdata] = useRecoilState(currentDishState);
 
   if (data && router.query.currentDate && checkBlankDishData(data)) {
     // 初アクセスで、全てのプロパティが空ならfirestoreにデータをPOST
-    postData(
-      `/api/dish/${router.query.userId}/${router.query.currentDate}`,
-      data
-    );
+    postData(`/api/dish/${user?.uid}/${currentDate.format("YYYYMMDD")}`, data);
   }
 
   const fixedClassNames = {
