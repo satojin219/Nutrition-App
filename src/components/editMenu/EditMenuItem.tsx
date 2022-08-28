@@ -1,26 +1,12 @@
 import type { NextPage } from "next";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { NutritionList } from "../common/NutritionList";
 import { EditRecipes } from "./EditRecipes";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import {
-  Menu,
-  RecipeType,
-  Foodstuff,
-  Nutrition,
-} from "../../shared/globalType";
+import { Menu } from "../../shared/globalType";
 import { useRef } from "react";
 import { useEffect } from "react";
-import {
-  addElement,
-  removeElemnt,
-  calSumNutritionFromFoodstuff,
-} from "../../tools/HelpMethods";
-import { dummyMenu, initialNutrition } from "../../tools/dummyMenu";
 import { FoodImage } from "./FoodImage";
-import { SuggestFood } from "./SuggestFood";
 import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
 import { editMenuState } from "../../states/EditMenuState";
@@ -34,14 +20,11 @@ type Props = {
   handleOnSubmit(): void;
 };
 const EditMenuItem: NextPage<Props> = (props) => {
-  const router = useRouter();
-  const { whenMeal } = router.query;
   const [_, setIsEdited] = useRecoilState(isEditedState);
   const recipeNameRef = useRef<HTMLInputElement>(null!);
   const costRef = useRef<HTMLInputElement>(null!);
   const timeRef = useRef<HTMLInputElement>(null!);
   const tipsRef = useRef<HTMLTextAreaElement>(null!);
-
   const [menuState, setMenuState] = useRecoilState(editMenuState);
 
   useEffect(() => {
@@ -50,10 +33,6 @@ const EditMenuItem: NextPage<Props> = (props) => {
     timeRef.current.value = props.menu.time?.toString() ?? "";
     tipsRef.current.value = props.menu.tips ?? "";
   }, []);
-
-  useEffect(() => {
-    console.log(menuState);
-  }, [menuState]);
 
   return (
     <article className="rounded-xl border-2 w-full h-auto my-5">

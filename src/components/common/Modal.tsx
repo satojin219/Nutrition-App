@@ -5,6 +5,7 @@ import { ConfirmEdit } from "../editMenu/ConfirmEidt";
 import { BsXLg } from "react-icons/bs";
 import { Nutrition } from "../../shared/globalType";
 import { useModal } from "../../hooks/useModal";
+import { useEffect } from "react";
 
 type Props = {
   nutrition?: Nutrition;
@@ -25,13 +26,15 @@ export const Modal: React.VFC<Props> = (props) => {
           <BsXLg />
         </button>
       </div>
-      {modal.modalType == "calendar" ? (
-        router.isReady && <Calendar />
-      ) : modal.modalType == "nutritonList" ? (
-        <NutritionList nutrition={props.nutrition} isModal={true} />
-      ) : modal.modalType == "confirmEdit" ? (
-        <ConfirmEdit />
-      ) : null}
+      {modal.modalType == "calendar"
+        ? router.isReady && <Calendar />
+        : modal.modalType == "nutritonList"
+        ? router.isReady && (
+            <NutritionList nutrition={props.nutrition} isModal={true} />
+          )
+        : modal.modalType == "confirmEdit"
+        ? router.isReady && <ConfirmEdit />
+        : null}
     </div>
   );
 };

@@ -5,7 +5,7 @@ export const modalState = atom<Modal>({
   key: "modalState",
   default: {
     isOpen: false,
-    modalType: "calendar",
+    modalType: "default",
   },
 });
 

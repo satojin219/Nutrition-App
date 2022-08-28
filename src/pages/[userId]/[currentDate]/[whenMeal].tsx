@@ -58,8 +58,7 @@ const EditMenuPage: NextPage = () => {
         <title>Nutriton App</title>
       </Head>
       <div>
-        {router.isReady && <EditHeader isEdit={true} />}
-        <Modal />
+        {router.isReady && <EditHeader />}
         <div className="m-10">
           {menuCards!.map((menuCard: Menu, index: number) => (
             <MenuItem key={menuCard.id} menu={menuCard} index={index} />

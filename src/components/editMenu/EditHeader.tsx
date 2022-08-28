@@ -1,35 +1,29 @@
-import React, { useMemo, useContext, useEffect } from "react";
-import Link from "next/link";
+import React, { useMemo, useEffect } from "react";
 import { useRouter } from "next/router";
 import { divideIconAndColor } from "../../tools/HelpComponents";
-import { FaCalendarAlt, FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { useDate } from "../../hooks/useDate";
-import dayjs from "dayjs";
 import { useModal } from "../../hooks/useModal";
 import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
 import { mealTimeState } from "../../states/MealTimeState";
 
-type Props = {
-  isEdit: boolean;
-};
-
-export const EditHeader: React.VFC<Props> = (props) => {
+export const EditHeader: React.VFC = () => {
   const { openModal } = useModal();
   const [isEdited, _] = useRecoilState(isEditedState);
   const [mealTime, setMealTime] = useRecoilState(mealTimeState);
   const router = useRouter();
-  const { currentDate, addOneDay, subtractOneDay, changeDate } = useDate();
+  const { currentDate, changeDate } = useDate();
+
+  const { headerIcon } = useMemo(() => {
+    return divideIconAndColor(mealTime);
+  }, [mealTime]);
 
   useEffect(() => {
     if (router.query.currentDate && typeof router.query.currentDate == "string")
       changeDate(router.query.currentDate);
   }, [router.query.currentDate]);
-
-  const { headerIcon } = useMemo(() => {
-    return divideIconAndColor(mealTime);
-  }, [mealTime]);
 
   return (
     <header className={`${mealTime} p-2 pt-8 text-white`}>
@@ -39,7 +33,11 @@ export const EditHeader: React.VFC<Props> = (props) => {
           className="mr-3"
           onClick={() => {
             if (isEdited) openModal("confirmEdit");
-            else {
+            else if (router.query.menuID) {
+              router.push(
+                `/${router.query.userId}/${router.query.currentDate}/${mealTime}`
+              );
+            } else {
               router.push(
                 `/${router.query.userId}/${router.query.currentDate}`
               );

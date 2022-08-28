@@ -55,8 +55,7 @@ const Edit: NextPage = () => {
         <title>Nutriton App</title>
       </Head>
       <div>
-        {router.isReady && <EditHeader isEdit={true} />}
-        <Modal />
+        {router.isReady && <EditHeader />}
         <div className="m-10">
           <EditMenuItem
             key={menuCard.id}

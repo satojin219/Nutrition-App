@@ -14,6 +14,7 @@ import { Modal } from "../common/Modal";
 import { useModal } from "../../hooks/useModal";
 import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
+import { useRouter } from "next/router";
 
 type Props = {
   index: number;
@@ -166,7 +167,6 @@ export const SuggestFood: React.VFC<Props> = (props) => {
             openModal("nutritonList");
           }}
         >
-          {" "}
           <BsFillFileEarmarkTextFill />
         </button>
         <Modal nutrition={props.foodstuff.nutrition} />
