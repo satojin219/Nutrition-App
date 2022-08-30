@@ -11,13 +11,14 @@ import { useRecoilState } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
 import { editMenuState } from "../../states/EditMenuState";
 import { SuggestFoods } from "./SuggestFoods";
+import { toast } from "react-toastify";
 
 type Props = {
   index: number;
   menu: Menu;
   removeMenuCard(id: number): void;
   updateMenuCard(index: number, data: any, dataType: any): void;
-  handleOnSubmit(): void;
+  handleOnSubmit(): Promise<void>;
 };
 const EditMenuItem: NextPage<Props> = (props) => {
   const [_, setIsEdited] = useRecoilState(isEditedState);
@@ -123,7 +124,11 @@ const EditMenuItem: NextPage<Props> = (props) => {
         <button
           className="bg-pink-400 text-white p-2 mt-5  w-full rounded-md"
           onClick={() => {
-            props.handleOnSubmit();
+            toast.promise(props.handleOnSubmit(), {
+              pending: "保存中です",
+              error: "保存に失敗しました",
+              success: "登録に成功しました！",
+            });
             setIsEdited(false);
           }}
         >
