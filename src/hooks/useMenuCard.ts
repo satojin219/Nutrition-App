@@ -1,12 +1,9 @@
-import { DishCard } from "./../../Nutrition-App/components/DishCard";
-import { DishData } from "./../shared/globalType";
 import { initialNutrition } from "./../tools/dummyMenu";
-import { useEffect, useState } from "react";
 import { mealTimeState } from "./../states/MealTimeState";
 import { currentDishSelector, currentDishState } from "./../states/dishState";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Menu } from "../shared/globalType";
-import { addElement, removeElemnt } from "../tools/HelpMethods";
+import { removeElemnt } from "../tools/HelpMethods";
 import { editMenuState } from "../states/EditMenuState";
 import Router from "next/router";
 
