@@ -7,18 +7,23 @@ import { Menu } from "../../shared/globalType";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { FoodImage } from "./FoodImage";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
 import { editMenuState } from "../../states/EditMenuState";
 import { SuggestFoods } from "./SuggestFoods";
 import { toast } from "react-toastify";
+import { authUserState } from "../../states/authUserState";
+import axios from "axios";
+import { mealTimeState } from "../../states/MealTimeState";
+import { currentDishState } from "../../states/dishState";
+import { useMenuCards } from "../../hooks/useMenuCard";
+import { useDate } from "../../hooks/useDate";
+import { useSWRConfig } from "swr";
 
 type Props = {
   index: number;
   menu: Menu;
   removeMenuCard(id: number): void;
-  updateMenuCard(index: number, data: any, dataType: any): void;
-  handleOnSubmit(): Promise<void>;
 };
 const EditMenuItem: NextPage<Props> = (props) => {
   const [_, setIsEdited] = useRecoilState(isEditedState);
@@ -27,6 +32,30 @@ const EditMenuItem: NextPage<Props> = (props) => {
   const timeRef = useRef<HTMLInputElement>(null!);
   const tipsRef = useRef<HTMLTextAreaElement>(null!);
   const [menuState, setMenuState] = useRecoilState(editMenuState);
+  const { menuCards, updateMenuCards } = useMenuCards();
+  const user = useRecoilValue(authUserState);
+  const { currentDate } = useDate();
+  const mealTime = useRecoilValue(mealTimeState);
+  const dishdata = useRecoilValue(currentDishState);
+  const { mutate } = useSWRConfig();
+
+  const handleOnSubmit = async () => {
+    await axios.put(
+      `/api/dish/${user?.uid}/${currentDate.format("YYYYMMDD")}`,
+      {
+        [mealTime]: menuCards,
+      }
+    );
+    // ローカルのキャッシュデータを更新
+    await mutate(
+      `/api/dish/${user?.uid}/${currentDate.format("YYYYMMDD")}`,
+      dishdata
+    );
+  };
+
+  useEffect(() => {
+    updateMenuCards();
+  }, [menuState]);
 
   useEffect(() => {
     recipeNameRef.current.value = props.menu.recipeName ?? "";
@@ -124,7 +153,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
         <button
           className="bg-pink-400 text-white p-2 mt-5  w-full rounded-md"
           onClick={() => {
-            toast.promise(props.handleOnSubmit(), {
+            toast.promise(handleOnSubmit(), {
               pending: "保存中です",
               error: "保存に失敗しました",
               success: "登録に成功しました！",

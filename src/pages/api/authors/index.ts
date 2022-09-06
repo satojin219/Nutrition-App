@@ -13,7 +13,6 @@ export default async function handler(
   switch (method) {
     case "GET":
       const authors = await prisma.author.findMany();
-      console.log(authors);
       res.status(200).json(authors);
       break;
 
@@ -23,7 +22,6 @@ export default async function handler(
           name: "King nob",
         },
       });
-      console.log("POST");
       res.status(200).json(author); // idを含む保存したデータを返す
 
       break;

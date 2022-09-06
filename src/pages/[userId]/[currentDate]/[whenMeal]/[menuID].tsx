@@ -15,39 +15,15 @@ const Edit: NextPage = () => {
   const router = useRouter();
   const { user } = useAuthenticate();
   const mealTime = useRecoilValue(mealTimeState);
-  const { menuCards, removeMenuCard, updateMenuCard } = useMenuCards();
+  const { menuCards, removeMenuCard } = useMenuCards();
   const [menuCard, setMenuCard] = useRecoilState(editMenuState);
   const index = menuCards.findIndex(
     (menuCard) => menuCard.id == Number(router.query.menuID)
   );
 
-  const handleOnSubmit = async () => {
-    await axios
-      .put(
-        `/api/dish/${router.query.userId}/${router.query.currentDate}`,
-        mealTime == "breakfast"
-          ? { breakfast: menuCards }
-          : mealTime == "lunch"
-          ? { lunch: menuCards }
-          : mealTime == "dinner"
-          ? { dinner: menuCards }
-          : mealTime == "snack"
-          ? { snack: menuCards }
-          : null
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(console.error);
-  };
-
   useEffect(() => {
     if (!user) router.push("/login");
   }, []);
-
-  // useEffect(() => {
-  //   console.log(menuCards);
-  // });
 
   return (
     <>
@@ -62,8 +38,6 @@ const Edit: NextPage = () => {
             index={index}
             menu={menuCard}
             removeMenuCard={removeMenuCard}
-            updateMenuCard={updateMenuCard}
-            handleOnSubmit={handleOnSubmit}
           />
         </div>
       </div>

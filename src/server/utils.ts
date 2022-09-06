@@ -17,10 +17,10 @@ export const isAlreadyEditedDishData = (data: DishData) => {
 
 export const checkBlankDishData = (dishDate: DishData) => {
   return (
-    dishDate.breakfast.length == 0 &&
-    dishDate.lunch.length == 0 &&
-    dishDate.dinner.length == 0 &&
-    dishDate.snack.length == 0
+    dishDate.breakfast.length === 0 &&
+    dishDate.lunch.length === 0 &&
+    dishDate.dinner.length === 0 &&
+    dishDate.snack.length === 0
   );
 };
 /**

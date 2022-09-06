@@ -28,7 +28,6 @@ export const FoodImage: React.VFC<Props> = (props) => {
       imgUrl: imageUrl,
     });
     setIsEdited(true);
-    console.log("imageuUrl", imageUrl);
   };
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = async (
     e

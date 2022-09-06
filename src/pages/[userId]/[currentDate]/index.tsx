@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   );
   const [dishdata, setDishdata] = useRecoilState(currentDishState);
 
-  if (data && router.query.currentDate && checkBlankDishData(data)) {
+  if (data && checkBlankDishData(data)) {
     // 初アクセスで、全てのプロパティが空ならfirestoreにデータをPOST
     postData(`/api/dish/${user?.uid}/${currentDate.format("YYYYMMDD")}`, data);
   }
@@ -42,6 +42,14 @@ const Home: NextPage = () => {
     "fixed w-full": modal.isOpen,
   };
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("dishData: ", dishdata);
+  }, [dishdata]);
+
+  useEffect(() => {
+    console.log("featchdata: ", data);
+  }, [data]);
 
   useEffect(() => {
     if (data) {

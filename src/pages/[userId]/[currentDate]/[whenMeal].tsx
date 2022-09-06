@@ -4,15 +4,11 @@ import { EditHeader } from "../../../components/editMenu/EditHeader";
 import { useEffect } from "react";
 import { Menu } from "../../../shared/globalType";
 import { useRouter } from "next/router";
-import { Modal } from "../../../components/common/Modal";
-import axios from "axios";
 import MenuItem from "../../../components/editMenu/MenuItem";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { mealTimeState } from "../../../states/MealTimeState";
 import { useMenuCards } from "../../../hooks/useMenuCard";
-import { editMenuState } from "../../../states/EditMenuState";
-import Link from "next/link";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
@@ -20,37 +16,9 @@ const EditMenuPage: NextPage = () => {
   const mealTime = useRecoilValue(mealTimeState);
   const { menuCards, addMenuCard } = useMenuCards();
 
-  // const routeNewMenuPage = () => {
-  //   const id = menuCards[menuCards.length].id;
-  // };
-  // const mealTime = useRecoilValue(mealTimeState);
-
-  // const handleOnSubmit = async () => {
-  //   await axios
-  //     .put(
-  //       `/api/dish/${router.query.userId}/${router.query.currentDate}`,
-  //       mealTime == "breakfast"
-  //         ? { breakfast: menuCards }
-  //         : mealTime == "lunch"
-  //         ? { lunch: menuCards }
-  //         : mealTime == "dinner"
-  //         ? { dinner: menuCards }
-  //         : mealTime == "snack"
-  //         ? { snack: menuCards }
-  //         : null
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch(console.error);
-  // };
   useEffect(() => {
     if (!user) router.push("/login");
   }, []);
-
-  // useEffect(() => {
-  //   console.log(menuCards);
-  // }, [menuCards]);
 
   return (
     <>
