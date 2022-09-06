@@ -43,6 +43,7 @@ export const EditRecipe: React.VFC<Props> = (props) => {
       </div>
       <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
         <textarea
+          required
           ref={inputRecipeRef}
           onBlur={() => {
             props.writeRecipe(

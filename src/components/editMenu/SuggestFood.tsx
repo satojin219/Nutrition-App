@@ -126,6 +126,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
     <form className="w-full">
       <div className="flex justify-around items-center ">
         <input
+          required
           ref={inputFoodNameRef}
           onChange={() => {
             handleOnChangeFood();
@@ -141,6 +142,7 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           type="number"
           className="border text-sm w-10 ml-1 rounded text-right"
           ref={inputFoodWeightRef}
+          required
         />
         g
         <button

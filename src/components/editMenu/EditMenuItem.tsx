@@ -19,6 +19,8 @@ import { currentDishState } from "../../states/dishState";
 import { useMenuCards } from "../../hooks/useMenuCard";
 import { useDate } from "../../hooks/useDate";
 import { useSWRConfig } from "swr";
+import { initialNutrition } from "../../tools/dummyMenu";
+import { validateEditMenu } from "../../tools/validateEditMenu";
 
 type Props = {
   index: number;
@@ -83,6 +85,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
               recipeName: recipeNameRef?.current.value,
             });
           }}
+          required
         />
       </div>
       <div className="p-5">
@@ -125,6 +128,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
                   time: Number(timeRef?.current.value),
                 });
               }}
+              required
             />
             分
           </div>
@@ -141,6 +145,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
                   cost: Number(costRef?.current.value),
                 });
               }}
+              required
             />
             円
           </div>
@@ -153,11 +158,13 @@ const EditMenuItem: NextPage<Props> = (props) => {
           onClick={() => {
             setisDisable(true);
             setIsEdited(false);
-            toast.promise(handleOnSubmit(), {
-              pending: "保存中です",
-              error: "保存に失敗しました",
-              success: "登録に成功しました！",
-            });
+            validateEditMenu(menuState)
+              ? toast.error(validateEditMenu(menuState))
+              : toast.promise(handleOnSubmit(), {
+                  pending: "保存中です",
+                  error: "保存に失敗しました",
+                  success: "登録に成功しました！",
+                });
           }}
         >
           保存する
