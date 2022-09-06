@@ -4,7 +4,6 @@ import imageCompression from "browser-image-compression";
 import { MdAddAPhoto, MdFlipCameraIos } from "react-icons/md";
 import { changeImageToBase64 } from "../../server/utils";
 import { useRecoilState } from "recoil";
-import { isEditedState } from "../../states/isEditedState";
 import { editMenuState } from "../../states/EditMenuState";
 
 const NO_IMAGE_THUMBNAIL: string = "/m_e_others_501.png";
@@ -18,7 +17,6 @@ export const FoodImage: React.VFC<Props> = (props) => {
     props.imgUrl ?? ""
   );
   const [menuState, setMenuState] = useRecoilState(editMenuState);
-  const [_, setIsEdited] = useRecoilState(isEditedState);
 
   const onImageUrlChange = (imageUrl: string) => {
     // ここでmenuに差し込むと良さそう
@@ -27,7 +25,6 @@ export const FoodImage: React.VFC<Props> = (props) => {
       ...menuState,
       imgUrl: imageUrl,
     });
-    setIsEdited(true);
   };
   const handleChangeFile: React.ChangeEventHandler<HTMLInputElement> = async (
     e

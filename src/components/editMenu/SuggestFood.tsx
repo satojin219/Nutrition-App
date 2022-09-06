@@ -12,9 +12,6 @@ import { BsFillFileEarmarkTextFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import { Modal } from "../common/Modal";
 import { useModal } from "../../hooks/useModal";
-import { useRecoilState } from "recoil";
-import { isEditedState } from "../../states/isEditedState";
-import { useRouter } from "next/router";
 
 type Props = {
   index: number;
@@ -25,7 +22,6 @@ type Props = {
 
 export const SuggestFood: React.VFC<Props> = (props) => {
   const { openModal } = useModal();
-  const [_, setIsEdited] = useRecoilState(isEditedState);
   const foodstuff = props.foodstuff;
   const fuse: Fuse<fetchedFoodData> = useMemo(() => {
     const options = {
@@ -132,7 +128,6 @@ export const SuggestFood: React.VFC<Props> = (props) => {
         <input
           ref={inputFoodNameRef}
           onChange={() => {
-            setIsEdited(true);
             handleOnChangeFood();
           }}
           className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
@@ -141,9 +136,6 @@ export const SuggestFood: React.VFC<Props> = (props) => {
           aria-label="Full name"
         />
         <input
-          onChange={() => {
-            setIsEdited(true);
-          }}
           onBlur={insertFoodData}
           min={0}
           type="number"

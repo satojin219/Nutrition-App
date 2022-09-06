@@ -1,6 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
-import { isEditedState } from "../../states/isEditedState";
 
 type Props = {
   content: string | undefined;
@@ -11,7 +9,6 @@ type Props = {
 };
 export const EditRecipe: React.VFC<Props> = (props) => {
   const inputRecipeRef = useRef<HTMLTextAreaElement>(null!);
-  const [_, setIsEdited] = useRecoilState(isEditedState);
 
   useEffect(() => {
     inputRecipeRef.current.value = props.content ?? "";
@@ -26,7 +23,6 @@ export const EditRecipe: React.VFC<Props> = (props) => {
         <button
           onClick={() => {
             props.addRecipe(props.index);
-            setIsEdited(true);
           }}
           className="duration-500 group-hover:opacity-100 group-hover:mr-2 opacity-0 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7"
         >
@@ -36,7 +32,6 @@ export const EditRecipe: React.VFC<Props> = (props) => {
           <button
             onClick={() => {
               props.removeRecipe(props.index);
-              setIsEdited(true);
             }}
             className="duration-500 group-hover:opacity-100 group-hover:mr-2  opacity-0 text-left bg-orange-500 text-white p-1 rounded-full text-sm shadow-md w-7"
           >
@@ -54,9 +49,6 @@ export const EditRecipe: React.VFC<Props> = (props) => {
               props.index,
               inputRecipeRef?.current?.value ?? ""
             );
-          }}
-          onChange={() => {
-            setIsEdited(true);
           }}
           className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           aria-label="Full name"

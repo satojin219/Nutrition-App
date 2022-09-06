@@ -6,14 +6,11 @@ import { Menu } from "../../../shared/globalType";
 import { useRouter } from "next/router";
 import MenuItem from "../../../components/editMenu/MenuItem";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
-import { useRecoilValue } from "recoil";
-import { mealTimeState } from "../../../states/MealTimeState";
 import { useMenuCards } from "../../../hooks/useMenuCard";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
   const { user } = useAuthenticate();
-  const mealTime = useRecoilValue(mealTimeState);
   const { menuCards, addMenuCard } = useMenuCards();
 
   useEffect(() => {

@@ -18,7 +18,6 @@ import { useModal } from "../../../hooks/useModal";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
 import { useRecoilState } from "recoil";
 import { currentDishState } from "../../../states/dishState";
-import { useSelectDay } from "../../../hooks/useSelectDay";
 import { useDate } from "../../../hooks/useDate";
 
 const Home: NextPage = () => {

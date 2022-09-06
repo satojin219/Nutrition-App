@@ -4,7 +4,7 @@ import { NutritionList } from "../common/NutritionList";
 import { EditRecipes } from "./EditRecipes";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { Menu } from "../../shared/globalType";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useEffect } from "react";
 import { FoodImage } from "./FoodImage";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -38,6 +38,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
   const mealTime = useRecoilValue(mealTimeState);
   const dishdata = useRecoilValue(currentDishState);
   const { mutate } = useSWRConfig();
+  const [isDisable, setisDisable] = useState(false);
 
   const handleOnSubmit = async () => {
     await axios.put(
@@ -55,6 +56,8 @@ const EditMenuItem: NextPage<Props> = (props) => {
 
   useEffect(() => {
     updateMenuCards();
+    setIsEdited(true);
+    setisDisable(false);
   }, [menuState]);
 
   useEffect(() => {
@@ -80,9 +83,6 @@ const EditMenuItem: NextPage<Props> = (props) => {
               recipeName: recipeNameRef?.current.value,
             });
           }}
-          onChange={() => {
-            setIsEdited(true);
-          }}
         />
       </div>
       <div className="p-5">
@@ -106,9 +106,6 @@ const EditMenuItem: NextPage<Props> = (props) => {
                   ...menuState,
                   tips: tipsRef?.current.value,
                 });
-              }}
-              onChange={() => {
-                setIsEdited(true);
               }}
             />
           </div>
@@ -151,14 +148,16 @@ const EditMenuItem: NextPage<Props> = (props) => {
 
         <NutritionList nutrition={menuState.totalNutrition} isModal={false} />
         <button
+          disabled={isDisable}
           className="bg-pink-400 text-white p-2 mt-5  w-full rounded-md"
           onClick={() => {
+            setisDisable(true);
+            setIsEdited(false);
             toast.promise(handleOnSubmit(), {
               pending: "保存中です",
               error: "保存に失敗しました",
               success: "登録に成功しました！",
             });
-            setIsEdited(false);
           }}
         >
           保存する
