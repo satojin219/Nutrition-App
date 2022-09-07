@@ -1,4 +1,3 @@
-import { RiNumber0 } from "react-icons/ri";
 import { Menu, Nutrition } from "../shared/globalType";
 export const dummyMenu: Menu[] = [
   {

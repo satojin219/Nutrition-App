@@ -1,4 +1,4 @@
-import { atom, selector, DefaultValue } from "recoil";
+import { atom, selector } from "recoil";
 import { DishData, Menu } from "../shared/globalType";
 import { mealTimeState } from "./MealTimeState";
 
@@ -33,11 +33,5 @@ export const currentDishSelector = selector<Menu[]>({
     const dishData = get(currentDishState);
     const mealTime = get(mealTimeState);
     set(currentDishState, { ...dishData, [mealTime]: newValue });
-    // set(
-    //   currentDishState,
-    //   newValue instanceof DefaultValue
-    //     ? { ...dishData, [mealTime]: newValue }
-    //     : dishData
-    // );
   },
 });
