@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Foodstuff, Menu, RecipeType } from "../../shared/globalType";
-import { LinkButton } from "../common/Button";
 import { Recipe } from "./Recipe";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { NutritionList } from "../common/NutritionList";

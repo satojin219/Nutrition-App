@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import React from "react";
 import { NutritionList } from "../common/NutritionList";
 import { EditRecipes } from "./EditRecipes";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
@@ -19,7 +18,6 @@ import { currentDishState } from "../../states/dishState";
 import { useMenuCards } from "../../hooks/useMenuCard";
 import { useDate } from "../../hooks/useDate";
 import { useSWRConfig } from "swr";
-import { initialNutrition } from "../../tools/dummyMenu";
 import { validateEditMenu } from "../../tools/validateEditMenu";
 
 type Props = {

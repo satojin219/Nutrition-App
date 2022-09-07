@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment } from "react";
 import { MealTime, Menu } from "../../shared/globalType";
 import {
   BsFillBrightnessAltHighFill,
