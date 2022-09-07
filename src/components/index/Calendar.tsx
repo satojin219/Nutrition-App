@@ -6,6 +6,9 @@ import { DateType } from "../../shared/globalType";
 import Router, { useRouter } from "next/router";
 import { useDate } from "../../hooks/useDate";
 import { useModal } from "../../hooks/useModal";
+import { useRecoilValue } from "recoil";
+import { currentDateSelector } from "../../states/currentDateState";
+import { useState } from "react";
 
 type datejsDateType = DateType & {
   type: string;
@@ -13,14 +16,16 @@ type datejsDateType = DateType & {
 
 export const Calendar: React.VFC = () => {
   const router = useRouter();
-  const { currentDate, changeDate } = useDate();
+  const [currentDate, setCurrentDate] = useState(
+    useRecoilValue(currentDateSelector)
+  );
   const { monthDatesArray } = useCalendar(currentDate);
   const { closeModal } = useModal();
   const setNextMonth = (): void => {
-    changeDate(currentDate.add(1, "month").format("YYYYMMDD"));
+    setCurrentDate(currentDate.add(1, "month"));
   };
   const setLastMonth = (): void => {
-    changeDate(currentDate.subtract(1, "month").format("YYYYMMDD"));
+    setCurrentDate(currentDate.subtract(1, "month"));
   };
   const changeDateRoute = (date: string) => {
     Router.push(`/${router.query.userId}/${date}`);
@@ -111,16 +116,6 @@ export const Calendar: React.VFC = () => {
             ))}
           </tr>
         </tbody>
-        <tfoot className="flex justify-center text-sm">
-          <tr className="flex p-3">
-            <td className="mx-3 text-black">
-              <span className="text-red-400">■</span> 編集済み
-            </td>
-            <td className="mx-3 text-black">
-              <span className="text-yellow-400">■</span> 現在選択中
-            </td>
-          </tr>
-        </tfoot>
       </table>
     </div>
   );
