@@ -4,7 +4,6 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useCalendar } from "../../hooks/useCalendar";
 import { DateType } from "../../shared/globalType";
 import Router, { useRouter } from "next/router";
-import { useDate } from "../../hooks/useDate";
 import { useModal } from "../../hooks/useModal";
 import { useRecoilValue } from "recoil";
 import { currentDateSelector } from "../../states/currentDateState";
