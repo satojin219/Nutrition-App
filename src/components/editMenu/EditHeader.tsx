@@ -5,16 +5,18 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { useDate } from "../../hooks/useDate";
 import { useModal } from "../../hooks/useModal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { isEditedState } from "../../states/isEditedState";
 import { mealTimeState } from "../../states/MealTimeState";
+import { useAuthenticate } from "../../hooks/useAuthenicate";
 
 export const EditHeader: React.VFC = () => {
   const { openModal } = useModal();
-  const [isEdited, _] = useRecoilState(isEditedState);
+  const isEdited = useRecoilValue(isEditedState);
   const [mealTime, setMealTime] = useRecoilState(mealTimeState);
   const router = useRouter();
   const { currentDate, changeDate } = useDate();
+  const { user } = useAuthenticate();
 
   const { headerIcon } = useMemo(() => {
     return divideIconAndColor(mealTime);
@@ -25,6 +27,10 @@ export const EditHeader: React.VFC = () => {
       changeDate(router.query.currentDate);
   }, [router.query.currentDate]);
 
+  useEffect(() => {
+    console.log(router.query);
+  }, [router.query]);
+
   return (
     <header className={`${mealTime} p-2 pt-8 text-white`}>
       {headerIcon}
@@ -32,15 +38,14 @@ export const EditHeader: React.VFC = () => {
         <button
           className="mr-3"
           onClick={() => {
+            console.log(router.query);
             if (isEdited) openModal("confirmEdit");
             else if (router.query.menuID) {
               router.push(
-                `/${router.query.userId}/${router.query.currentDate}/${mealTime}`
+                `/${user?.uid}/${currentDate.format("YYYYMMDD")}/${mealTime}`
               );
             } else {
-              router.push(
-                `/${router.query.userId}/${router.query.currentDate}`
-              );
+              router.push(`/${user?.uid}/${currentDate.format("YYYYMMDD")}`);
               setMealTime("all");
             }
           }}

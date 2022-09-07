@@ -5,16 +5,17 @@ import { Foodstuff, Menu, RecipeType } from "../../shared/globalType";
 import { Recipe } from "./Recipe";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { NutritionList } from "../common/NutritionList";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editMenuState } from "../../states/EditMenuState";
 import { FoodImage } from "./FoodImage";
+import { mealTimeState } from "../../states/MealTimeState";
 type Props = {
   menu: Menu;
   index: number;
 };
 const MenuItem: NextPage<Props> = (props) => {
   const router = useRouter();
-  const { whenMeal } = router.query;
+  const mealTime = useRecoilValue(mealTimeState);
   const [open, setOpen] = useState(false);
   const setMenuCard = useSetRecoilState(editMenuState);
   const onToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -92,7 +93,7 @@ const MenuItem: NextPage<Props> = (props) => {
             onClick={() => {
               setMenuCard(props.menu);
               router.push(
-                `/${router.query.userId}/${router.query.currentDate}/${whenMeal}/${props.menu.id}`
+                `/${router.query.userId}/${router.query.currentDate}/${mealTime}/${props.menu.id}`
               );
             }}
           >
