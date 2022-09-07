@@ -43,14 +43,6 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log("dishData: ", dishdata);
-  }, [dishdata]);
-
-  useEffect(() => {
-    console.log("featchdata: ", data);
-  }, [data]);
-
-  useEffect(() => {
     if (data) {
       setDishdata(data);
       setIsLoading(false);
