@@ -30,7 +30,7 @@ const EditMenuPage: NextPage = () => {
       </Head>
       <div>
         {router.isReady && <EditHeader />}
-        <div className="m-10">
+        <div className="m-10 flex-none md:flex md:justify-between md:flex-wrap">
           {menuCards!.map((menuCard: Menu, index: number) => (
             <MenuItem key={menuCard.id} menu={menuCard} index={index} />
           ))}
