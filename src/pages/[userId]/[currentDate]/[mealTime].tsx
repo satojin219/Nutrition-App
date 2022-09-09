@@ -7,18 +7,24 @@ import { useRouter } from "next/router";
 import MenuItem from "../../../components/editMenu/MenuItem";
 import { useAuthenticate } from "../../../hooks/useAuthenicate";
 import { useMenuCards } from "../../../hooks/useMenuCard";
+import classNames from "classnames";
+import { useModal } from "../../../hooks/useModal";
 
 const EditMenuPage: NextPage = () => {
   const router = useRouter();
   const { user } = useAuthenticate();
   const { menuCards, addMenuCard } = useMenuCards();
+  const { modal } = useModal();
+  const fixedClassNames = {
+    "fixed w-full": modal.isOpen,
+  };
 
   useEffect(() => {
     if (!user) router.push("/login");
   }, []);
 
   return (
-    <>
+    <div className={classNames(fixedClassNames)}>
       <Head>
         <title>Nutriton App</title>
       </Head>
@@ -41,7 +47,7 @@ const EditMenuPage: NextPage = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default EditMenuPage;

@@ -12,7 +12,7 @@ export const Document = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <body className="font-fancy">
+      <body className="font-fancy bg-slate-50">
         <Main />
         <NextScript />
       </body>

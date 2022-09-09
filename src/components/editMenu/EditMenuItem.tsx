@@ -68,7 +68,7 @@ const EditMenuItem: NextPage<Props> = (props) => {
   }, []);
 
   return (
-    <article className="rounded-xl border-2 w-full h-auto my-5">
+    <article className="bg-white rounded-xl border-2 w-full h-auto my-5">
       <FoodImage imgUrl={props.menu.imgUrl} isEditPage={true} />
       <div className="border-t-2 items-center h-16 flex justify-between">
         <input

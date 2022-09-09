@@ -52,4 +52,8 @@ a {
     top: 0;
     left: 0;
   }
+
+  #bg-full-cover {
+    min-height: 100vh;
+  }
 }

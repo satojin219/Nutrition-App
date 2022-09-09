@@ -25,7 +25,7 @@ const MenuItem: NextPage<Props> = (props) => {
 
   if (Object.keys(props.menu).length == 1) return <div></div>;
   return (
-    <article className="rounded-xl border-2 w-full h-auto my-5">
+    <article className="bg-white rounded-xl border-2 w-full h-auto my-5">
       <FoodImage imgUrl={props.menu.imgUrl} isEditPage={false} />
       <div className="border-t-2 items-center h-16 flex justify-between">
         <p className=" text-base-dark text-xl ml-4">{props.menu.recipeName}</p>
