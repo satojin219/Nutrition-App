@@ -44,8 +44,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      setDishdata(data);
       setIsLoading(false);
+      setDishdata(data);
     } else {
       setIsLoading(true);
     }
@@ -55,25 +55,25 @@ const Home: NextPage = () => {
     if (!user) router.push("/login");
   }, []);
 
+  if (isLoading) return <Loading />;
+  if (error) return <DefaultErrorPage statusCode={error.statusCode} />;
   return (
     <div className={classnames(fixedClassNames)}>
       <Head>
         <title>Nutriton App</title>
       </Head>
-      {!!isLoading && <Loading />}
-      {!!error && <DefaultErrorPage statusCode={error.statusCode} />}
-      {!!dishdata && (
-        <div>
-          {router.isReady && <Header />}
-          <DailylIntakeNutrition
-            totalNutrition={calSumDailyIntakeNutrition(dishdata)}
-          />
+      <div>
+        {router.isReady && <Header />}
+        <DailylIntakeNutrition
+          totalNutrition={calSumDailyIntakeNutrition(dishdata)}
+        />
+        <div className="px-5 py-3">
           <DishCard menus={dishdata.breakfast} mealTime={"breakfast"} />
           <DishCard menus={dishdata.lunch} mealTime={"lunch"} />
           <DishCard menus={dishdata.dinner} mealTime={"dinner"} />
           <DishCard menus={dishdata.snack} mealTime={"snack"} />
         </div>
-      )}
+      </div>
     </div>
   );
 };
