@@ -9,10 +9,13 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editMenuState } from "../../states/EditMenuState";
 import { FoodImage } from "./FoodImage";
 import { mealTimeState } from "../../states/MealTimeState";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
+
 type Props = {
   menu: Menu;
   index: number;
 };
+
 const MenuItem: NextPage<Props> = (props) => {
   const router = useRouter();
   const mealTime = useRecoilValue(mealTimeState);
@@ -64,6 +67,19 @@ const MenuItem: NextPage<Props> = (props) => {
               {props.menu.recipes?.map((recipe: RecipeType, index: number) => {
                 return <Recipe key={recipe.id} recipe={recipe} index={index} />;
               })}
+            </section>
+            <section>
+              <p className="text-left mt-4 flex items-center">
+                <AiOutlineExclamationCircle size={30} /> コツ・ポイント
+              </p>
+              <div className="text-right items-center border-b-2 border-yellow-700/50 py-2">
+                <textarea
+                  disabled
+                  className="text-sm appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  aria-label="Full name"
+                  value={props.menu.tips}
+                />
+              </div>
             </section>
             <section className="flex justify-around">
               <div>
