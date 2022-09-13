@@ -59,7 +59,7 @@ const EditMenuPage: NextPage = () => {
           }}
           className="active:scale-90 active:text-red-600 bg-orange-500 text-white text-center p-2 rounded-full w-1/2 shadow-lg"
         >
-          + 料理を追加する
+          料理を追加する
         </button>
       </div>
     </Container>
