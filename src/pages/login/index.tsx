@@ -40,7 +40,7 @@ const Login: NextPage = () => {
               name="email"
               type="email"
               placeholder=""
-              defaultValue="example.com"
+              defaultValue="info@example.com"
               required
             />
           </div>
