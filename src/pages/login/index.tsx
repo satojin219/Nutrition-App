@@ -40,6 +40,7 @@ const Login: NextPage = () => {
               name="email"
               type="email"
               placeholder=""
+              defaultValue="example.com"
               required
             />
           </div>
@@ -50,6 +51,7 @@ const Login: NextPage = () => {
               className="border-yellow-700/50 border-b-2 my-2"
               name="password"
               type="password"
+              defaultValue="123456789"
               required
             />
           </div>
